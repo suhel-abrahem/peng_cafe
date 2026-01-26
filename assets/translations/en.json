@@ -1,0 +1,72 @@
+{
+    "appName": "Dashboard",
+    "auth": {
+        "login": "Login",
+        "register": "Register",
+        "email": "Email",
+        "password": "Password",
+        "emailIsRequired": "Email is required",
+        "passwordIsRequired": "Password is required",
+        "forgotPassword": "Forgot Password?",
+        "loginPage": "Login Page",
+        "loginLabel": "Login to your account",
+        "logout": "Logout",
+        "wrongEmailOrPassword": "you have entered a wrong Email/Password or both. Please check your information and try agin."
+    },
+    "daysOfWeek": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "notificationTokenErrorPleaseFixItOnSettings": "Notification token error. Please fix it in settings!",
+        "someThingWentWrongWhileShowNotification": "Something went wrong while showing the notification",
+        "anErrorHasOccurs": "An error occurred. Please pull down the page to try again!",
+        "noInternetPullDown": "It seems you are offline. Check your connection and pull down the page to try again!",
+        "success": "Success",
+        "retry": "Retry",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "close": "Close",
+        "youMustEnableLocationServices": "You must enable location services!",
+        "youMustAcceptLocationPermission": "You must grant location permission!",
+        "youDeniedLocationPermissionForever": "It seems you denied location permission permanently. You must go to device settings and allow it!",
+        "add": "Add",
+        "price": "Price",
+        "noThingToShow": "Nothing to show",
+        "pageNotFound": "Page not found",
+        "unexpectedErrorOccurred": "An unexpected error occurred",
+        "yourSessionHasExpiredPleaseLoginAgain": "Your session has expired. Please login again.",
+        "ok": "OK",
+        "tryAgain": "Try again",
+        "clear": "Clear"
+    },
+    "theme": {
+        "choose": "Choose theme",
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
+    },
+    "language": {
+        "choose": "Choose language",
+        "selected": "Language selected",
+        "arabic": "Arabic",
+        "english": "English",
+        "kurdish": "Kurdish"
+    },
+    "validation": {
+        "emailField": "please enter valid email.✉️ {email}",
+        "passwordField": "Password field is REQUIRED",
+        "requiredField": "This field is REQUIRED",
+        "price": "Price must be larger than 0",
+        "quantity": "Quantity must be > 0"
+    }
+}

@@ -1,0 +1,44 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../constant/font_constants.dart';
+import '../../enums/assets_type_enum.dart';
+import '../assets_manager.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../generated/locale_keys.g.dart';
+
+class ErrorStateWidget extends StatelessWidget {
+  final double? lottieWidth;
+  final double? lottieHeight;
+  const ErrorStateWidget({super.key, this.lottieWidth, this.lottieHeight});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        LottieBuilder.asset(
+          getAssetsPath(
+            assetsName: LottiesName.error,
+            assetsType: AssetsType.lotties,
+          ),
+          fit: BoxFit.fill,
+          width: lottieWidth,
+          height: lottieHeight,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Text(
+            LocaleKeys.common_anErrorHasOccurs.tr(),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontFamily: FontConstants.fontFamily(context.locale),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,0 +1,72 @@
+{
+    "appName": "لوحة التحكم",
+    "auth": {
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "emailIsRequired": "البريد الإلكتروني مطلوب",
+        "passwordIsRequired": "كلمة المرور مطلوبة",
+        "forgotPassword": "نسيت كلمة المرور؟",
+        "loginPage": "صفحة تسجيل الدخول",
+        "loginLabel": "تسجيل الدخول إلى حسابك",
+        "logout": "تسجيل الخروج",
+        "wrongEmailOrPassword": "لقد أدخلت بريدًا إلكترونيًا أو كلمة مرور خاطئة أو كلاهما. يرجى التحقق من معلوماتك والمحاولة مرة أخرى."
+    },
+    "daysOfWeek": {
+        "sunday": "احد",
+        "monday": "ثنین",
+        "tuesday": "ثلاثاء",
+        "wednesday": "أربعاء",
+        "thursday": "خميس",
+        "friday": "جمعة",
+        "saturday": "سبت"
+    },
+    "common": {
+        "loading": "جاري التحميل...",
+        "error": "خطأ",
+        "notificationTokenErrorPleaseFixItOnSettings": "خطأ في رمز الاشعارات. يرجى إصلاحه في الإعدادات!",
+        "someThingWentWrongWhileShowNotification": "حدث خطأ أثناء عرض الإشعار",
+        "anErrorHasOccurs": "حدث خطأ. حاول مرة أخرى بسحب الصفحة إلى الأسفل!",
+        "noInternetPullDown": "يبدو أنك غير متصل بالإنترنت. تحقق من الاتصال وحاول مرة أخرى بسحب الصفحة إلى الأسفل!",
+        "success": "نجاح",
+        "retry": "إعادة المحاولة",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "close": "إغلاق",
+        "youMustEnableLocationServices": "يجب عليك تفعيل خدمات الموقع!",
+        "youMustAcceptLocationPermission": "يجب عليك منح صلاحية الموقع!",
+        "youDeniedLocationPermissionForever": "يبدو أنك رفضت صلاحية الموقع بشكل دائم. يجب أن تذهب إلى إعدادات الجهاز وتوافق عليها!",
+        "add": "إضافة",
+        "price": "السعر",
+        "noThingToShow": "لا يوجد شيء للعرض",
+        "pageNotFound": "الصفحة غير موجودة",
+        "unexpectedErrorOccurred": "حدث خطأ غير متوقع",
+        "yourSessionHasExpiredPleaseLoginAgain": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+        "ok": "موافق",
+        "tryAgain": "حاول مرة أخرى",
+        "clear": "مسح"
+    },
+    "theme": {
+        "choose": "اختر سمة",
+        "system": "النظام",
+        "light": "فاتح",
+        "dark": "داكن"
+    },
+    "language": {
+        "choose": "اختر لغة",
+        "selected": "تم اختيار اللغة",
+        "arabic": "العربية",
+        "english": "الإنجليزية",
+        "kurdish": "الكردية"
+    },
+    "validation": {
+        "emailField": "يرجى إدخال بريد إلكتروني صالح.✉️ {email}",
+        "passwordField": "حقل كلمة المرور مطلوب",
+        "requiredField": "هذا الحقل مطلوب",
+        "price": "يجب أن يكون السعر أكبر من 0",
+        "quantity": "يجب أن تكون الكمية > 0"
+    }
+}
