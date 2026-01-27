@@ -2,8 +2,10 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:peng_cafe/config/app/app_preferences.dart';
 
 import 'package:peng_cafe/config/route/route_tracker.dart';
+import 'package:peng_cafe/core/injection_container.dart';
 
 import '../../features/home_page/presentation/pages/home_page.dart';
 import '../../features/login/presentations/pages/login_page.dart';
@@ -33,8 +35,9 @@ GoRouter goRouter = GoRouter(
     // if (currentPath?.endsWith(lastPath ?? "") == false) {
     //   return lastPath;
     // }
-
-    return RoutesPath.loginPage;
+    if (!getItInstance<AppPreferences>().getUserLoginState()) {
+      return RoutesPath.loginPage;
+    }
   },
   initialLocation: RoutesPath.loginPage,
   navigatorKey: navigatorKey,

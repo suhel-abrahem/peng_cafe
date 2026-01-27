@@ -68,5 +68,11 @@
         "requiredField": "This field is REQUIRED",
         "price": "Price must be larger than 0",
         "quantity": "Quantity must be > 0"
+    },
+    "loginPage": {
+        "welcomeBack": "Welcome back!",
+        "pleaseLoginToYourAccount": "Please login to your account",
+        "dontHaveAnAccount": "Don't have an account?",
+        "registerNow": "Register now"
     }
 }

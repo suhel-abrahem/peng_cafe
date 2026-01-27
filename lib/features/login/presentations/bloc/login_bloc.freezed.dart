@@ -125,11 +125,11 @@ return logout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( LoginEntity loginEntity)?  login,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( LoginModel loginModel)?  login,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoginEventStarted() when started != null:
 return started();case LoginEventLogin() when login != null:
-return login(_that.loginEntity);case LoginEventLogOut() when logout != null:
+return login(_that.loginModel);case LoginEventLogOut() when logout != null:
 return logout();case _:
   return orElse();
 
@@ -148,11 +148,11 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( LoginEntity loginEntity)  login,required TResult Function()  logout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( LoginModel loginModel)  login,required TResult Function()  logout,}) {final _that = this;
 switch (_that) {
 case LoginEventStarted():
 return started();case LoginEventLogin():
-return login(_that.loginEntity);case LoginEventLogOut():
+return login(_that.loginModel);case LoginEventLogOut():
 return logout();case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +170,11 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( LoginEntity loginEntity)?  login,TResult? Function()?  logout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( LoginModel loginModel)?  login,TResult? Function()?  logout,}) {final _that = this;
 switch (_that) {
 case LoginEventStarted() when started != null:
 return started();case LoginEventLogin() when login != null:
-return login(_that.loginEntity);case LoginEventLogOut() when logout != null:
+return login(_that.loginModel);case LoginEventLogOut() when logout != null:
 return logout();case _:
   return null;
 
@@ -219,10 +219,10 @@ String toString() {
 
 
 class LoginEventLogin implements LoginEvent {
-  const LoginEventLogin({required this.loginEntity});
+  const LoginEventLogin({required this.loginModel});
   
 
- final  LoginEntity loginEntity;
+ final  LoginModel loginModel;
 
 /// Create a copy of LoginEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +234,16 @@ $LoginEventLoginCopyWith<LoginEventLogin> get copyWith => _$LoginEventLoginCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginEventLogin&&(identical(other.loginEntity, loginEntity) || other.loginEntity == loginEntity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginEventLogin&&(identical(other.loginModel, loginModel) || other.loginModel == loginModel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,loginEntity);
+int get hashCode => Object.hash(runtimeType,loginModel);
 
 @override
 String toString() {
-  return 'LoginEvent.login(loginEntity: $loginEntity)';
+  return 'LoginEvent.login(loginModel: $loginModel)';
 }
 
 
@@ -254,11 +254,11 @@ abstract mixin class $LoginEventLoginCopyWith<$Res> implements $LoginEventCopyWi
   factory $LoginEventLoginCopyWith(LoginEventLogin value, $Res Function(LoginEventLogin) _then) = _$LoginEventLoginCopyWithImpl;
 @useResult
 $Res call({
- LoginEntity loginEntity
+ LoginModel loginModel
 });
 
 
-$LoginEntityCopyWith<$Res> get loginEntity;
+$LoginModelCopyWith<$Res> get loginModel;
 
 }
 /// @nodoc
@@ -271,10 +271,10 @@ class _$LoginEventLoginCopyWithImpl<$Res>
 
 /// Create a copy of LoginEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? loginEntity = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? loginModel = null,}) {
   return _then(LoginEventLogin(
-loginEntity: null == loginEntity ? _self.loginEntity : loginEntity // ignore: cast_nullable_to_non_nullable
-as LoginEntity,
+loginModel: null == loginModel ? _self.loginModel : loginModel // ignore: cast_nullable_to_non_nullable
+as LoginModel,
   ));
 }
 
@@ -282,10 +282,10 @@ as LoginEntity,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LoginEntityCopyWith<$Res> get loginEntity {
+$LoginModelCopyWith<$Res> get loginModel {
   
-  return $LoginEntityCopyWith<$Res>(_self.loginEntity, (value) {
-    return _then(_self.copyWith(loginEntity: value));
+  return $LoginModelCopyWith<$Res>(_self.loginModel, (value) {
+    return _then(_self.copyWith(loginModel: value));
   });
 }
 }
@@ -366,14 +366,14 @@ extension LoginStatePatterns on LoginState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoginInitial value)?  initial,TResult Function( LoginLoginIn value)?  logingIn,TResult Function( Logined value)?  logined,TResult Function( LoginedOut value)?  loginedOut,TResult Function( LoginError value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoginInitial value)?  initial,TResult Function( LoginLoading value)?  loading,TResult Function( LoginSucceed value)?  succeed,TResult Function( LoggedOut value)?  loggedOut,TResult Function( LoginError value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoginInitial() when initial != null:
-return initial(_that);case LoginLoginIn() when logingIn != null:
-return logingIn(_that);case Logined() when logined != null:
-return logined(_that);case LoginedOut() when loginedOut != null:
-return loginedOut(_that);case LoginError() when error != null:
+return initial(_that);case LoginLoading() when loading != null:
+return loading(_that);case LoginSucceed() when succeed != null:
+return succeed(_that);case LoggedOut() when loggedOut != null:
+return loggedOut(_that);case LoginError() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -392,14 +392,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoginInitial value)  initial,required TResult Function( LoginLoginIn value)  logingIn,required TResult Function( Logined value)  logined,required TResult Function( LoginedOut value)  loginedOut,required TResult Function( LoginError value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoginInitial value)  initial,required TResult Function( LoginLoading value)  loading,required TResult Function( LoginSucceed value)  succeed,required TResult Function( LoggedOut value)  loggedOut,required TResult Function( LoginError value)  error,}){
 final _that = this;
 switch (_that) {
 case LoginInitial():
-return initial(_that);case LoginLoginIn():
-return logingIn(_that);case Logined():
-return logined(_that);case LoginedOut():
-return loginedOut(_that);case LoginError():
+return initial(_that);case LoginLoading():
+return loading(_that);case LoginSucceed():
+return succeed(_that);case LoggedOut():
+return loggedOut(_that);case LoginError():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -417,14 +417,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoginInitial value)?  initial,TResult? Function( LoginLoginIn value)?  logingIn,TResult? Function( Logined value)?  logined,TResult? Function( LoginedOut value)?  loginedOut,TResult? Function( LoginError value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoginInitial value)?  initial,TResult? Function( LoginLoading value)?  loading,TResult? Function( LoginSucceed value)?  succeed,TResult? Function( LoggedOut value)?  loggedOut,TResult? Function( LoginError value)?  error,}){
 final _that = this;
 switch (_that) {
 case LoginInitial() when initial != null:
-return initial(_that);case LoginLoginIn() when logingIn != null:
-return logingIn(_that);case Logined() when logined != null:
-return logined(_that);case LoginedOut() when loginedOut != null:
-return loginedOut(_that);case LoginError() when error != null:
+return initial(_that);case LoginLoading() when loading != null:
+return loading(_that);case LoginSucceed() when succeed != null:
+return succeed(_that);case LoggedOut() when loggedOut != null:
+return loggedOut(_that);case LoginError() when error != null:
 return error(_that);case _:
   return null;
 
@@ -442,13 +442,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  logingIn,TResult Function( UserCredential? userCredential)?  logined,TResult Function()?  loginedOut,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  succeed,TResult Function()?  loggedOut,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoginInitial() when initial != null:
-return initial();case LoginLoginIn() when logingIn != null:
-return logingIn();case Logined() when logined != null:
-return logined(_that.userCredential);case LoginedOut() when loginedOut != null:
-return loginedOut();case LoginError() when error != null:
+return initial();case LoginLoading() when loading != null:
+return loading();case LoginSucceed() when succeed != null:
+return succeed();case LoggedOut() when loggedOut != null:
+return loggedOut();case LoginError() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -467,13 +467,13 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  logingIn,required TResult Function( UserCredential? userCredential)  logined,required TResult Function()  loginedOut,required TResult Function( String error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  succeed,required TResult Function()  loggedOut,required TResult Function( String error)  error,}) {final _that = this;
 switch (_that) {
 case LoginInitial():
-return initial();case LoginLoginIn():
-return logingIn();case Logined():
-return logined(_that.userCredential);case LoginedOut():
-return loginedOut();case LoginError():
+return initial();case LoginLoading():
+return loading();case LoginSucceed():
+return succeed();case LoggedOut():
+return loggedOut();case LoginError():
 return error(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -491,13 +491,13 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  logingIn,TResult? Function( UserCredential? userCredential)?  logined,TResult? Function()?  loginedOut,TResult? Function( String error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  succeed,TResult? Function()?  loggedOut,TResult? Function( String error)?  error,}) {final _that = this;
 switch (_that) {
 case LoginInitial() when initial != null:
-return initial();case LoginLoginIn() when logingIn != null:
-return logingIn();case Logined() when logined != null:
-return logined(_that.userCredential);case LoginedOut() when loginedOut != null:
-return loginedOut();case LoginError() when error != null:
+return initial();case LoginLoading() when loading != null:
+return loading();case LoginSucceed() when succeed != null:
+return succeed();case LoggedOut() when loggedOut != null:
+return loggedOut();case LoginError() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -541,8 +541,8 @@ String toString() {
 /// @nodoc
 
 
-class LoginLoginIn implements LoginState {
-  const LoginLoginIn();
+class LoginLoading implements LoginState {
+  const LoginLoading();
   
 
 
@@ -552,7 +552,7 @@ class LoginLoginIn implements LoginState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginLoginIn);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginLoading);
 }
 
 
@@ -561,7 +561,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LoginState.logingIn()';
+  return 'LoginState.loading()';
 }
 
 
@@ -573,74 +573,8 @@ String toString() {
 /// @nodoc
 
 
-class Logined implements LoginState {
-  const Logined({required this.userCredential});
-  
-
- final  UserCredential? userCredential;
-
-/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$LoginedCopyWith<Logined> get copyWith => _$LoginedCopyWithImpl<Logined>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Logined&&(identical(other.userCredential, userCredential) || other.userCredential == userCredential));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,userCredential);
-
-@override
-String toString() {
-  return 'LoginState.logined(userCredential: $userCredential)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $LoginedCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
-  factory $LoginedCopyWith(Logined value, $Res Function(Logined) _then) = _$LoginedCopyWithImpl;
-@useResult
-$Res call({
- UserCredential? userCredential
-});
-
-
-
-
-}
-/// @nodoc
-class _$LoginedCopyWithImpl<$Res>
-    implements $LoginedCopyWith<$Res> {
-  _$LoginedCopyWithImpl(this._self, this._then);
-
-  final Logined _self;
-  final $Res Function(Logined) _then;
-
-/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? userCredential = freezed,}) {
-  return _then(Logined(
-userCredential: freezed == userCredential ? _self.userCredential : userCredential // ignore: cast_nullable_to_non_nullable
-as UserCredential?,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class LoginedOut implements LoginState {
-  const LoginedOut();
+class LoginSucceed implements LoginState {
+  const LoginSucceed();
   
 
 
@@ -650,7 +584,7 @@ class LoginedOut implements LoginState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginedOut);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginSucceed);
 }
 
 
@@ -659,7 +593,39 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LoginState.loginedOut()';
+  return 'LoginState.succeed()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class LoggedOut implements LoginState {
+  const LoggedOut();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoggedOut);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'LoginState.loggedOut()';
 }
 
 

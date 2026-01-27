@@ -13,9 +13,10 @@ class LoginServices {
         email: email,
         password: password,
       );
-      return LogInState(data: response, error: 'succeed');
+
+      return DataSuccess(data: response);
     } on FirebaseAuthException catch (e) {
-      return LogInState(data: null, error: e.toString());
+      return DataFailed(error: e.toString());
     }
   }
 }

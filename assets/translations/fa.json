@@ -68,5 +68,11 @@
         "requiredField": "ئەم بەشە پێویستە",
         "price": "نرخ پێویستە گەورەتر بێت لە 0",
         "quantity": "ژمارە پێویستە گەورەتر بێت لە 0"
+    },
+    "loginPage": {
+        "welcomeBack": "بەخێربێیت دووبارە!",
+        "pleaseLoginToYourAccount": "تکایە بچۆ ژوورەوە بۆ هەژمارەکەت",
+        "dontHaveAnAccount": "هەژمارت نیە؟",
+        "registerNow": "ئێستا تۆماربکە"
     }
 }

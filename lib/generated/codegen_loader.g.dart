@@ -84,6 +84,12 @@ class CodegenLoader extends AssetLoader{
     "requiredField": "هذا الحقل مطلوب",
     "price": "يجب أن يكون السعر أكبر من 0",
     "quantity": "يجب أن تكون الكمية > 0"
+  },
+  "loginPage": {
+    "welcomeBack": "مرحبًا بعودتك!",
+    "pleaseLoginToYourAccount": "يرجى تسجيل الدخول إلى حسابك",
+    "dontHaveAnAccount": "ليس لديك حساب؟",
+    "registerNow": "سجل الآن"
   }
 };
 static const Map<String,dynamic> _en = {
@@ -156,6 +162,12 @@ static const Map<String,dynamic> _en = {
     "requiredField": "This field is REQUIRED",
     "price": "Price must be larger than 0",
     "quantity": "Quantity must be > 0"
+  },
+  "loginPage": {
+    "welcomeBack": "Welcome back!",
+    "pleaseLoginToYourAccount": "Please login to your account",
+    "dontHaveAnAccount": "Don't have an account?",
+    "registerNow": "Register now"
   }
 };
 static const Map<String,dynamic> _fa = {
@@ -228,6 +240,12 @@ static const Map<String,dynamic> _fa = {
     "requiredField": "ئەم بەشە پێویستە",
     "price": "نرخ پێویستە گەورەتر بێت لە 0",
     "quantity": "ژمارە پێویستە گەورەتر بێت لە 0"
+  },
+  "loginPage": {
+    "welcomeBack": "بەخێربێیت دووبارە!",
+    "pleaseLoginToYourAccount": "تکایە بچۆ ژوورەوە بۆ هەژمارەکەت",
+    "dontHaveAnAccount": "هەژمارت نیە؟",
+    "registerNow": "ئێستا تۆماربکە"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "fa": _fa};

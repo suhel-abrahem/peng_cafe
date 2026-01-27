@@ -67,5 +67,10 @@ abstract class  LocaleKeys {
   static const validation_price = 'validation.price';
   static const validation_quantity = 'validation.quantity';
   static const validation = 'validation';
+  static const loginPage_welcomeBack = 'loginPage.welcomeBack';
+  static const loginPage_pleaseLoginToYourAccount = 'loginPage.pleaseLoginToYourAccount';
+  static const loginPage_dontHaveAnAccount = 'loginPage.dontHaveAnAccount';
+  static const loginPage_registerNow = 'loginPage.registerNow';
+  static const loginPage = 'loginPage';
 
 }

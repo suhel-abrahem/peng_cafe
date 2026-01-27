@@ -1,6 +1,10 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:peng_cafe/core/resource/custom_widget/snake_bar_widget/snake_bar_widget.dart';
+import 'package:peng_cafe/core/resource/data_state.dart';
+import 'package:peng_cafe/features/login/data/model/login_model.dart';
+import 'package:peng_cafe/features/login/presentations/widget/login_button.dart';
 
 import '../../../../config/app/app_preferences.dart';
 
@@ -22,7 +26,7 @@ import '../../../../core/resource/custom_widget/custom_input_field/custom_input_
 import '../../../../core/resource/custom_widget/dropdown/drop_down_with_label.dart';
 import '../../../../core/util/helper/helper.dart';
 import '../../../../core/util/validator/validator.dart';
-import '../../domain/entities/login_entity.dart';
+
 import '../bloc/login_bloc.dart';
 import '../../../../generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -42,519 +46,298 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final MediaQueryData mediaQuery = const MediaQueryData();
-
-  final double actionContainerRadius = 42.r;
-  String? currentLanguage;
-  String? errorMessage;
-  ThemeDataBrightness? currentTheme;
-  late bool isDarkTheme;
-  bool isHidden = true;
-  IconData changeThemButtonIcon = Icons.dark_mode;
-  String? selectedLanguage;
-  IconData getThemeButtonText() {
-    return (isDarkTheme) ? Icons.dark_mode : Icons.light_mode;
-  }
-
-  ThemeDataBrightness getCurrentThemeEnum() {
-    return (isDarkTheme)
-        ? ThemeDataBrightness.darkTheme
-        : ThemeDataBrightness.lightTheme;
-  }
-
-  String? showErrorMessage(String? message) {
-    if (message?.contains(
-          '[firebase_auth/unknown] An unknown error occurred: FirebaseError: Firebase: The supplied auth credential is incorrect, malformed or has expired. (auth/invalid-credential).',
-        ) ??
-        false) {
-      return LocaleKeys.auth_wrongEmailOrPassword.tr();
-    }
-    return message;
-  }
-
-  @override
-  void initState() {
-    currentLanguage = getItInstance<AppPreferences>().getLanguage();
-    isDarkTheme = getItInstance<AppPreferences>().getThemeBool();
-    currentTheme = getCurrentThemeEnum();
-    changeThemButtonIcon = getThemeButtonText();
-    getItInstance<AppPreferences>().setUserFirstUse();
-    super.initState();
-  }
-
-  final loginFieldKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  RegExp emailRegex = RegExp(Validator.emailRegex);
-  bool canLogin = true;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  LoginModel loginModel = LoginModel();
   @override
   Widget build(BuildContext context) {
-    double actionContainerTopLeftRadius = context.locale.languageCode == 'ar'
-        ? 0
-        : actionContainerRadius;
-    double actionContainerBottomLeftRadius = context.locale.languageCode == 'ar'
-        ? 0
-        : actionContainerRadius;
-    double actionContainerTopRightRadius = context.locale.languageCode == 'en'
-        ? 0
-        : actionContainerRadius;
-    double actionContainerBottomRightRadius =
-        context.locale.languageCode == 'en' ? 0 : actionContainerRadius;
-
-    return ThemeSwitchingArea(
-      child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color.fromARGB(255, 242, 3, 210),
-                Color.fromARGB(255, 165, 0, 143),
-                Color.fromARGB(255, 133, 0, 147),
-              ],
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //image container
-              SizedBox(
-                width: mediaQuery.w * 0.48,
-                height: mediaQuery.h,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                            LocaleKeys.auth_loginLabel.tr(),
-                            style: Theme.of(context).textTheme.headlineLarge
-                                ?.copyWith(fontSize: 52.sp),
-                          )
-                          .animate()
-                          .fadeIn(curve: Curves.bounceIn)
-                          .scale()
-                          .move(delay: 300.ms, duration: 600.ms)
-                          .slide()
-                          .tint(color: ColorManager.textColor),
-                      LottieBuilder.asset(
-                        getAssetsPath(
-                          assetsName: LottiesName.login,
-                          assetsType: AssetsType.lotties,
-                        ),
-                        repeat: true,
-                        width: mediaQuery.w * 0.36,
-                        fit: BoxFit.contain,
-                      ),
-                    ],
-                  ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadiusDirectional.horizontal(
+                  end: Radius.circular(32.r),
                 ),
               ),
-              //action container
-              Container(
-                width: mediaQuery.w * 0.52,
-                height: mediaQuery.h,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow,
-                      offset: const Offset(0.1, 0.1),
-                      blurRadius: 5,
+              child: ListView(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
                     ),
-                  ],
-                  color: Theme.of(context).isDark
-                      ? ColorManager.backgroundColor
-                      : ColorManager.backgroundColor,
-                  // border: Border.fromBorderSide(
-                  //     Theme.of(context).defaultBorderSide.copyWith(width: 2)),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(actionContainerTopLeftRadius),
-                    topRight: Radius.circular(actionContainerTopRightRadius),
-                    bottomLeft: Radius.circular(
-                      actionContainerBottomLeftRadius,
+                    decoration: BoxDecoration(
+                      color: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor.withValues(alpha: 0.6),
                     ),
-                    bottomRight: Radius.circular(
-                      actionContainerBottomRightRadius,
-                    ),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //upper action bar
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child:
-                          Container(
-                            width: double.infinity,
-                            height: mediaQuery.h * 0.06,
-                            padding: EdgeInsets.symmetric(horizontal: 24.w),
-                            decoration: BoxDecoration(
-                              color: Theme.of(
-                                context,
-                              ).primaryColor.withOpacity(.3),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(
-                                  actionContainerTopLeftRadius,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropDownWithLabel<String>(
+                          menuBoxShadow: BoxShadow(
+                            color: Theme.of(context).shadowColor,
+                            blurRadius: 4.r,
+                            offset: Offset(1.w, 2.h),
+                          ),
+                          boxShadow: BoxShadow(
+                            color: Theme.of(context).shadowColor,
+
+                            offset: Offset(0, 1.h),
+                          ),
+                          valueColor: ColorManager.darkTextColor,
+                          borderRadius: BorderRadius.circular(30.r),
+                          label: LocaleKeys.language_choose.tr(),
+                          labelStyle: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                fontFamily: FontConstants.fontFamily(
+                                  context.locale,
                                 ),
-                                topRight: Radius.circular(
-                                  actionContainerTopRightRadius,
-                                ),
+                                color: ColorManager.darkTextColor,
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DropDownWithLabel<String>(
-                                  menuBoxShadow: BoxShadow(
-                                    color: Theme.of(context).shadowColor,
-                                    blurRadius: 4.r,
-                                    offset: Offset(1.w, 2.h),
-                                  ),
-                                  boxShadow: BoxShadow(
-                                    color: Theme.of(context).shadowColor,
+                          labelPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                          labelPosition: Position.beside,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          items: LanguageConstant.supportedLanguagesNames,
+                          onChange: (newLanguage) async {
+                            if (newLanguage != null) {
+                              context.setLocale(
+                                Helper.getLocaleByName(newLanguage),
+                              );
+                              await getItInstance<AppPreferences>().setLanguage(
+                                languageCode: newLanguage,
+                              );
 
-                                    offset: Offset(0, 1.h),
-                                  ),
-                                  valueColor: ColorManager.darkTextColor,
-                                  borderRadius: BorderRadius.circular(30.r),
-                                  label: LocaleKeys.language_choose.tr(),
-                                  labelStyle: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(
-                                        fontFamily: FontConstants.fontFamily(
-                                          context.locale,
-                                        ),
-                                        color: ColorManager.darkTextColor,
-                                      ),
-                                  labelPadding: EdgeInsets.only(bottom: 4.h),
-                                  labelPosition: Position.beside,
-                                  backgroundColor: Theme.of(
-                                    context,
-                                  ).primaryColor,
-                                  items:
-                                      LanguageConstant.supportedLanguagesNames,
-                                  onChange: (newLanguage) async {
-                                    if (newLanguage != null) {
-                                      setState(() {
-                                        selectedLanguage = newLanguage;
-                                      });
-                                      context.setLocale(
-                                        Helper.getLocaleByName(newLanguage),
-                                      );
-                                      await getItInstance<AppPreferences>()
-                                          .setLanguage(
-                                            languageCode: newLanguage,
-                                          );
+                              lastPath = newLanguage;
+                            }
+                          },
+                          stringConverter: (string) {
+                            return string.toString();
+                          },
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                          ),
 
-                                      setState(() {
-                                        lastPath = newLanguage;
-                                      });
-                                    }
-                                  },
-                                  stringConverter: (string) {
-                                    return string.toString();
-                                  },
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 10.w,
-                                  ),
+                          dropDownWidth: 150.w,
+                          dropDownHeight: 40.h,
+                          itemWidth: 140.w,
+                          isLoading: false,
+                          value: Helper.getLanguageName(
+                            context.locale.countryCode ??
+                                LanguageConstant.arLoacle.languageCode,
+                          ),
+                        ),
+                        ThemeSwitcher(
+                          builder: (context2) {
+                            final isDarkTheme = getItInstance<AppPreferences>()
+                                .getThemeBool();
+                            return SizedBox(
+                              width: 70.w,
 
-                                  dropDownWidth: 100.w,
-                                  dropDownHeight: 40.h,
-                                  itemWidth: 120.w,
-                                  isLoading: false,
-                                  value: Helper.getLanguageName(
-                                    selectedLanguage ??
-                                        LanguageConstant.enLoacle.languageCode,
-                                  ),
-                                ),
-                                ThemeSwitcher(
-                                  builder: (context2) {
-                                    return SizedBox(
-                                      width: 70.w,
-
-                                      child: FittedBox(
-                                        fit: BoxFit.fitWidth,
-                                        child: Switch.adaptive(
-                                          value: isDarkTheme,
-                                          inactiveTrackColor:
-                                              ColorManager.backgroundColor,
-                                          activeTrackColor:
-                                              ColorManager.darkBackground,
-                                          thumbIcon:
-                                              WidgetStateProperty.resolveWith((
-                                                states,
-                                              ) {
-                                                return Icon(
-                                                  (isDarkTheme)
-                                                      ? Icons.dark_mode
-                                                      : Icons.light_mode,
-                                                  size: 16.sp,
-                                                  color: (isDarkTheme)
-                                                      ? ColorManager
-                                                            .darkBackground
-                                                      : ColorManager
-                                                            .darkBackground,
-                                                );
-                                              }),
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              isDarkTheme = value;
-                                            });
-                                            getItInstance<AppPreferences>()
-                                                .setAppTheme(
-                                                  isDarkTheme: isDarkTheme,
-                                                );
-                                            ThemeSwitcher.of(
-                                              context2,
-                                            ).changeTheme(
-                                              offset: Offset(-1, -1),
-                                              theme: (isDarkTheme)
-                                                  ? darkTheme()
-                                                  : lightTheme(),
-                                              isReversed: true,
-                                            );
-                                          },
-                                        ),
-                                      ),
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Switch.adaptive(
+                                  value: isDarkTheme,
+                                  inactiveTrackColor:
+                                      ColorManager.backgroundColor,
+                                  activeTrackColor: ColorManager.darkBackground,
+                                  thumbIcon: WidgetStateProperty.resolveWith((
+                                    states,
+                                  ) {
+                                    return Icon(
+                                      (isDarkTheme)
+                                          ? Icons.dark_mode
+                                          : Icons.light_mode,
+                                      size: 16.sp,
+                                      color: (isDarkTheme)
+                                          ? ColorManager.darkBackground
+                                          : ColorManager.darkBackground,
+                                    );
+                                  }),
+                                  onChanged: (bool value) {
+                                    getItInstance<AppPreferences>().setAppTheme(
+                                      isDarkTheme: value,
+                                    );
+                                    ThemeSwitcher.of(context2).changeTheme(
+                                      offset: Offset(-1, -1),
+                                      theme: (value)
+                                          ? darkTheme()
+                                          : lightTheme(),
+                                      isReversed: true,
                                     );
                                   },
                                 ),
-                              ],
-                            ),
-                          ).animate().slide(
-                            delay: const Duration(milliseconds: 1600),
-                            duration: const Duration(milliseconds: 1000),
-                            begin: const Offset(-1, -1),
-                            end: Offset.zero,
-                            curve: Curves.bounceIn,
-                          ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    //form
-                    SizedBox(
-                      height: mediaQuery.h * 0.85,
-                      child: BlocProvider<LoginBloc>(
-                        create: (context) => getItInstance<LoginBloc>(),
-                        child: BlocBuilder<LoginBloc, LoginState>(
-                          builder: (blocContext, blocState) {
-                            if (blocState is Logined) {
-                              getItInstance<AppPreferences>()
-                                  .setUserLoginState();
-                              errorMessage = '';
-
-                              context.go(RoutesPath.homeRoute);
-                            }
-                            if (blocState is LoginError) {
-                              print(blocState.error);
-                              errorMessage = blocState.error;
-                            }
-                            return Form(
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              key: loginFieldKey,
-                              onChanged: () {
-                                setState(() {});
-                              },
-                              child: SizedBox(
-                                height: mediaQuery.h * 0.85,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 20.h,
+                    ),
+                    child: Center(
+                      child: Text(
+                        LocaleKeys.loginPage_pleaseLoginToYourAccount.tr(),
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontFamily: FontConstants.fontFamily(context.locale),
+                          fontSize: 42.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40.w),
+                      child:
+                          Container(
+                            width: 600.w,
+                            height: 600.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer,
+                            ),
+                            child: Center(
+                              child: Form(
+                                key: formKey,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                child: ListView(
+                                  shrinkWrap: true,
                                   children: [
-                                    Container(
-                                      width: mediaQuery.w * 0.33,
-                                      height: mediaQuery.w * 0.33,
+                                    //email input
+                                    Padding(
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: mediaQuery.w * 0.05,
-                                        vertical: mediaQuery.w * 0.075,
+                                        horizontal: 100.w,
                                       ),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context).primaryColor,
+                                      child: CustomInputField(
+                                        height: 50.h,
+                                        label: LocaleKeys.auth_email.tr(),
+                                        validator: (value) {
+                                          if (!RegExp(
+                                            Validator.emailRegex,
+                                          ).hasMatch(value.toString().trim())) {
+                                            return LocaleKeys
+                                                .auth_emailIsRequired
+                                                .tr();
+                                          }
+                                        },
+                                        onChanged: (value) {
+                                          setState(() {
+                                            loginModel = loginModel.copyWith(
+                                              email: value.toString().trim(),
+                                            );
+                                            print(
+                                              'Login Model from input: $loginModel',
+                                            );
+                                          });
+                                        },
                                       ),
-                                      child: Center(
-                                        child:
-                                            Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    //email field
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional
-                                                              .topStart,
-                                                      child: Helper.labelText(
-                                                        label: LocaleKeys
-                                                            .auth_email
-                                                            .tr(),
-                                                        context: context,
-                                                      ),
-                                                    ),
-                                                    CustomInputField(
-                                                      controller:
-                                                          emailController,
-                                                      height:
-                                                          mediaQuery.w * 0.03,
-                                                      validator: (string) {
-                                                        string ??= '';
-                                                        if (!emailRegex
-                                                            .hasMatch(string)) {
-                                                          return LocaleKeys
-                                                              .validation_emailField
-                                                              .tr(
-                                                                namedArgs: {
-                                                                  "email": Validator
-                                                                      .emailExample,
-                                                                },
-                                                              );
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                    //password field
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional
-                                                              .topStart,
-                                                      child: Helper.labelText(
-                                                        label: LocaleKeys
-                                                            .auth_password
-                                                            .tr(),
-                                                        context: context,
-                                                      ),
-                                                    ),
-                                                    CustomInputField(
-                                                      controller:
-                                                          passwordController,
-                                                      height:
-                                                          mediaQuery.w * 0.03,
-                                                      obscureText: isHidden,
-                                                      prefix: SizedBox(
-                                                        height:
-                                                            mediaQuery.w * 0.02,
-                                                        width:
-                                                            mediaQuery.w * 0.02,
-                                                        child: IconButton(
-                                                          style: Theme.of(context)
-                                                              .iconButtonTheme
-                                                              .style
-                                                              ?.copyWith(
-                                                                padding:
-                                                                    const MaterialStatePropertyAll(
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                    ),
-                                                              ),
-                                                          icon: Icon(
-                                                            isHidden
-                                                                ? Icons
-                                                                      .visibility_off
-                                                                : Icons
-                                                                      .visibility,
-                                                          ),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              isHidden =
-                                                                  !isHidden;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                      validator: (string) {
-                                                        string ??= '';
-                                                        if (string.isEmpty) {
-                                                          return LocaleKeys
-                                                              .validation_passwordField
-                                                              .tr();
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                    if (errorMessage
-                                                            ?.isNotEmpty ??
-                                                        false)
-                                                      Text(
-                                                        showErrorMessage(
-                                                              errorMessage,
-                                                            ) ??
-                                                            '',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyLarge
-                                                            ?.copyWith(
-                                                              color:
-                                                                  ColorManager
-                                                                      .error,
-                                                            ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                  ],
-                                                )
-                                                .animate()
-                                                .fade(
-                                                  curve: Curves.easeInOut,
-                                                  duration: const Duration(
-                                                    milliseconds: 1000,
-                                                  ),
-                                                )
-                                                .blur(
-                                                  begin: const Offset(-1, -1),
-                                                  end: Offset.zero,
-                                                  curve: Curves.easeInOut,
-                                                  duration: const Duration(
-                                                    milliseconds: 550,
-                                                  ),
-                                                ),
-                                      ),
-                                    ).animate().slide(
-                                      begin: const Offset(0, -1),
-                                      end: Offset.zero,
-                                      duration: const Duration(
-                                        milliseconds: 2000,
-                                      ),
-                                      curve: Curves.bounceIn,
                                     ),
-                                    // login button
-                                    SizedBox(
-                                      height: 45.h,
-                                      width: 150.w,
-                                      child: ElevatedButton(
-                                        onPressed:
-                                            (((loginFieldKey.currentState !=
-                                                        null)
-                                                    ? (loginFieldKey
-                                                          .currentState!
-                                                          .validate())
-                                                    : false) &&
-                                                (blocState is! LoginLoginIn))
-                                            ? () {
-                                                BlocProvider.of<LoginBloc>(
-                                                  blocContext,
-                                                ).add(
-                                                  LoginEventLogin(
-                                                    loginEntity: LoginEntity(
-                                                      email:
-                                                          emailController.text,
-                                                      password:
-                                                          passwordController
-                                                              .text,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                            : null,
-                                        child: Text(LocaleKeys.auth_login.tr()),
+                                    //email input
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 100.w,
+                                        vertical: 20.h,
                                       ),
-                                    ).animate().slide(
-                                      begin: const Offset(1, 0),
-                                      end: Offset.zero,
-                                      duration: const Duration(
-                                        milliseconds: 1000,
+                                      //password input
+                                      child: CustomInputField(
+                                        obscureText: true,
+                                        height: 50.h,
+                                        label: LocaleKeys.auth_password.tr(),
+                                        validator: (value) {
+                                          if (value.toString().trim().isEmpty) {
+                                            return LocaleKeys
+                                                .auth_passwordIsRequired
+                                                .tr();
+                                          }
+                                        },
+                                        onChanged: (value) {
+                                          setState(() {
+                                            loginModel = loginModel.copyWith(
+                                              password: value.toString().trim(),
+                                            );
+                                          });
+                                        },
                                       ),
-                                      curve: Curves.easeInOut,
                                     ),
                                   ],
+                                ),
+                              ),
+                            ),
+                          ).animate().scaleXY(
+                            duration: 1200.ms,
+                            curve: Curves.bounceInOut,
+                          ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: BlocProvider<LoginBloc>(
+                      create: (context) =>
+                          getItInstance<LoginBloc>()..add(LoginEvent.started()),
+                      child: BlocListener<LoginBloc, LoginState>(
+                        listener: (context, state) {
+                          print('Login State: $state');
+                          state.maybeWhen(
+                            initial: () {},
+                            succeed: () async {
+                              await getItInstance<AppPreferences>()
+                                  .setUserLoginState(state: true);
+                              if (context.mounted) {
+                                showMessage(
+                                  message: LocaleKeys.common_success.tr(),
+                                  context: context,
+                                );
+                                context.go(RoutesPath.homeRoute);
+                              }
+                            },
+
+                            error: (e) {
+                              showMessage(
+                                message: LocaleKeys.auth_wrongEmailOrPassword
+                                    .tr(),
+                                context: context,
+                              );
+                            },
+                            orElse: () {},
+                          );
+                        },
+                        child: BlocBuilder<LoginBloc, LoginState>(
+                          builder: (context, state) {
+                            return Center(
+                              child: state.when(
+                                initial: () => LoginButton(
+                                  key: ValueKey(loginModel),
+                                  isLoading: false,
+                                  loginModel: loginModel,
+                                  formKey: formKey,
+                                ),
+                                loading: () => LoginButton(
+                                  isLoading: true,
+                                  formKey: formKey,
+                                ),
+                                succeed: () => LoginButton(
+                                  loginModel: loginModel,
+                                  formKey: formKey,
+                                ),
+                                loggedOut: () => LoginButton(
+                                  isLoading: false,
+                                  formKey: formKey,
+                                ),
+                                error: (e) => LoginButton(
+                                  isLoading: false,
+                                  loginModel: loginModel,
+                                  formKey: formKey,
                                 ),
                               ),
                             );
@@ -562,12 +345,42 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ).animate().scaleXY(duration: 1000.ms, curve: Curves.easeInOut),
           ),
-        ),
+          Expanded(
+            child: Container(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 20.h,
+                    ),
+                    child: Center(
+                      child: Text(
+                        LocaleKeys.loginPage_welcomeBack.tr(),
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontFamily: FontConstants.fontFamily(context.locale),
+                          fontSize: 64.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  LottieBuilder.asset(
+                    getAssetsPath(
+                      assetsName: LottiesName.login,
+                      assetsType: AssetsType.lotties,
+                    ),
+                  ),
+                ],
+              ),
+            ).animate().scaleXY(duration: 1000.ms, curve: Curves.easeInOut),
+          ),
+        ],
       ),
     );
   }

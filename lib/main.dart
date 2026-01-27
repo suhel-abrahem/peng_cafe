@@ -31,16 +31,7 @@ void main() async {
       fallbackLocale: LanguageConstant.arLoacle,
       startLocale: LanguageConstant
           .languageLocaleMap[getItInstance<AppPreferences>().getLanguage()],
-      child: MultiBlocProvider(
-        providers: [
-          // BlocProvider(create: (_) => SyncSettingBlocBloc()),
-          BlocProvider(
-            create: (context) =>
-                BlocProvider.of<LoginBloc>(context)..add(LoginEventStarted()),
-          ),
-        ],
-        child: const PengCafe(),
-      ),
+      child: const PengCafe(),
     ),
   );
 }

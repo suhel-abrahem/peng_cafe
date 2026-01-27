@@ -68,5 +68,11 @@
         "requiredField": "هذا الحقل مطلوب",
         "price": "يجب أن يكون السعر أكبر من 0",
         "quantity": "يجب أن تكون الكمية > 0"
+    },
+    "loginPage": {
+        "welcomeBack": "مرحبًا بعودتك!",
+        "pleaseLoginToYourAccount": "يرجى تسجيل الدخول إلى حسابك",
+        "dontHaveAnAccount": "ليس لديك حساب؟",
+        "registerNow": "سجل الآن"
     }
 }
