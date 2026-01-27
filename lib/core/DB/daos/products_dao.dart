@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:peng_cafe/core/DB/app_database.dart';
-import 'package:peng_cafe/core/DB/tables/products_table.dart';
+import '../app_database.dart';
+import '../tables/products_table.dart';
 
 part 'products_dao.g.dart';
 
@@ -9,25 +9,59 @@ class ProductsDao extends DatabaseAccessor<AppDatabase>
     with _$ProductsDaoMixin {
   ProductsDao(super.db);
 
-  Future<int> insertProduct(ProductsTableCompanion product) =>
-      into(productsTable).insert(product);
+  //Insert
 
-  Future<List<ProductsTableData>> getAllProducts() =>
-      select(productsTable).get();
+  Future<int> insertProduct(ProductsTableCompanion companion) {
+    return into(productsTable).insert(companion);
+  }
+
+  // Check if a product with the same name exists
+  Future<bool> productNameExists({
+    required String nameAr,
+    required String nameEn,
+    String? nameKu,
+  }) async {
+    final query = select(productsTable)
+      ..where(
+        (tbl) =>
+            tbl.nameAr.equals(nameAr) |
+            tbl.nameEn.equals(nameEn) |
+            ((nameKu != null && nameKu.isNotEmpty)
+                ? tbl.nameKu.equals(nameKu)
+                : const Constant(false)),
+      );
+
+    final result = await query.get();
+    return result.isNotEmpty;
+  }
+
+  // READ
+
+  Future<List<ProductsTableData>> getAllProducts() {
+    return select(productsTable).get();
+  }
+
+  Stream<List<ProductsTableData>> watchAllProducts() {
+    return (select(
+      productsTable,
+    )..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).watch();
+  }
+
   Future<ProductsTableData?> getProductById(int id) {
     return (select(
       productsTable,
-    )..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
   }
+
+  // UPDATE
 
   Future<bool> updateProduct(ProductsTableData product) {
     return update(productsTable).replace(product);
   }
 
-  Future<int> deleteProduct(int id) {
-    return (delete(productsTable)..where((p) => p.id.equals(id))).go();
-  }
+  // DELETE
 
-  Stream<List<ProductsTableData>> watchProducts() =>
-      select(productsTable).watch();
+  Future<int> deleteProduct(int id) {
+    return (delete(productsTable)..where((t) => t.id.equals(id))).go();
+  }
 }
