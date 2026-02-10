@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../constant/font_constants.dart';
@@ -86,6 +87,8 @@ class Helper {
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
           color: readText ? Theme.of(context).colorScheme.error : null,
           fontFamily: FontConstants.fontFamily(context.locale),
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w800,
         ),
 
         children: [

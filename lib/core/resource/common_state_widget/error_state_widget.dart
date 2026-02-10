@@ -20,10 +20,7 @@ class ErrorStateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         LottieBuilder.asset(
-          getAssetsPath(
-            assetsName: LottiesName.error,
-            assetsType: AssetsType.lotties,
-          ),
+          lottiesPath + LottiesName.error,
           fit: BoxFit.fill,
           width: lottieWidth,
           height: lottieHeight,

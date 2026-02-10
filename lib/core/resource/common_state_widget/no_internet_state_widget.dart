@@ -19,10 +19,7 @@ class NoInternetStateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         LottieBuilder.asset(
-          getAssetsPath(
-            assetsName: LottiesName.noInternet,
-            assetsType: AssetsType.lotties,
-          ),
+          lottiesPath + LottiesName.noInternet,
           fit: BoxFit.fill,
           width: lottieWidth,
           height: lottieHeight,

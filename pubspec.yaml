@@ -39,7 +39,8 @@ dependencies:
   animated_emoji: ^3.2.1
   firebase_core: ^4.4.0
   firebase_auth: ^6.1.4
-  
+  glass: ^2.0.0+2
+  cached_network_image: ^3.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,6 +60,8 @@ flutter:
     
     - assets/translations/
     - assets/lotties/
+    - assets/images/
+    - assets/icons/
   fonts:
     - family: Poppins
       fonts:

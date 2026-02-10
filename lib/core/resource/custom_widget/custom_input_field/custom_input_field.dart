@@ -43,6 +43,7 @@ class CustomInputField extends StatelessWidget {
   final bool? enabled;
   final int? minLines;
   final Function(String?)? onSaved;
+  final TextStyle? errorStyle;
   const CustomInputField({
     super.key,
     this.controller,
@@ -80,6 +81,7 @@ class CustomInputField extends StatelessWidget {
     this.enabled,
     this.hintText,
     this.minLines,
+    this.errorStyle,
   });
 
   @override
@@ -94,6 +96,7 @@ class CustomInputField extends StatelessWidget {
             style ??
             Theme.of(context).textTheme.labelLarge?.copyWith(
               fontFamily: FontConstants.fontFamily(context.locale),
+              fontSize: 18.sp,
             ),
         enabled: enabled,
         maxLines: maxLines ?? 1,
@@ -111,11 +114,19 @@ class CustomInputField extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.start,
         readOnly: readOnly ?? false,
         decoration: InputDecoration(
+          errorStyle:
+              errorStyle ??
+              Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontFamily: FontConstants.fontFamily(context.locale),
+                fontSize: 18.sp,
+                color: Colors.red,
+              ),
           hint: (hintText != null)
               ? Text(
                   hintText ?? "",
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontFamily: FontConstants.fontFamily(context.locale),
+                    fontSize: 22.sp,
                   ),
                 )
               : null,
@@ -158,6 +169,7 @@ class CustomInputField extends StatelessWidget {
             minWidth: width ?? 0.w,
           ),
         ),
+
         keyboardType: textInputType,
         textInputAction: textInputAction,
       ),

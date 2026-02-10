@@ -44,19 +44,13 @@ class PengCafe extends StatelessWidget {
         //   ),
         // );
         return ThemeProvider(
-          initTheme: (getItInstance<AppPreferences>().getThemeBool())
-              ? darkTheme()
-              : lightTheme(),
+          initTheme: lightTheme(),
           child: MaterialApp.router(
             key: ValueKey(lastPath),
             debugShowCheckedModeBanner: false,
             title: LocaleKeys.appName.tr(),
-            themeMode: (getItInstance<AppPreferences>().getThemeBool())
-                ? ThemeMode.dark
-                : ThemeMode.light,
-            theme: (getItInstance<AppPreferences>().getThemeBool())
-                ? darkTheme()
-                : lightTheme(),
+            themeMode: ThemeMode.light,
+            theme: lightTheme(),
 
             supportedLocales: LanguageConstant.supportedLocales,
             routerConfig: goRouter,

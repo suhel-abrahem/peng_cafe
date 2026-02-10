@@ -7,15 +7,15 @@ String get assetsPath {
 }
 
 String get lottiesPath {
-  return 'lotties/';
+  return "${assetsPath}lotties/";
 }
 
 String get imagePath {
-  return "images/";
+  return "${assetsPath}images/";
 }
 
 String get iconPath {
-  return "icons/";
+  return "${assetsPath}icons/";
 }
 
 class LottiesName {
@@ -31,31 +31,18 @@ class LottiesName {
   static const String warehouseEmu = 'warehouse_emu.json';
   static const String workers = 'workers.json';
   static const String imageError = 'image_error.json';
+  static const String coffeeMug = 'coffee_mug.json';
 }
 
 class ImagesName {
   static const String defaultUser = 'user.jpeg';
+  static const String freshBeverages = 'fresh-beverages.jpg';
 }
 
 class IconsName {
   static const String bypass = "bypassIcon.png";
   static const String select = "select.svg";
-}
-
-String getAssetsPath({
-  required String assetsName,
-  required AssetsType assetsType,
-}) {
-  String output = '';
-  switch (assetsType) {
-    case AssetsType.lotties:
-      output = '$assetsPath$lottiesPath$assetsName';
-    case AssetsType.image:
-      output = '$assetsPath$imagePath$assetsName';
-    case AssetsType.icon:
-      output = '$assetsPath$iconPath$assetsName';
-    default:
-      output = '';
-  }
-  return output;
+  static const String byteXLogo = "bytex_logo.png";
+  static const String coffeeMug = "coffee_mug.png";
+  static const String cans = "cans.png";
 }

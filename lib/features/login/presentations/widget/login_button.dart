@@ -28,9 +28,7 @@ class LoginButton extends StatelessWidget {
         builder: (context) {
           return ElevatedButton(
             style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-              backgroundColor: WidgetStatePropertyAll(
-                Theme.of(context).colorScheme.primaryContainer,
-              ),
+              backgroundColor: WidgetStatePropertyAll(Colors.blueAccent),
             ),
             onPressed: isLoading == true
                 ? null
@@ -55,6 +53,8 @@ class LoginButton extends StatelessWidget {
                     LocaleKeys.auth_login.tr(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       fontFamily: FontConstants.fontFamily(context.locale),
+                      fontSize: 22.sp,
+                      color: Colors.white,
                     ),
                   ),
           );

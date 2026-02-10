@@ -23,10 +23,7 @@ class PageNotFoundStateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         LottieBuilder.asset(
-          getAssetsPath(
-            assetsName: LottiesName.noData,
-            assetsType: AssetsType.lotties,
-          ),
+          lottiesPath + LottiesName.error,
           fit: BoxFit.fill,
           width: lottieWidth,
           height: lottieHeight,

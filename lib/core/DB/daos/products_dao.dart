@@ -18,14 +18,16 @@ class ProductsDao extends DatabaseAccessor<AppDatabase>
   // Check if a product with the same name exists
   Future<bool> productNameExists({
     required String nameAr,
-    required String nameEn,
+    String? nameEn,
     String? nameKu,
   }) async {
     final query = select(productsTable)
       ..where(
         (tbl) =>
             tbl.nameAr.equals(nameAr) |
-            tbl.nameEn.equals(nameEn) |
+            ((nameEn != null && nameEn.isNotEmpty)
+                ? tbl.nameEn.equals(nameEn)
+                : const Constant(false)) |
             ((nameKu != null && nameKu.isNotEmpty)
                 ? tbl.nameKu.equals(nameKu)
                 : const Constant(false)),

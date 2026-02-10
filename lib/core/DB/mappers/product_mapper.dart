@@ -8,7 +8,7 @@ ProductEntity productFromRow(ProductsTableData row, String locale) {
 
   switch (locale) {
     case 'en':
-      name = row.nameEn;
+      name = row.nameEn ?? row.nameAr;
       description = row.descriptionEn;
       break;
     case 'ku':

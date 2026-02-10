@@ -8,11 +8,12 @@ void showMessage({
   Widget? buttonWidget,
   VoidCallback? onPressed,
   int duration = 3000,
+  Color? messageColor,
 }) {
   final snack = SnackBar(
     behavior: SnackBarBehavior.floating,
     // margin: EdgeInsets.only(bottom: 3.h, left: 3.w, right: 3.w),
-    backgroundColor: Theme.of(context).colorScheme.onSurface,
+    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
     content: SizedBox(
       child: Row(
@@ -22,8 +23,8 @@ void showMessage({
             width: haveButton ? 250.w : 300.w,
             child: Text(
               message,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.error,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: messageColor ?? Theme.of(context).colorScheme.error,
               ),
               textAlign: TextAlign.center,
             ),

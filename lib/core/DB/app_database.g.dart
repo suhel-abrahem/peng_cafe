@@ -374,9 +374,9 @@ class $ProductsTableTable extends ProductsTable
   late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
     'name_en',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.string,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
   );
   static const VerificationMeta _nameKuMeta = const VerificationMeta('nameKu');
@@ -496,8 +496,6 @@ class $ProductsTableTable extends ProductsTable
         _nameEnMeta,
         nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta),
       );
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
     }
     if (data.containsKey('name_ku')) {
       context.handle(
@@ -572,7 +570,7 @@ class $ProductsTableTable extends ProductsTable
       nameEn: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name_en'],
-      )!,
+      ),
       nameKu: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name_ku'],
@@ -614,7 +612,7 @@ class ProductsTableData extends DataClass
     implements Insertable<ProductsTableData> {
   final int id;
   final String nameAr;
-  final String nameEn;
+  final String? nameEn;
   final String? nameKu;
   final String? descriptionAr;
   final String? descriptionEn;
@@ -625,7 +623,7 @@ class ProductsTableData extends DataClass
   const ProductsTableData({
     required this.id,
     required this.nameAr,
-    required this.nameEn,
+    this.nameEn,
     this.nameKu,
     this.descriptionAr,
     this.descriptionEn,
@@ -639,7 +637,9 @@ class ProductsTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
+    if (!nullToAbsent || nameEn != null) {
+      map['name_en'] = Variable<String>(nameEn);
+    }
     if (!nullToAbsent || nameKu != null) {
       map['name_ku'] = Variable<String>(nameKu);
     }
@@ -662,7 +662,9 @@ class ProductsTableData extends DataClass
     return ProductsTableCompanion(
       id: Value(id),
       nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
+      nameEn: nameEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nameEn),
       nameKu: nameKu == null && nullToAbsent
           ? const Value.absent()
           : Value(nameKu),
@@ -689,7 +691,7 @@ class ProductsTableData extends DataClass
     return ProductsTableData(
       id: serializer.fromJson<int>(json['id']),
       nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
+      nameEn: serializer.fromJson<String?>(json['nameEn']),
       nameKu: serializer.fromJson<String?>(json['nameKu']),
       descriptionAr: serializer.fromJson<String?>(json['descriptionAr']),
       descriptionEn: serializer.fromJson<String?>(json['descriptionEn']),
@@ -705,7 +707,7 @@ class ProductsTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
+      'nameEn': serializer.toJson<String?>(nameEn),
       'nameKu': serializer.toJson<String?>(nameKu),
       'descriptionAr': serializer.toJson<String?>(descriptionAr),
       'descriptionEn': serializer.toJson<String?>(descriptionEn),
@@ -719,7 +721,7 @@ class ProductsTableData extends DataClass
   ProductsTableData copyWith({
     int? id,
     String? nameAr,
-    String? nameEn,
+    Value<String?> nameEn = const Value.absent(),
     Value<String?> nameKu = const Value.absent(),
     Value<String?> descriptionAr = const Value.absent(),
     Value<String?> descriptionEn = const Value.absent(),
@@ -730,7 +732,7 @@ class ProductsTableData extends DataClass
   }) => ProductsTableData(
     id: id ?? this.id,
     nameAr: nameAr ?? this.nameAr,
-    nameEn: nameEn ?? this.nameEn,
+    nameEn: nameEn.present ? nameEn.value : this.nameEn,
     nameKu: nameKu.present ? nameKu.value : this.nameKu,
     descriptionAr: descriptionAr.present
         ? descriptionAr.value
@@ -815,7 +817,7 @@ class ProductsTableData extends DataClass
 class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
   final Value<int> id;
   final Value<String> nameAr;
-  final Value<String> nameEn;
+  final Value<String?> nameEn;
   final Value<String?> nameKu;
   final Value<String?> descriptionAr;
   final Value<String?> descriptionEn;
@@ -838,7 +840,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
   ProductsTableCompanion.insert({
     this.id = const Value.absent(),
     required String nameAr,
-    required String nameEn,
+    this.nameEn = const Value.absent(),
     this.nameKu = const Value.absent(),
     this.descriptionAr = const Value.absent(),
     this.descriptionEn = const Value.absent(),
@@ -847,7 +849,6 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     this.quantity = const Value.absent(),
     this.createdAt = const Value.absent(),
   }) : nameAr = Value(nameAr),
-       nameEn = Value(nameEn),
        price = Value(price);
   static Insertable<ProductsTableData> custom({
     Expression<int>? id,
@@ -878,7 +879,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
   ProductsTableCompanion copyWith({
     Value<int>? id,
     Value<String>? nameAr,
-    Value<String>? nameEn,
+    Value<String?>? nameEn,
     Value<String?>? nameKu,
     Value<String?>? descriptionAr,
     Value<String?>? descriptionEn,
@@ -1170,7 +1171,7 @@ typedef $$ProductsTableTableCreateCompanionBuilder =
     ProductsTableCompanion Function({
       Value<int> id,
       required String nameAr,
-      required String nameEn,
+      Value<String?> nameEn,
       Value<String?> nameKu,
       Value<String?> descriptionAr,
       Value<String?> descriptionEn,
@@ -1183,7 +1184,7 @@ typedef $$ProductsTableTableUpdateCompanionBuilder =
     ProductsTableCompanion Function({
       Value<int> id,
       Value<String> nameAr,
-      Value<String> nameEn,
+      Value<String?> nameEn,
       Value<String?> nameKu,
       Value<String?> descriptionAr,
       Value<String?> descriptionEn,
@@ -1396,7 +1397,7 @@ class $$ProductsTableTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> nameAr = const Value.absent(),
-                Value<String> nameEn = const Value.absent(),
+                Value<String?> nameEn = const Value.absent(),
                 Value<String?> nameKu = const Value.absent(),
                 Value<String?> descriptionAr = const Value.absent(),
                 Value<String?> descriptionEn = const Value.absent(),
@@ -1420,7 +1421,7 @@ class $$ProductsTableTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required String nameAr,
-                required String nameEn,
+                Value<String?> nameEn = const Value.absent(),
                 Value<String?> nameKu = const Value.absent(),
                 Value<String?> descriptionAr = const Value.absent(),
                 Value<String?> descriptionEn = const Value.absent(),

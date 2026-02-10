@@ -3,7 +3,7 @@ import 'package:drift/drift.dart';
 class ProductsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nameAr => text().unique()();
-  TextColumn get nameEn => text().unique()();
+  TextColumn get nameEn => text().nullable().unique()();
   TextColumn get nameKu => text().nullable().unique()();
   TextColumn get descriptionAr => text().nullable()();
   TextColumn get descriptionEn => text().nullable()();
