@@ -422,6 +422,17 @@ class $ProductsTableTable extends ProductsTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _imagePathMeta = const VerificationMeta(
+    'imagePath',
+  );
+  @override
+  late final GeneratedColumn<String> imagePath = GeneratedColumn<String>(
+    'image_path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _priceMeta = const VerificationMeta('price');
   @override
   late final GeneratedColumn<double> price = GeneratedColumn<double>(
@@ -464,6 +475,7 @@ class $ProductsTableTable extends ProductsTable
     descriptionAr,
     descriptionEn,
     descriptionKu,
+    imagePath,
     price,
     quantity,
     createdAt,
@@ -530,6 +542,12 @@ class $ProductsTableTable extends ProductsTable
         ),
       );
     }
+    if (data.containsKey('image_path')) {
+      context.handle(
+        _imagePathMeta,
+        imagePath.isAcceptableOrUnknown(data['image_path']!, _imagePathMeta),
+      );
+    }
     if (data.containsKey('price')) {
       context.handle(
         _priceMeta,
@@ -587,6 +605,10 @@ class $ProductsTableTable extends ProductsTable
         DriftSqlType.string,
         data['${effectivePrefix}description_ku'],
       ),
+      imagePath: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_path'],
+      ),
       price: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}price'],
@@ -617,6 +639,7 @@ class ProductsTableData extends DataClass
   final String? descriptionAr;
   final String? descriptionEn;
   final String? descriptionKu;
+  final String? imagePath;
   final double price;
   final int quantity;
   final DateTime createdAt;
@@ -628,6 +651,7 @@ class ProductsTableData extends DataClass
     this.descriptionAr,
     this.descriptionEn,
     this.descriptionKu,
+    this.imagePath,
     required this.price,
     required this.quantity,
     required this.createdAt,
@@ -651,6 +675,9 @@ class ProductsTableData extends DataClass
     }
     if (!nullToAbsent || descriptionKu != null) {
       map['description_ku'] = Variable<String>(descriptionKu);
+    }
+    if (!nullToAbsent || imagePath != null) {
+      map['image_path'] = Variable<String>(imagePath);
     }
     map['price'] = Variable<double>(price);
     map['quantity'] = Variable<int>(quantity);
@@ -677,6 +704,9 @@ class ProductsTableData extends DataClass
       descriptionKu: descriptionKu == null && nullToAbsent
           ? const Value.absent()
           : Value(descriptionKu),
+      imagePath: imagePath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(imagePath),
       price: Value(price),
       quantity: Value(quantity),
       createdAt: Value(createdAt),
@@ -696,6 +726,7 @@ class ProductsTableData extends DataClass
       descriptionAr: serializer.fromJson<String?>(json['descriptionAr']),
       descriptionEn: serializer.fromJson<String?>(json['descriptionEn']),
       descriptionKu: serializer.fromJson<String?>(json['descriptionKu']),
+      imagePath: serializer.fromJson<String?>(json['imagePath']),
       price: serializer.fromJson<double>(json['price']),
       quantity: serializer.fromJson<int>(json['quantity']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -712,6 +743,7 @@ class ProductsTableData extends DataClass
       'descriptionAr': serializer.toJson<String?>(descriptionAr),
       'descriptionEn': serializer.toJson<String?>(descriptionEn),
       'descriptionKu': serializer.toJson<String?>(descriptionKu),
+      'imagePath': serializer.toJson<String?>(imagePath),
       'price': serializer.toJson<double>(price),
       'quantity': serializer.toJson<int>(quantity),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -726,6 +758,7 @@ class ProductsTableData extends DataClass
     Value<String?> descriptionAr = const Value.absent(),
     Value<String?> descriptionEn = const Value.absent(),
     Value<String?> descriptionKu = const Value.absent(),
+    Value<String?> imagePath = const Value.absent(),
     double? price,
     int? quantity,
     DateTime? createdAt,
@@ -743,6 +776,7 @@ class ProductsTableData extends DataClass
     descriptionKu: descriptionKu.present
         ? descriptionKu.value
         : this.descriptionKu,
+    imagePath: imagePath.present ? imagePath.value : this.imagePath,
     price: price ?? this.price,
     quantity: quantity ?? this.quantity,
     createdAt: createdAt ?? this.createdAt,
@@ -762,6 +796,7 @@ class ProductsTableData extends DataClass
       descriptionKu: data.descriptionKu.present
           ? data.descriptionKu.value
           : this.descriptionKu,
+      imagePath: data.imagePath.present ? data.imagePath.value : this.imagePath,
       price: data.price.present ? data.price.value : this.price,
       quantity: data.quantity.present ? data.quantity.value : this.quantity,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -778,6 +813,7 @@ class ProductsTableData extends DataClass
           ..write('descriptionAr: $descriptionAr, ')
           ..write('descriptionEn: $descriptionEn, ')
           ..write('descriptionKu: $descriptionKu, ')
+          ..write('imagePath: $imagePath, ')
           ..write('price: $price, ')
           ..write('quantity: $quantity, ')
           ..write('createdAt: $createdAt')
@@ -794,6 +830,7 @@ class ProductsTableData extends DataClass
     descriptionAr,
     descriptionEn,
     descriptionKu,
+    imagePath,
     price,
     quantity,
     createdAt,
@@ -809,6 +846,7 @@ class ProductsTableData extends DataClass
           other.descriptionAr == this.descriptionAr &&
           other.descriptionEn == this.descriptionEn &&
           other.descriptionKu == this.descriptionKu &&
+          other.imagePath == this.imagePath &&
           other.price == this.price &&
           other.quantity == this.quantity &&
           other.createdAt == this.createdAt);
@@ -822,6 +860,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
   final Value<String?> descriptionAr;
   final Value<String?> descriptionEn;
   final Value<String?> descriptionKu;
+  final Value<String?> imagePath;
   final Value<double> price;
   final Value<int> quantity;
   final Value<DateTime> createdAt;
@@ -833,6 +872,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     this.descriptionAr = const Value.absent(),
     this.descriptionEn = const Value.absent(),
     this.descriptionKu = const Value.absent(),
+    this.imagePath = const Value.absent(),
     this.price = const Value.absent(),
     this.quantity = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -845,6 +885,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     this.descriptionAr = const Value.absent(),
     this.descriptionEn = const Value.absent(),
     this.descriptionKu = const Value.absent(),
+    this.imagePath = const Value.absent(),
     required double price,
     this.quantity = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -858,6 +899,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     Expression<String>? descriptionAr,
     Expression<String>? descriptionEn,
     Expression<String>? descriptionKu,
+    Expression<String>? imagePath,
     Expression<double>? price,
     Expression<int>? quantity,
     Expression<DateTime>? createdAt,
@@ -870,6 +912,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
       if (descriptionAr != null) 'description_ar': descriptionAr,
       if (descriptionEn != null) 'description_en': descriptionEn,
       if (descriptionKu != null) 'description_ku': descriptionKu,
+      if (imagePath != null) 'image_path': imagePath,
       if (price != null) 'price': price,
       if (quantity != null) 'quantity': quantity,
       if (createdAt != null) 'created_at': createdAt,
@@ -884,6 +927,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     Value<String?>? descriptionAr,
     Value<String?>? descriptionEn,
     Value<String?>? descriptionKu,
+    Value<String?>? imagePath,
     Value<double>? price,
     Value<int>? quantity,
     Value<DateTime>? createdAt,
@@ -896,6 +940,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
       descriptionAr: descriptionAr ?? this.descriptionAr,
       descriptionEn: descriptionEn ?? this.descriptionEn,
       descriptionKu: descriptionKu ?? this.descriptionKu,
+      imagePath: imagePath ?? this.imagePath,
       price: price ?? this.price,
       quantity: quantity ?? this.quantity,
       createdAt: createdAt ?? this.createdAt,
@@ -926,6 +971,9 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
     if (descriptionKu.present) {
       map['description_ku'] = Variable<String>(descriptionKu.value);
     }
+    if (imagePath.present) {
+      map['image_path'] = Variable<String>(imagePath.value);
+    }
     if (price.present) {
       map['price'] = Variable<double>(price.value);
     }
@@ -948,6 +996,7 @@ class ProductsTableCompanion extends UpdateCompanion<ProductsTableData> {
           ..write('descriptionAr: $descriptionAr, ')
           ..write('descriptionEn: $descriptionEn, ')
           ..write('descriptionKu: $descriptionKu, ')
+          ..write('imagePath: $imagePath, ')
           ..write('price: $price, ')
           ..write('quantity: $quantity, ')
           ..write('createdAt: $createdAt')
@@ -1176,6 +1225,7 @@ typedef $$ProductsTableTableCreateCompanionBuilder =
       Value<String?> descriptionAr,
       Value<String?> descriptionEn,
       Value<String?> descriptionKu,
+      Value<String?> imagePath,
       required double price,
       Value<int> quantity,
       Value<DateTime> createdAt,
@@ -1189,6 +1239,7 @@ typedef $$ProductsTableTableUpdateCompanionBuilder =
       Value<String?> descriptionAr,
       Value<String?> descriptionEn,
       Value<String?> descriptionKu,
+      Value<String?> imagePath,
       Value<double> price,
       Value<int> quantity,
       Value<DateTime> createdAt,
@@ -1235,6 +1286,11 @@ class $$ProductsTableTableFilterComposer
 
   ColumnFilters<String> get descriptionKu => $composableBuilder(
     column: $table.descriptionKu,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imagePath => $composableBuilder(
+    column: $table.imagePath,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1298,6 +1354,11 @@ class $$ProductsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get imagePath => $composableBuilder(
+    column: $table.imagePath,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<double> get price => $composableBuilder(
     column: $table.price,
     builder: (column) => ColumnOrderings(column),
@@ -1349,6 +1410,9 @@ class $$ProductsTableTableAnnotationComposer
     column: $table.descriptionKu,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get imagePath =>
+      $composableBuilder(column: $table.imagePath, builder: (column) => column);
 
   GeneratedColumn<double> get price =>
       $composableBuilder(column: $table.price, builder: (column) => column);
@@ -1402,6 +1466,7 @@ class $$ProductsTableTableTableManager
                 Value<String?> descriptionAr = const Value.absent(),
                 Value<String?> descriptionEn = const Value.absent(),
                 Value<String?> descriptionKu = const Value.absent(),
+                Value<String?> imagePath = const Value.absent(),
                 Value<double> price = const Value.absent(),
                 Value<int> quantity = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -1413,6 +1478,7 @@ class $$ProductsTableTableTableManager
                 descriptionAr: descriptionAr,
                 descriptionEn: descriptionEn,
                 descriptionKu: descriptionKu,
+                imagePath: imagePath,
                 price: price,
                 quantity: quantity,
                 createdAt: createdAt,
@@ -1426,6 +1492,7 @@ class $$ProductsTableTableTableManager
                 Value<String?> descriptionAr = const Value.absent(),
                 Value<String?> descriptionEn = const Value.absent(),
                 Value<String?> descriptionKu = const Value.absent(),
+                Value<String?> imagePath = const Value.absent(),
                 required double price,
                 Value<int> quantity = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -1437,6 +1504,7 @@ class $$ProductsTableTableTableManager
                 descriptionAr: descriptionAr,
                 descriptionEn: descriptionEn,
                 descriptionKu: descriptionKu,
+                imagePath: imagePath,
                 price: price,
                 quantity: quantity,
                 createdAt: createdAt,

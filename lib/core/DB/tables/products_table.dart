@@ -8,8 +8,8 @@ class ProductsTable extends Table {
   TextColumn get descriptionAr => text().nullable()();
   TextColumn get descriptionEn => text().nullable()();
   TextColumn get descriptionKu => text().nullable()();
+  TextColumn get imagePath => text().nullable()();
   RealColumn get price => real()();
-
   IntColumn get quantity => integer().withDefault(const Constant(0))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

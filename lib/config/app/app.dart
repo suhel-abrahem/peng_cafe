@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/constant/language_constants.dart';
 import '../../core/injection_container.dart';
+import '../../core/util/helper/helper.dart';
 import '../../generated/locale_keys.g.dart';
 import '../route/routes_manager.dart';
 import '../theme/app_theme.dart';
@@ -44,17 +45,26 @@ class PengCafe extends StatelessWidget {
         //   ),
         // );
         return ThemeProvider(
-          initTheme: lightTheme(),
+          initTheme: (getItInstance<AppPreferences>().getThemeBool())
+              ? darkTheme()
+              : lightTheme(),
           child: MaterialApp.router(
             key: ValueKey(lastPath),
             debugShowCheckedModeBanner: false,
             title: LocaleKeys.appName.tr(),
-            themeMode: ThemeMode.light,
-            theme: lightTheme(),
+            themeMode: (getItInstance<AppPreferences>().getThemeBool())
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            theme: (getItInstance<AppPreferences>().getThemeBool())
+                ? darkTheme()
+                : lightTheme(),
 
             supportedLocales: LanguageConstant.supportedLocales,
             routerConfig: goRouter,
-            locale: context.locale,
+            locale: Helper.getLocaleByName(
+              getItInstance<AppPreferences>().getLanguage() ??
+                  LanguageConstant.arName,
+            ),
             localizationsDelegates: context.localizationDelegates,
           ),
         );

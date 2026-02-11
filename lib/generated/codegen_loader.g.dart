@@ -63,7 +63,8 @@ class CodegenLoader extends AssetLoader{
     "yourSessionHasExpiredPleaseLoginAgain": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
     "ok": "موافق",
     "tryAgain": "حاول مرة أخرى",
-    "clear": "مسح"
+    "clear": "مسح",
+    "removeAll": "إزالة الجميع"
   },
   "theme": {
     "choose": "اختر سمة",
@@ -83,13 +84,81 @@ class CodegenLoader extends AssetLoader{
     "passwordField": "حقل كلمة المرور مطلوب",
     "requiredField": "هذا الحقل مطلوب",
     "price": "يجب أن يكون السعر أكبر من 0",
-    "quantity": "يجب أن تكون الكمية > 0"
+    "quantity": "يجب أن تكون الكمية > 0",
+    "imageSize": "يجب أن يكون حجم الصورة أقل من 5 ميغابايت",
+    "imageType": "نوع الملف غير مدعوم. يرجى اختيار صورة.",
+    "youcanOnlySelectUpTo5Images": "يمكنك اختيار ما يصل إلى 5 صور فقط",
+    "youcanOnlySelect1Image": "يمكنك اختيار ما يصل إلى 1 صورة فقط",
+    "imageAlreadyExist": "هذه الصورة موجودة بالفعل"
   },
   "loginPage": {
     "welcomeBack": "مرحبًا بعودتك!",
     "pleaseLoginToYourAccount": "يرجى تسجيل الدخول إلى حسابك",
     "dontHaveAnAccount": "ليس لديك حساب؟",
     "registerNow": "سجل الآن"
+  },
+  "homePage": {
+    "title": "الصفحة الرئيسية",
+    "welcome": "مرحبًا، {name}!",
+    "todayIs": "اليوم هو {day}",
+    "youHave": "لديك {count} طلبات جديدة",
+    "viewOrders": "عرض الطلبات"
+  },
+  "ordersPage": {
+    "title": "الطلبات",
+    "noOrders": "لا توجد طلبات لعرضها",
+    "orderNumber": "رقم الطلب: {number}",
+    "customerName": "اسم العميل: {name}",
+    "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+    "status": "الحالة: {status}"
+  },
+  "productsPage": {
+    "title": "المنتجات",
+    "noProducts": "لا توجد منتجات لعرضها",
+    "addProduct": "إضافة منتج",
+    "editProduct": "تعديل المنتج",
+    "deleteProduct": "حذف المنتج",
+    "productName": "اسم المنتج: {name}",
+    "price": "السعر: {price} د.ع",
+    "quantity": "الكمية: {quantity}",
+    "products": "المنتجات",
+    "add": "إضافة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "selectProduct": "اختر منتجًا",
+    "selectAllProducts": "اختر جميع المنتجات",
+    "selectProductToEditOrDelete": "اختر منتجًا لتعديله أو حذفه",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف هذا المنتج؟",
+    "yes": "نعم",
+    "no": "لا",
+    "productAddedSuccessfully": "تم إضافة المنتج بنجاح",
+    "productEditedSuccessfully": "تم تعديل المنتج بنجاح",
+    "productDeletedSuccessfully": "تم حذف المنتج بنجاح",
+    "addProductForm": {
+      "title": "إضافة منتج",
+      "nameAr": "اسم المنتج بالعربية",
+      "nameEn": "اسم المنتج بالإنجليزية",
+      "nameKu": "اسم المنتج بالكردية",
+      "price": "السعر",
+      "quantity": "الكمية",
+      "image": "الصورة",
+      "addButton": "إضافة",
+      "productNames": "اسم المنتج",
+      "priceAndQuantity": "السعر والكمية",
+      "selectImage": "اختر صورة",
+      "addImage": "إضافة صورة",
+      "removeImage": "إزالة الصورة",
+      "description": "الوصف",
+      "dragAndDropOrClickToSelectImage": "اسحب وأفلت أو انقر لاختيار صورة"
+    }
+  },
+  "sittingsPage": {
+    "title": "الإعدادات",
+    "theme": "السمة",
+    "language": "اللغة",
+    "notifications": "الإشعارات",
+    "account": "الحساب",
+    "logout": "تسجيل الخروج"
   }
 };
 static const Map<String,dynamic> _en = {
@@ -141,7 +210,8 @@ static const Map<String,dynamic> _en = {
     "yourSessionHasExpiredPleaseLoginAgain": "Your session has expired. Please login again.",
     "ok": "OK",
     "tryAgain": "Try again",
-    "clear": "Clear"
+    "clear": "Clear",
+    "removeAll": "Remove All"
   },
   "theme": {
     "choose": "Choose theme",
@@ -161,13 +231,81 @@ static const Map<String,dynamic> _en = {
     "passwordField": "Password field is REQUIRED",
     "requiredField": "This field is REQUIRED",
     "price": "Price must be larger than 0",
-    "quantity": "Quantity must be > 0"
+    "quantity": "Quantity must be > 0",
+    "imageSize": "Image size must be less than 5 MB",
+    "imageType": "Unsupported file type. Please select an image.",
+    "youcanOnlySelectUpTo5Images": "You can only select up to 5 images",
+    "youcanOnlySelect1Image": "You can only select up to 1 image",
+    "imageAlreadyExist": "This image already exists"
   },
   "loginPage": {
     "welcomeBack": "Welcome back!",
     "pleaseLoginToYourAccount": "Please login to your account",
     "dontHaveAnAccount": "Don't have an account?",
     "registerNow": "Register now"
+  },
+  "homePage": {
+    "title": "Home Page",
+    "welcome": "Welcome, {name}!",
+    "todayIs": "Today is {day}",
+    "youHave": "You have {count} new orders",
+    "viewOrders": "View Orders"
+  },
+  "ordersPage": {
+    "title": "Orders",
+    "noOrders": "No orders to display",
+    "orderNumber": "Order Number: {number}",
+    "customerName": "Customer Name: {name}",
+    "totalAmount": "Total Amount: {amount} IQD",
+    "status": "Status: {status}"
+  },
+  "productsPage": {
+    "title": "Products",
+    "noProducts": "No products to display",
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "deleteProduct": "Delete Product",
+    "productName": "Product Name: {name}",
+    "price": "Price: {price} IQD",
+    "quantity": "Quantity: {quantity}",
+    "products": "Products",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "selectProduct": "Select a product",
+    "selectAllProducts": "Select all products",
+    "selectProductToEditOrDelete": "Select a product to edit or delete",
+    "confirmDelete": "Are you sure you want to delete this product?",
+    "yes": "Yes",
+    "no": "No",
+    "productAddedSuccessfully": "Product added successfully",
+    "productEditedSuccessfully": "Product edited successfully",
+    "productDeletedSuccessfully": "Product deleted successfully",
+    "addProductForm": {
+      "title": "Add Product",
+      "nameAr": "Product Name in Arabic",
+      "nameEn": "Product Name in English",
+      "nameKu": "Product Name in Kurdish",
+      "price": "Price",
+      "quantity": "Quantity",
+      "image": "Image",
+      "addButton": "Add",
+      "productNames": "Product Name",
+      "priceAndQuantity": "Price and Quantity",
+      "selectImage": "Select Image",
+      "addImage": "Add Image",
+      "removeImage": "Remove Image",
+      "description": "Description",
+      "dragAndDropOrClickToSelectImage": "Drag and drop or click to select an image"
+    }
+  },
+  "sittingsPage": {
+    "title": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "notifications": "Notifications",
+    "account": "Account",
+    "logout": "Logout"
   }
 };
 static const Map<String,dynamic> _fa = {
@@ -219,7 +357,8 @@ static const Map<String,dynamic> _fa = {
     "yourSessionHasExpiredPleaseLoginAgain": "کاتی نیشتەجێبوونت کۆتایی هات. تکایە دووبارە بچۆ ژوورەوە.",
     "ok": "باشە",
     "tryAgain": "دووبارە هەوڵبدەرەوە",
-    "clear": "سڕینەوە"
+    "clear": "سڕینەوە",
+    "removeAll": "هەموو بسڕەوە"
   },
   "theme": {
     "choose": "مۆدێلێک هەڵبژێرە",
@@ -239,13 +378,81 @@ static const Map<String,dynamic> _fa = {
     "passwordField": "بەشەکەی وشەی نهێنی پێویستە",
     "requiredField": "ئەم بەشە پێویستە",
     "price": "نرخ پێویستە گەورەتر بێت لە 0",
-    "quantity": "ژمارە پێویستە گەورەتر بێت لە 0"
+    "quantity": "ژمارە پێویستە گەورەتر بێت لە 0",
+    "imageSize": "پێویستە قەبارەی وێنە کەمتر بێت لە 5 MB",
+    "imageType": "جۆری فایل پشتیوانی ناکرێت. تکایە وێنەیەک هەڵبژێرە.",
+    "youcanOnlySelectUpTo5Images": "تەنها دەتوانیت تا 5 وێنە هەڵبژێریت",
+    "youcanOnlySelect1Image": "تەنها دەتوانیت تا 1 وێنە هەڵبژێریت",
+    "imageAlreadyExist": "وێنەکە پێشتر هەیە"
   },
   "loginPage": {
     "welcomeBack": "بەخێربێیت دووبارە!",
     "pleaseLoginToYourAccount": "تکایە بچۆ ژوورەوە بۆ هەژمارەکەت",
     "dontHaveAnAccount": "هەژمارت نیە؟",
     "registerNow": "ئێستا تۆماربکە"
+  },
+  "homePage": {
+    "title": "پەڕەی سەرەکی",
+    "welcome": "بەخێربێیت، {name}!",
+    "todayIs": "ئەمڕۆ {day}ە",
+    "youHave": "تۆ {count} داواکاری نوێت هەیە",
+    "viewOrders": "بینینی داواکاریەکان"
+  },
+  "ordersPage": {
+    "title": "داواکاریەکان",
+    "noOrders": "هیچ داواکاریەک نیە بۆ نیشاندان",
+    "orderNumber": "ژمارەی داواکاری: {number}",
+    "customerName": "ناوی کڕیار: {name}",
+    "totalAmount": "کۆی گشتی: {amount} د.ع",
+    "status": "بارودۆخ: {status}"
+  },
+  "productsPage": {
+    "title": "کاڵاکان",
+    "noProducts": "هیچ کاڵایەک نیە بۆ نیشاندان",
+    "addProduct": "زیادکردنی کاڵا",
+    "editProduct": "دەستکاری کاڵا",
+    "deleteProduct": "سڕینەوەی کاڵا",
+    "productName": "ناوی کاڵا: {name}",
+    "price": "نرخ: {price} د.ع",
+    "quantity": "ژمارە: {quantity}",
+    "products": "کاڵاکان",
+    "add": "زیادکردن",
+    "edit": "دەستکاری",
+    "delete": "سڕینەوە",
+    "selectProduct": "کاڵایەک هەڵبژێرە",
+    "selectAllProducts": "هەموو کاڵاکان هەڵبژێرە",
+    "selectProductToEditOrDelete": "کاڵایەک هەڵبژێرە بۆ دەستکاری یان سڕینەوە",
+    "confirmDelete": "دڵنیایت دەتەوێت ئەم کاڵایە بسڕیتەوە؟",
+    "yes": "بەڵێ",
+    "no": "نەخێر",
+    "productAddedSuccessfully": "کاڵا بە سەرکەوتوویی زیادکرا",
+    "productEditedSuccessfully": "کاڵا بە سەرکەوتوویی دەستکاری کرا",
+    "productDeletedSuccessfully": "کاڵا بە سەرکەوتوویی سڕایەوە",
+    "addProductForm": {
+      "title": "زیادکردنی کاڵا",
+      "nameAr": "ناوی کاڵا بە عەرەبی",
+      "nameEn": "ناوی کاڵا بە ئینگلیزی",
+      "nameKu": "ناوی کاڵا بە کوردی",
+      "price": "نرخ",
+      "quantity": "ژمارە",
+      "image": "وێنە",
+      "addButton": "زیادکردن",
+      "productNames": "ناوی کاڵا",
+      "priceAndQuantity": "نرخ و ژمارە",
+      "selectImage": "وێنە هەڵبژێرە",
+      "addImage": "وێنە زیاد بکە",
+      "removeImage": "وێنە بسڕەوە",
+      "description": "پێناسە",
+      "dragAndDropOrClickToSelectImage": "کەش و ڕیز بکە یان کرتە بکە بۆ هەڵبژاردنی وێنە"
+    }
+  },
+  "sittingsPage": {
+    "title": "ڕێکخستنەکان",
+    "theme": "مۆدێل",
+    "language": "زمان",
+    "notifications": "ئاگاداریەکان",
+    "account": "هەژمار",
+    "logout": "چوونە دەرەوە"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "fa": _fa};

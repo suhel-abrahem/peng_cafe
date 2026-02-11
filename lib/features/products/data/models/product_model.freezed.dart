@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductModel {
 
- int? get id; String? get locale; String? get nameAr; String? get nameEn; String? get nameKu; String? get descriptionAr; String? get descriptionEn; String? get descriptionKu; double get price; int get quantity;
+ int? get id; String? get locale; String? get nameAr; String? get nameEn; String? get nameKu; String? get descriptionAr; String? get descriptionEn; String? get descriptionKu; double get price;@FileJsonConverter() File? get imagePath; int get quantity;
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ProductModelCopyWith<ProductModel> get copyWith => _$ProductModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.nameKu, nameKu) || other.nameKu == nameKu)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.descriptionKu, descriptionKu) || other.descriptionKu == descriptionKu)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.nameKu, nameKu) || other.nameKu == nameKu)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.descriptionKu, descriptionKu) || other.descriptionKu == descriptionKu)&&(identical(other.price, price) || other.price == price)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath)&&(identical(other.quantity, quantity) || other.quantity == quantity));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,locale,nameAr,nameEn,nameKu,descriptionAr,descriptionEn,descriptionKu,price,quantity);
+int get hashCode => Object.hash(runtimeType,id,locale,nameAr,nameEn,nameKu,descriptionAr,descriptionEn,descriptionKu,price,imagePath,quantity);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, locale: $locale, nameAr: $nameAr, nameEn: $nameEn, nameKu: $nameKu, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, descriptionKu: $descriptionKu, price: $price, quantity: $quantity)';
+  return 'ProductModel(id: $id, locale: $locale, nameAr: $nameAr, nameEn: $nameEn, nameKu: $nameKu, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, descriptionKu: $descriptionKu, price: $price, imagePath: $imagePath, quantity: $quantity)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ProductModelCopyWith<$Res>  {
   factory $ProductModelCopyWith(ProductModel value, $Res Function(ProductModel) _then) = _$ProductModelCopyWithImpl;
 @useResult
 $Res call({
- int? id, String? locale, String? nameAr, String? nameEn, String? nameKu, String? descriptionAr, String? descriptionEn, String? descriptionKu, double price, int quantity
+ int? id, String? locale, String? nameAr, String? nameEn, String? nameKu, String? descriptionAr, String? descriptionEn, String? descriptionKu, double price,@FileJsonConverter() File? imagePath, int quantity
 });
 
 
@@ -65,7 +65,7 @@ class _$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? locale = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? nameKu = freezed,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? descriptionKu = freezed,Object? price = null,Object? quantity = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? locale = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? nameKu = freezed,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? descriptionKu = freezed,Object? price = null,Object? imagePath = freezed,Object? quantity = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,locale: freezed == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,8 @@ as String?,descriptionAr: freezed == descriptionAr ? _self.descriptionAr : descr
 as String?,descriptionEn: freezed == descriptionEn ? _self.descriptionEn : descriptionEn // ignore: cast_nullable_to_non_nullable
 as String?,descriptionKu: freezed == descriptionKu ? _self.descriptionKu : descriptionKu // ignore: cast_nullable_to_non_nullable
 as String?,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as double,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as double,imagePath: freezed == imagePath ? _self.imagePath : imagePath // ignore: cast_nullable_to_non_nullable
+as File?,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price,  int quantity)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price, @FileJsonConverter()  File? imagePath,  int quantity)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductModel() when $default != null:
-return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.quantity);case _:
+return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.imagePath,_that.quantity);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price,  int quantity)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price, @FileJsonConverter()  File? imagePath,  int quantity)  $default,) {final _that = this;
 switch (_that) {
 case _ProductModel():
-return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.quantity);case _:
+return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.imagePath,_that.quantity);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price,  int quantity)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? locale,  String? nameAr,  String? nameEn,  String? nameKu,  String? descriptionAr,  String? descriptionEn,  String? descriptionKu,  double price, @FileJsonConverter()  File? imagePath,  int quantity)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductModel() when $default != null:
-return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.quantity);case _:
+return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_that.descriptionAr,_that.descriptionEn,_that.descriptionKu,_that.price,_that.imagePath,_that.quantity);case _:
   return null;
 
 }
@@ -218,7 +219,7 @@ return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_th
 @JsonSerializable()
 
 class _ProductModel implements ProductModel {
-  const _ProductModel({this.id = 0, this.locale = "ar", this.nameAr = "", this.nameEn = "", this.nameKu = null, this.descriptionAr = "", this.descriptionEn = "", this.descriptionKu = "", this.price = 0.0, this.quantity = 0});
+  const _ProductModel({this.id = 0, this.locale = "ar", this.nameAr = "", this.nameEn = "", this.nameKu = null, this.descriptionAr = "", this.descriptionEn = "", this.descriptionKu = "", this.price = 0.0, @FileJsonConverter() this.imagePath, this.quantity = 0});
   factory _ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 
 @override@JsonKey() final  int? id;
@@ -230,6 +231,7 @@ class _ProductModel implements ProductModel {
 @override@JsonKey() final  String? descriptionEn;
 @override@JsonKey() final  String? descriptionKu;
 @override@JsonKey() final  double price;
+@override@FileJsonConverter() final  File? imagePath;
 @override@JsonKey() final  int quantity;
 
 /// Create a copy of ProductModel
@@ -245,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.nameKu, nameKu) || other.nameKu == nameKu)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.descriptionKu, descriptionKu) || other.descriptionKu == descriptionKu)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameEn, nameEn) || other.nameEn == nameEn)&&(identical(other.nameKu, nameKu) || other.nameKu == nameKu)&&(identical(other.descriptionAr, descriptionAr) || other.descriptionAr == descriptionAr)&&(identical(other.descriptionEn, descriptionEn) || other.descriptionEn == descriptionEn)&&(identical(other.descriptionKu, descriptionKu) || other.descriptionKu == descriptionKu)&&(identical(other.price, price) || other.price == price)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath)&&(identical(other.quantity, quantity) || other.quantity == quantity));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,locale,nameAr,nameEn,nameKu,descriptionAr,descriptionEn,descriptionKu,price,quantity);
+int get hashCode => Object.hash(runtimeType,id,locale,nameAr,nameEn,nameKu,descriptionAr,descriptionEn,descriptionKu,price,imagePath,quantity);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, locale: $locale, nameAr: $nameAr, nameEn: $nameEn, nameKu: $nameKu, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, descriptionKu: $descriptionKu, price: $price, quantity: $quantity)';
+  return 'ProductModel(id: $id, locale: $locale, nameAr: $nameAr, nameEn: $nameEn, nameKu: $nameKu, descriptionAr: $descriptionAr, descriptionEn: $descriptionEn, descriptionKu: $descriptionKu, price: $price, imagePath: $imagePath, quantity: $quantity)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$ProductModelCopyWith<$Res> implements $ProductModelCopyWi
   factory _$ProductModelCopyWith(_ProductModel value, $Res Function(_ProductModel) _then) = __$ProductModelCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, String? locale, String? nameAr, String? nameEn, String? nameKu, String? descriptionAr, String? descriptionEn, String? descriptionKu, double price, int quantity
+ int? id, String? locale, String? nameAr, String? nameEn, String? nameKu, String? descriptionAr, String? descriptionEn, String? descriptionKu, double price,@FileJsonConverter() File? imagePath, int quantity
 });
 
 
@@ -282,7 +284,7 @@ class __$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? locale = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? nameKu = freezed,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? descriptionKu = freezed,Object? price = null,Object? quantity = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? locale = freezed,Object? nameAr = freezed,Object? nameEn = freezed,Object? nameKu = freezed,Object? descriptionAr = freezed,Object? descriptionEn = freezed,Object? descriptionKu = freezed,Object? price = null,Object? imagePath = freezed,Object? quantity = null,}) {
   return _then(_ProductModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,locale: freezed == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
@@ -293,7 +295,8 @@ as String?,descriptionAr: freezed == descriptionAr ? _self.descriptionAr : descr
 as String?,descriptionEn: freezed == descriptionEn ? _self.descriptionEn : descriptionEn // ignore: cast_nullable_to_non_nullable
 as String?,descriptionKu: freezed == descriptionKu ? _self.descriptionKu : descriptionKu // ignore: cast_nullable_to_non_nullable
 as String?,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as double,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as double,imagePath: freezed == imagePath ? _self.imagePath : imagePath // ignore: cast_nullable_to_non_nullable
+as File?,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

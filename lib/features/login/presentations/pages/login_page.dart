@@ -61,15 +61,6 @@ class _LoginPageState extends State<LoginPage> {
               image: AssetImage(iconPath + IconsName.cans),
               fit: BoxFit.cover,
             ),
-            gradient: LinearGradient(
-              colors: [
-                ColorManager.primaryColor,
-                ColorManager.secondaryColor,
-                ColorManager.primaryColorDark,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
           ),
         ),
         // Positioned(

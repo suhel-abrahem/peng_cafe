@@ -13,6 +13,7 @@ import 'package:peng_cafe/features/setting/presentation/pages/setting_page.dart'
 import '../../core/resource/main_page/app_side_bar.dart';
 import '../../features/home_page/presentation/pages/home_page.dart';
 import '../../features/login/presentations/pages/login_page.dart';
+import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/products/presentation/pages/products_page.dart';
 
 String? currentPath = RoutesPath.loginPage;
@@ -24,6 +25,7 @@ class RoutesName {
   static String signupPage = "signupPage";
   static String productsPage = "productsPage";
   static String settingPage = "settingPage";
+  static String ordersPage = "ordersPage";
 }
 
 class RoutesPath {
@@ -33,6 +35,7 @@ class RoutesPath {
   static String signupPage = '/signup';
   static String productsPage = '/products';
   static String settingPage = '/setting';
+  static String ordersPage = '/orders';
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -58,8 +61,11 @@ GoRouter goRouter = GoRouter(
               ? navigationShell
               : Row(
                   children: [
-                    AppSideBar(navigationShell: navigationShell),
-                    VerticalDivider(width: 2, color: ColorManager.borderColor),
+                    Padding(
+                      padding: EdgeInsetsDirectional.only(start: 12.w),
+                      child: AppSideBar(navigationShell: navigationShell),
+                    ),
+
                     Expanded(child: navigationShell),
                   ],
                 ),
@@ -74,6 +80,18 @@ GoRouter goRouter = GoRouter(
               name: RoutesName.homePage,
               pageBuilder: (context, state) =>
                   _customTransitionPage(child: const HomePage(), state: state),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RoutesPath.ordersPage,
+              name: RoutesName.ordersPage,
+              pageBuilder: (context, state) => _customTransitionPage(
+                child: const OrdersPage(),
+                state: state,
+              ),
             ),
           ],
         ),

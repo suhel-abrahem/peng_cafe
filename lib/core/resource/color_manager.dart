@@ -1,88 +1,99 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
-  /// =========================
-  /// Cafe Theme (Brown + Yellow)
-  /// =========================
-
-  // Primary Swatch (Coffee Brown)
-  static const MaterialColor primarySwatch = MaterialColor(
-    0xFF6F4E37,
-    <int, Color>{
-      50: Color(0xFFF3ECE7),
-      100: Color(0xFFE0D0C2),
-      200: Color(0xFFCBB29A),
-      300: Color(0xFFFFD54F),
-      400: Color(0xFFFFC107),
-      500: Color(0xFF6F4E37), // main
-      600: Color(0xFF644531),
-      700: Color(0xFF573B2A),
-      800: Color(0xFF4A3123),
-      900: Color(0xFF362118),
-    },
-  );
+  static const MaterialColor primarySwatch =
+      MaterialColor(0xFF2196F3, <int, Color>{
+        50: Color(0xFFE3F2FD),
+        100: Color(0xFFBBDEFB),
+        200: Color(0xFF90CAF9),
+        300: Color(0xFF64B5F6),
+        400: Color(0xFF42A5F5),
+        500: Color(0xFF2196F3),
+        600: Color(0xFF1E88E5),
+        700: Color(0xFF1976D2),
+        800: Color(0xFF1565C0),
+        900: Color(0xFF0D47A1),
+      });
 
   // Primary Colors
-  static const Color primaryColor = Colors.blueAccent;
-  static const Color secondaryColor = Color.fromARGB(
-    255,
-    48,
-    23,
-    17,
-  ); // Dark Coffee Brown
-  static const Color primaryColorDark = Color.fromARGB(
-    255,
-    13,
-    12,
-    14,
-  ); // Espresso
-  static const Color primaryColorLight = Color.fromARGB(
-    255,
-    215,
-    196,
-    179,
-  ); // Light Coffee Brown
+  static const Color primaryColor = Colors.blue;
+  static Color primaryColorLight = primaryColor.withValues(alpha: 0.25);
 
   // Accent Colors
-  static const Color accentColor = Color(0xFFFFC107); // Warm Yellow
-  static const Color secondaryAccentColor = Color(0xFFFFB300); // Darker Yellow
-  static const Color highlightColor = Color(0xFFFFD54F);
+  static const Color accentColor = Color(0xFF388E3C); // Accent Green
+  static const Color secondaryAccentColor = Color(0xFF1B5E20); // Dark Green
+  static const Color highlightColor = Color(
+    0xFF00C853,
+  ); // Bright Green Highlight
 
-  // Background & Surface
-  static const Color backgroundColor = Color(0xFFF7F3EF); // Latte
-  static const Color cardColor = Color(0xFFFFFFFF);
-  static const Color surfaceColor = Color(0xFFFDF8F4);
+  // Supporting Colors
+  static const Color primaryContainerColor = Color.fromARGB(255, 221, 248, 248);
+  static const Color borderColor = Color(0xFFB0BEC5); // Soft Gray
 
-  // Borders & Shadows
-  static const Color borderColor = Color(0xFFD6CCC2);
-  static const Color shadowColor = Color(0xFFBCAAA4);
-  static const Color lightShadowColor = Color(0xFFE0D0C2);
+  static const Color lightShadowColor = Color.fromARGB(
+    255,
+    53,
+    52,
+    52,
+  ); // Light Gray
 
-  // Text
-  static const Color textColor = Color.fromARGB(255, 27, 27, 27); // Espresso
-  static const Color secondaryTextColor = Color(0xFF6D4C41);
+  // Background and Surfaces
+  static const Color backgroundColor = Color.fromARGB(
+    255,
+    206,
+    204,
+    204,
+  ); // Bright Neutral Background
+  static const Color cardColor = Color(0xFFFFFFFF); // White Cards
+  static const Color surfaceColor = Color(0xFFFAFAFA); // Very Light Surface
 
-  // Functional
-  static const Color successColor = Color(0xFF689F38); // Olive green
-  static const Color warningColor = Color(0xFFFFA000); // Amber
-  static const Color error = Color(0xFFC62828); // Brick red
-  static const Color disabledColor = Color(0xFF9E9E9E);
-  static const Color disabledTextColor = Color(0xFFBDBDBD);
-  static const Color primaryContainerColor = Color.fromARGB(255, 126, 85, 78);
-  // =========================
-  // Dark Mode (Espresso)
-  // =========================
+  // Text Colors
+  static const Color textColor = Color.fromARGB(255, 3, 3, 3); // Near Black
+  static const Color secondaryTextColor = Color.fromARGB(
+    255,
+    36,
+    34,
+    34,
+  ); // Medium Gray
 
-  static const Color darkBackground = Color(0xFF1B1B1B);
-  static const Color darkCardColor = Color(0xFF262626);
-  static const Color darkSurfaceColor = Color(0xFF2F2F2F);
+  // Functional Colors
+  static const Color successColor = Color(0xFF43A047); // Confirmed Green
+  static const Color warningColor = Color(0xFFFFA726); // Orange Warning
+  static const Color error = Color(0xFFD32F2F); // Clear Red
+  static const Color logout = Color(0xFFB71C1C); // Deep Red
+  static const Color disabledColor = Color.fromARGB(
+    255,
+    102,
+    102,
+    102,
+  ); // Gray Disabled
+  static const Color disabledTextColor = Color(
+    0xFF9E9E9E,
+  ); // Soft Disabled Text
 
-  static const Color darkTextColor = Color(0xFFF5F5F5);
-  static const Color darkSecondaryTextColor = Color(0xFFBCAAA4);
-
-  static const Color darkPrimaryContainerColor = Color(0xFF3E2723);
-  static const Color darkShadowColor = Color(0xFF000000);
-
-  // Focus / Selection
-  static const Color focusColor = Colors.blueAccent;
+  // Dark Mode Colors
+  static const Color darkBackground = Color(0xFF121212); // Dark
+  static const Color darkCardColor = Color(0xFF1E1E1E); // Dark Card
+  static const Color darkSurfaceColor = Color(0xFF2C2C2C); // Dark Surface
+  static const Color darkTextColor = Color(0xFFF5F5F5); // dark Text
+  static const Color darkSecondaryTextColor = Color.fromARGB(
+    255,
+    46,
+    45,
+    45,
+  ); // Secondary
+  static const Color darkPrimaryContainerColor = Color.fromARGB(
+    255,
+    42,
+    42,
+    42,
+  ); //
+  static const Color darkShadowColor = Color(0xFF9E9E9E);
+  // Special Highlight Colors
+  static const Color focusColor = Color.fromARGB(
+    255,
+    102,
+    187,
+    140,
+  ); // Softer Green Focus
 }

@@ -17,6 +17,9 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
       descriptionEn: json['descriptionEn'] as String? ?? "",
       descriptionKu: json['descriptionKu'] as String? ?? "",
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      imagePath: const FileJsonConverter().fromJson(
+        json['imagePath'] as String?,
+      ),
       quantity: (json['quantity'] as num?)?.toInt() ?? 0,
     );
 
@@ -31,5 +34,6 @@ Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
       'descriptionEn': instance.descriptionEn,
       'descriptionKu': instance.descriptionKu,
       'price': instance.price,
+      'imagePath': const FileJsonConverter().toJson(instance.imagePath),
       'quantity': instance.quantity,
     };

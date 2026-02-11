@@ -12,6 +12,7 @@ abstract class ProductEntity with _$ProductEntity {
 
     @Default(0.0) double price,
     @Default(0) int quantity,
+    @Default("") String? imagePath,
     @Default(null) DateTime? createdAt,
   }) = _ProductEntity;
 

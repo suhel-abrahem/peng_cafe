@@ -41,6 +41,13 @@ dependencies:
   firebase_auth: ^6.1.4
   glass: ^2.0.0+2
   cached_network_image: ^3.4.1
+  uuid: ^4.5.2
+  image_picker: ^1.2.1
+  super_clipboard: ^0.9.1
+  super_drag_and_drop: ^0.9.1
+  mobkit_dashed_border: ^0.0.8
+  file_picker: ^10.3.10
+  desktop_drop: ^0.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

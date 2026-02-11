@@ -45,4 +45,11 @@ class IconsName {
   static const String byteXLogo = "bytex_logo.png";
   static const String coffeeMug = "coffee_mug.png";
   static const String cans = "cans.png";
+  static const String bytexLogoSmall = "bytex_logo_small.png";
+  static const String expand = "expand.png";
+  static const String coffeeBeans = "coffee-beans.png";
+  static const String coffeeBag = "coffee-bag.png";
+  static const String latteArt = "latte-art.png";
+  static const String cafe = "cafe.png";
+  static const String shisha = "shisha.png";
 }

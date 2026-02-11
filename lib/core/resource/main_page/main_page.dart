@@ -9,8 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../injection_container.dart';
 
-
-
 import '/core/resource/color_manager.dart';
 
 import '../../../config/app/app_preferences.dart';
@@ -19,8 +17,6 @@ import '../../../config/route/routes_manager.dart';
 import '../../constant/font_constants.dart';
 
 import '../custom_widget/snake_bar_widget/snake_bar_widget.dart';
-
-
 
 class MainPage extends StatefulWidget {
   final PreferredSizeWidget? appBar;
@@ -130,9 +126,7 @@ class _MainPageState extends State<MainPage> {
                 if (context.canPop()) {
                   context.pop();
                 }
-                context.push(currentPath ?? RoutesPath.loginPage);
-              } else {
-                context.go(RoutesPath.loginPage);
+                context.push(currentPath ?? RoutesPath.homeRoute);
               }
               setState(() {
                 yOffset = 0;
@@ -141,90 +135,7 @@ class _MainPageState extends State<MainPage> {
             child: ThemeSwitchingArea(
               child: Scaffold(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                appBar:
-                    widget.appBar ??
-                    PreferredSize(
-                      preferredSize: Size.fromHeight(
-                        widget.haveBottomBar == true ? 110.h : 50.h,
-                      ),
-                      child: Center(
-                        child: AppBar(
-                          shadowColor: Theme.of(context).shadowColor,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          centerTitle: true,
-                          title: Text(
-                            widget.title ?? "",
-                            style: Theme.of(context).textTheme.labelLarge
-                                ?.copyWith(
-                                  fontFamily: FontConstants.fontFamily(
-                                    context.locale,
-                                  ),
-                                  color: ColorManager.backgroundColor,
-                                ),
-                          ),
-                          leading: SizedBox(
-                            width: 36.w,
-                            height: 36.h,
-                            child: Center(
-                              child: Builder(
-                                builder: (builderContext) {
-                                  return ElevatedButton(
-                                    style: Theme.of(context)
-                                        .elevatedButtonTheme
-                                        .style
-                                        ?.copyWith(
-                                          backgroundColor:
-                                              WidgetStatePropertyAll(
-                                                Colors.transparent,
-                                              ),
-                                          shape: WidgetStatePropertyAll(
-                                            CircleBorder(eccentricity: 0),
-                                          ),
-                                          padding: WidgetStatePropertyAll(
-                                            EdgeInsets.all(0),
-                                          ),
-                                          shadowColor: WidgetStatePropertyAll(
-                                            Colors.transparent,
-                                          ),
-                                        ),
-                                    onPressed: () {
-                                      Scaffold.of(builderContext).openDrawer();
-                                    },
-                                    child: Icon(
-                                      Icons.menu,
-                                      size: 28.sp,
-                                      color: ColorManager.backgroundColor,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          actions:
-                              widget.actions ??
-                              [
-                                IconButton(
-                                  onPressed: context.canPop()
-                                      ? () => context.canPop()
-                                            ? context.pop()
-                                            : showMessage(
-                                                message: "Can not pop",
-                                                context: context,
-                                              )
-                                      : null,
-                                  icon: Icon(
-                                    Icons.arrow_back_ios,
-                                    size: 32.sp,
-                                    color: context.canPop()
-                                        ? ColorManager.backgroundColor
-                                        : Theme.of(context).disabledColor,
-                                  ),
-                                ),
-                              ],
-                          bottom: widget.bottom,
-                        ).animate().slideX(duration: 500.ms),
-                      ),
-                    ),
+
                 body: RepaintBoundary(
                   child: widget.body
                       .animate()

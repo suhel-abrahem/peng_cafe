@@ -47,7 +47,8 @@
         "yourSessionHasExpiredPleaseLoginAgain": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
         "ok": "موافق",
         "tryAgain": "حاول مرة أخرى",
-        "clear": "مسح"
+        "clear": "مسح",
+        "removeAll": "إزالة الجميع"
     },
     "theme": {
         "choose": "اختر سمة",
@@ -67,12 +68,80 @@
         "passwordField": "حقل كلمة المرور مطلوب",
         "requiredField": "هذا الحقل مطلوب",
         "price": "يجب أن يكون السعر أكبر من 0",
-        "quantity": "يجب أن تكون الكمية > 0"
+        "quantity": "يجب أن تكون الكمية > 0",
+        "imageSize": "يجب أن يكون حجم الصورة أقل من 5 ميغابايت",
+        "imageType": "نوع الملف غير مدعوم. يرجى اختيار صورة.",
+        "youcanOnlySelectUpTo5Images": "يمكنك اختيار ما يصل إلى 5 صور فقط",
+        "youcanOnlySelect1Image": "يمكنك اختيار ما يصل إلى 1 صورة فقط",
+        "imageAlreadyExist": "هذه الصورة موجودة بالفعل"
     },
     "loginPage": {
         "welcomeBack": "مرحبًا بعودتك!",
         "pleaseLoginToYourAccount": "يرجى تسجيل الدخول إلى حسابك",
         "dontHaveAnAccount": "ليس لديك حساب؟",
         "registerNow": "سجل الآن"
+    },
+    "homePage": {
+        "title": "الصفحة الرئيسية",
+        "welcome": "مرحبًا، {name}!",
+        "todayIs": "اليوم هو {day}",
+        "youHave": "لديك {count} طلبات جديدة",
+        "viewOrders": "عرض الطلبات"
+    },
+    "ordersPage": {
+        "title": "الطلبات",
+        "noOrders": "لا توجد طلبات لعرضها",
+        "orderNumber": "رقم الطلب: {number}",
+        "customerName": "اسم العميل: {name}",
+        "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+        "status": "الحالة: {status}"
+    },
+    "productsPage": {
+        "title": "المنتجات",
+        "noProducts": "لا توجد منتجات لعرضها",
+        "addProduct": "إضافة منتج",
+        "editProduct": "تعديل المنتج",
+        "deleteProduct": "حذف المنتج",
+        "productName": "اسم المنتج: {name}",
+        "price": "السعر: {price} د.ع",
+        "quantity": "الكمية: {quantity}",
+        "products": "المنتجات",
+        "add": "إضافة",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "selectProduct": "اختر منتجًا",
+        "selectAllProducts": "اختر جميع المنتجات",
+        "selectProductToEditOrDelete": "اختر منتجًا لتعديله أو حذفه",
+        "confirmDelete": "هل أنت متأكد أنك تريد حذف هذا المنتج؟",
+        "yes": "نعم",
+        "no": "لا",
+        "productAddedSuccessfully": "تم إضافة المنتج بنجاح",
+        "productEditedSuccessfully": "تم تعديل المنتج بنجاح",
+        "productDeletedSuccessfully": "تم حذف المنتج بنجاح",
+        "addProductForm": {
+            "title": "إضافة منتج",
+            "nameAr": "اسم المنتج بالعربية",
+            "nameEn": "اسم المنتج بالإنجليزية",
+            "nameKu": "اسم المنتج بالكردية",
+            "price": "السعر",
+            "quantity": "الكمية",
+            "image": "الصورة",
+            "addButton": "إضافة",
+            "productNames": "اسم المنتج",
+            "priceAndQuantity": "السعر والكمية",
+            "selectImage": "اختر صورة",
+            "addImage": "إضافة صورة",
+            "removeImage": "إزالة الصورة",
+            "description": "الوصف",
+            "dragAndDropOrClickToSelectImage": "اسحب وأفلت أو انقر لاختيار صورة"
+        }
+    },
+    "sittingsPage": {
+        "title": "الإعدادات",
+        "theme": "السمة",
+        "language": "اللغة",
+        "notifications": "الإشعارات",
+        "account": "الحساب",
+        "logout": "تسجيل الخروج"
     }
 }
