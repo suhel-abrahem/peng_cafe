@@ -189,12 +189,12 @@ ThemeData darkTheme() {
       contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
       filled: true,
       fillColor: ColorManager.darkPrimaryContainerColor.withValues(alpha: 0.33),
-      hoverColor: ColorManager.primarySwatch.shade100,
+      hoverColor: ColorManager.primarySwatch.shade300,
       focusColor: ColorManager.surfaceColor,
       labelStyle: TextStyle(
         fontFamily: FontConstants.mirzaFontFamily,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
         color: ColorManager.darkTextColor,
       ),
       errorStyle: TextStyle(
@@ -705,8 +705,8 @@ ThemeData lightTheme() {
       ),
       labelStyle: TextStyle(
         fontFamily: FontConstants.mirzaFontFamily,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
         color: ColorManager.secondaryTextColor,
       ),
       errorStyle: TextStyle(

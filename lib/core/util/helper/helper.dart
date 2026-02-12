@@ -87,8 +87,8 @@ class Helper {
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
           color: readText ? Theme.of(context).colorScheme.error : null,
           fontFamily: FontConstants.fontFamily(context.locale),
-          fontSize: 22.sp,
-          fontWeight: FontWeight.w800,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w600,
         ),
 
         children: [

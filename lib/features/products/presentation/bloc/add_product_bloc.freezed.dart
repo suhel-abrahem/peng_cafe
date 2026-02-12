@@ -228,12 +228,12 @@ $AddProductEventAddProductCopyWith<AddProductEventAddProduct> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddProductEventAddProduct&&const DeepCollectionEquality().equals(other.productModel, productModel));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddProductEventAddProduct&&(identical(other.productModel, productModel) || other.productModel == productModel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(productModel));
+int get hashCode => Object.hash(runtimeType,productModel);
 
 @override
 String toString() {
@@ -252,7 +252,7 @@ $Res call({
 });
 
 
-
+$ProductModelCopyWith<$Res> get productModel;
 
 }
 /// @nodoc
@@ -265,14 +265,23 @@ class _$AddProductEventAddProductCopyWithImpl<$Res>
 
 /// Create a copy of AddProductEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? productModel = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? productModel = null,}) {
   return _then(AddProductEventAddProduct(
-productModel: freezed == productModel ? _self.productModel : productModel // ignore: cast_nullable_to_non_nullable
+productModel: null == productModel ? _self.productModel : productModel // ignore: cast_nullable_to_non_nullable
 as ProductModel,
   ));
 }
 
-
+/// Create a copy of AddProductEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductModelCopyWith<$Res> get productModel {
+  
+  return $ProductModelCopyWith<$Res>(_self.productModel, (value) {
+    return _then(_self.copyWith(productModel: value));
+  });
+}
 }
 
 /// @nodoc
@@ -319,14 +328,15 @@ extension AddProductStatePatterns on AddProductState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AddProductStateInitial value)?  initial,TResult Function( AddProductStateLoading value)?  loading,TResult Function( AddProductStateSuccess value)?  success,TResult Function( AddProductStateError value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AddProductStateInitial value)?  initial,TResult Function( AddProductStateLoading value)?  loading,TResult Function( AddProductStateSuccess value)?  success,TResult Function( AddProductStateError value)?  error,TResult Function( AddProductStateItemsAlreadyExists value)?  itemsAlreadyExists,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case AddProductStateInitial() when initial != null:
 return initial(_that);case AddProductStateLoading() when loading != null:
 return loading(_that);case AddProductStateSuccess() when success != null:
 return success(_that);case AddProductStateError() when error != null:
-return error(_that);case _:
+return error(_that);case AddProductStateItemsAlreadyExists() when itemsAlreadyExists != null:
+return itemsAlreadyExists(_that);case _:
   return orElse();
 
 }
@@ -344,14 +354,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AddProductStateInitial value)  initial,required TResult Function( AddProductStateLoading value)  loading,required TResult Function( AddProductStateSuccess value)  success,required TResult Function( AddProductStateError value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AddProductStateInitial value)  initial,required TResult Function( AddProductStateLoading value)  loading,required TResult Function( AddProductStateSuccess value)  success,required TResult Function( AddProductStateError value)  error,required TResult Function( AddProductStateItemsAlreadyExists value)  itemsAlreadyExists,}){
 final _that = this;
 switch (_that) {
 case AddProductStateInitial():
 return initial(_that);case AddProductStateLoading():
 return loading(_that);case AddProductStateSuccess():
 return success(_that);case AddProductStateError():
-return error(_that);case _:
+return error(_that);case AddProductStateItemsAlreadyExists():
+return itemsAlreadyExists(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -368,14 +379,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AddProductStateInitial value)?  initial,TResult? Function( AddProductStateLoading value)?  loading,TResult? Function( AddProductStateSuccess value)?  success,TResult? Function( AddProductStateError value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AddProductStateInitial value)?  initial,TResult? Function( AddProductStateLoading value)?  loading,TResult? Function( AddProductStateSuccess value)?  success,TResult? Function( AddProductStateError value)?  error,TResult? Function( AddProductStateItemsAlreadyExists value)?  itemsAlreadyExists,}){
 final _that = this;
 switch (_that) {
 case AddProductStateInitial() when initial != null:
 return initial(_that);case AddProductStateLoading() when loading != null:
 return loading(_that);case AddProductStateSuccess() when success != null:
 return success(_that);case AddProductStateError() when error != null:
-return error(_that);case _:
+return error(_that);case AddProductStateItemsAlreadyExists() when itemsAlreadyExists != null:
+return itemsAlreadyExists(_that);case _:
   return null;
 
 }
@@ -392,13 +404,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( String message)?  error,TResult Function( String message)?  itemsAlreadyExists,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AddProductStateInitial() when initial != null:
 return initial();case AddProductStateLoading() when loading != null:
 return loading();case AddProductStateSuccess() when success != null:
 return success();case AddProductStateError() when error != null:
-return error(_that.message);case _:
+return error(_that.message);case AddProductStateItemsAlreadyExists() when itemsAlreadyExists != null:
+return itemsAlreadyExists(_that.message);case _:
   return orElse();
 
 }
@@ -416,13 +429,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( String message)  error,required TResult Function( String message)  itemsAlreadyExists,}) {final _that = this;
 switch (_that) {
 case AddProductStateInitial():
 return initial();case AddProductStateLoading():
 return loading();case AddProductStateSuccess():
 return success();case AddProductStateError():
-return error(_that.message);case _:
+return error(_that.message);case AddProductStateItemsAlreadyExists():
+return itemsAlreadyExists(_that.message);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -439,13 +453,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( String message)?  error,TResult? Function( String message)?  itemsAlreadyExists,}) {final _that = this;
 switch (_that) {
 case AddProductStateInitial() when initial != null:
 return initial();case AddProductStateLoading() when loading != null:
 return loading();case AddProductStateSuccess() when success != null:
 return success();case AddProductStateError() when error != null:
-return error(_that.message);case _:
+return error(_that.message);case AddProductStateItemsAlreadyExists() when itemsAlreadyExists != null:
+return itemsAlreadyExists(_that.message);case _:
   return null;
 
 }
@@ -607,6 +622,72 @@ class _$AddProductStateErrorCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(AddProductStateError(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class AddProductStateItemsAlreadyExists implements AddProductState {
+  const AddProductStateItemsAlreadyExists(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of AddProductState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AddProductStateItemsAlreadyExistsCopyWith<AddProductStateItemsAlreadyExists> get copyWith => _$AddProductStateItemsAlreadyExistsCopyWithImpl<AddProductStateItemsAlreadyExists>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddProductStateItemsAlreadyExists&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'AddProductState.itemsAlreadyExists(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AddProductStateItemsAlreadyExistsCopyWith<$Res> implements $AddProductStateCopyWith<$Res> {
+  factory $AddProductStateItemsAlreadyExistsCopyWith(AddProductStateItemsAlreadyExists value, $Res Function(AddProductStateItemsAlreadyExists) _then) = _$AddProductStateItemsAlreadyExistsCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$AddProductStateItemsAlreadyExistsCopyWithImpl<$Res>
+    implements $AddProductStateItemsAlreadyExistsCopyWith<$Res> {
+  _$AddProductStateItemsAlreadyExistsCopyWithImpl(this._self, this._then);
+
+  final AddProductStateItemsAlreadyExists _self;
+  final $Res Function(AddProductStateItemsAlreadyExists) _then;
+
+/// Create a copy of AddProductState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(AddProductStateItemsAlreadyExists(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));

@@ -1,8 +1,13 @@
 import 'dart:io';
 
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:peng_cafe/core/resource/color_manager.dart';
+import 'package:peng_cafe/generated/locale_keys.g.dart';
+
+import '../../../constant/font_constants.dart';
 
 class ImageDropPicker extends StatefulWidget {
   final File? initialImage;
@@ -20,7 +25,7 @@ class ImageDropPicker extends StatefulWidget {
 
 class _ImageDropPickerState extends State<ImageDropPicker> {
   File? _image;
-  bool _dragging = false;
+  bool _dragging = true;
 
   @override
   void initState() {
@@ -80,12 +85,21 @@ class _ImageDropPickerState extends State<ImageDropPicker> {
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.image, size: 48, color: Colors.grey),
+                  children: [
+                    Icon(
+                      Icons.image,
+                      size: 48,
+                      color: ColorManager.darkTextColor,
+                    ),
                     SizedBox(height: 8),
                     Text(
-                      'Drop image here or click to select',
-                      style: TextStyle(color: Colors.grey),
+                      LocaleKeys
+                          .productsPage_addProductForm_dragAndDropOrClickToSelectImage
+                          .tr(),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontFamily: FontConstants.fontFamily(context.locale),
+                        color: ColorManager.darkTextColor,
+                      ),
                     ),
                   ],
                 ),

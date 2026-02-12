@@ -66,4 +66,21 @@ class ProductsDao extends DatabaseAccessor<AppDatabase>
   Future<int> deleteProduct(int id) {
     return (delete(productsTable)..where((t) => t.id.equals(id))).go();
   }
+
+  // Batch delete selected products
+  Future<int> deleteProducts(List<int> ids) {
+    return (delete(productsTable)..where((t) => t.id.isIn(ids))).go();
+  }
+
+  // Delete all products (for testing or reset)
+  Future<int> deleteAllProducts() {
+    return (delete(productsTable)).go();
+  }
+
+  // delete all with out excluded ids
+  Future<int> deleteProductsExcludingIds(List<int> excludedIds) {
+    return (delete(
+      productsTable,
+    )..where((t) => t.id.isNotIn(excludedIds))).go();
+  }
 }

@@ -1,23 +1,32 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+
+import 'package:peng_cafe/core/util/app_directories.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
 
+import 'image_compression_helper.dart';
+
 class ImageStorageHelper {
-  static Future<String?> saveProductImage(File? image) async {
+  static Future<String?> saveProductImage(
+    File? image, {
+    String folder = "products",
+  }) async {
     if (image == null) return null;
 
-    final directory = await getApplicationDocumentsDirectory();
-    final imagesDir = Directory(p.join(directory.path, 'images', 'products'));
+    final compressed = await ImageCompressionHelper.compressImage(image);
+
+    final directory = await AppDirectories.imagesDir;
+    final imagesDir = Directory(p.join(directory.path, folder));
 
     if (!await imagesDir.exists()) {
       await imagesDir.create(recursive: true);
     }
 
-    final extension = p.extension(image.path);
-    final fileName = 'product_${const Uuid().v4()}$extension';
+    final extension = p.extension(compressed.path);
+    final fileName =
+        '${folder}_${DateTime.now().millisecondsSinceEpoch}_${const Uuid().v4()}$extension';
 
-    final savedImage = await image.copy(p.join(imagesDir.path, fileName));
+    final savedImage = await compressed.copy(p.join(imagesDir.path, fileName));
 
     return savedImage.path;
   }

@@ -25,6 +25,12 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
       ) async {
         if (dataState is DataSuccess) {
           emit(const AddProductState.success());
+        } else if (dataState is ItemsAlreadyExistsDataState) {
+          emit(
+            AddProductState.itemsAlreadyExists(
+              dataState.error ?? "Product already exists",
+            ),
+          );
         } else {
           emit(
             AddProductState.error(

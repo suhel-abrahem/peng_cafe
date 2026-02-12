@@ -51,3 +51,7 @@ class NotFoundDataState<T> extends DataState<T> {
 class LogInState<T> extends DataState<T> {
   const LogInState({super.data, super.error});
 }
+
+class ItemsAlreadyExistsDataState<T> extends DataState<T> {
+  const ItemsAlreadyExistsDataState({required super.error});
+}

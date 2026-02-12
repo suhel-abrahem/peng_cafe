@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:peng_cafe/core/DB/app_database.dart';
 import 'package:peng_cafe/core/resource/data_state.dart';
+import 'package:peng_cafe/core/usecase/usecase.dart';
 import 'package:peng_cafe/features/products/data/models/product_model.dart';
 import 'package:peng_cafe/features/products/domain/entities/product_entity.dart';
 import 'package:peng_cafe/features/products/domain/repositories/product_repository.dart';
@@ -11,67 +13,168 @@ import '../../../../core/util/helper/image_storage_helper.dart';
 class ProductRepositoryImplement implements ProductRepository {
   final AppDatabase database;
   ProductRepositoryImplement(this.database);
-  @override
-  Future<DataState<void>?> deleteProduct(ProductModel? productModel) async {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
-  }
 
   @override
-  Future<DataState<List<ProductEntity>?>?> getAllProducts(
-    ProductModel? locale,
+  Future<DataState<List<ProductEntity>>> getAllProducts(
+    ProductModel? params,
   ) async {
-    DataState<List<ProductEntity>?>? dataState;
     try {
-      List<ProductsTableData>? rawProducts = await database.productsDao
-          .getAllProducts();
+      final rows = await database.productsDao.getAllProducts();
 
-      final products = rawProducts
-          .map((row) => productFromRow(row, locale?.locale ?? 'ar'))
+      if (rows.isEmpty) {
+        return const NoDataDataState();
+      }
+
+      final products = rows
+          .map((row) => productFromRow(row, params?.locale ?? 'ar'))
           .toList();
-      dataState = DataSuccess(data: products);
+
+      return DataSuccess(data: products);
     } catch (e) {
-      dataState = DataFailed(error: e.toString());
-      return dataState;
+      return DataFailed(error: e.toString());
     }
-    return dataState;
   }
 
   @override
-  Future<DataState<ProductEntity>?> getProduct(ProductModel? productModel) {
-    // TODO: implement getProduct
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<DataState<void>?> insertProduct(ProductModel? productModel) async {
-    DataState<void>? dataState;
+  Future<DataState<ProductEntity>> getProduct(ProductModel? product) async {
     try {
-      final imagePath = await ImageStorageHelper.saveProductImage(
-        productModel?.imagePath,
+      final row = await database.productsDao.getProductById(product?.id ?? 0);
+
+      if (row == null) {
+        return const NotFoundDataState(error: 'Product not found');
+      }
+
+      final entity = productFromRow(row, product?.locale ?? 'ar');
+
+      return DataSuccess(data: entity);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<void>> insertProduct(ProductModel? product) async {
+    String? savedImagePath;
+
+    try {
+      // 1️⃣ check if product exists
+      final exists = await database.productsDao.productNameExists(
+        nameAr: product?.nameAr ?? '',
+        nameEn: product?.nameEn,
+        nameKu: product?.nameKu,
       );
+
+      if (exists) {
+        return const ItemsAlreadyExistsDataState(
+          error: 'Product already exists',
+        );
+      }
+
+      // 2️⃣ save image
+      savedImagePath = await ImageStorageHelper.saveProductImage(
+        product?.imagePath,
+      );
+
+      // 3️⃣ insert
       final companion = ProductsTableCompanion(
-        nameAr: Value(productModel?.nameAr ?? ""),
-        nameEn: Value(productModel?.nameEn),
-        nameKu: Value(productModel?.nameKu),
-        descriptionAr: Value(productModel?.descriptionAr),
-        descriptionEn: Value(productModel?.descriptionEn),
-        descriptionKu: Value(productModel?.descriptionKu),
-        price: Value(productModel?.price ?? 0.0),
-        quantity: Value(productModel?.quantity ?? 0),
+        nameAr: Value(product?.nameAr ?? ''),
+        nameEn: Value(product?.nameEn),
+        nameKu: Value(product?.nameKu),
+        descriptionAr: Value(product?.descriptionAr),
+        descriptionEn: Value(product?.descriptionEn),
+        descriptionKu: Value(product?.descriptionKu),
+        price: Value(product?.price ?? 0.0),
+        quantity: Value(product?.quantity ?? 0),
+        imagePath: Value(savedImagePath),
+      );
+
+      await database.productsDao.insertProduct(companion);
+
+      return const DataSuccess(data: null);
+    } on SqliteException catch (e) {
+      // rollback image if db failed
+      await ImageStorageHelper.deleteImage(savedImagePath);
+
+      if (e.message.contains('UNIQUE')) {
+        return const ItemsAlreadyExistsDataState(
+          error: 'Product already exists',
+        );
+      }
+      return DataFailed(error: e.message);
+    } catch (e) {
+      // rollback image
+      await ImageStorageHelper.deleteImage(savedImagePath);
+      return DataFailed(error: e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<void>> updateProduct(ProductModel? product) async {
+    try {
+      final old = await database.productsDao.getProductById(product?.id ?? 0);
+
+      if (old == null) {
+        return const NotFoundDataState(error: 'Product not found');
+      }
+
+      String? imagePath = old.imagePath;
+
+      if (product?.imagePath != null) {
+        imagePath = await ImageStorageHelper.saveProductImage(
+          product?.imagePath,
+        );
+        await ImageStorageHelper.deleteImage(old.imagePath);
+      }
+
+      final updated = old.copyWith(
+        nameAr: product?.nameAr ?? '',
+        nameEn: Value(product?.nameEn),
+        nameKu: Value(product?.nameKu),
+        descriptionAr: Value(product?.descriptionAr),
+        descriptionEn: Value(product?.descriptionEn),
+        descriptionKu: Value(product?.descriptionKu),
+        price: product?.price,
+        quantity: (product?.quantity ?? 0),
         imagePath: Value(imagePath),
       );
-      await database.productsDao.insertProduct(companion);
-      dataState = const DataSuccess(data: null);
+
+      await database.productsDao.updateProduct(updated);
+
+      return const DataSuccess(data: null);
     } catch (e) {
-      dataState = DataFailed(error: e.toString());
+      return DataFailed(error: e.toString());
     }
-    return Future.value(dataState);
   }
 
   @override
-  Future<DataState<void>?> updateProduct(ProductModel? productModel) {
-    // TODO: implement updateProduct
-    throw UnimplementedError();
+  Future<DataState<void>?> deleteAllExceptExcludedProducts(
+    List<int> excludedIds,
+  ) async {
+    try {
+      await database.productsDao.deleteProductsExcludingIds(excludedIds);
+      return const DataSuccess(data: null);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<void>?> deleteAllProducts(NoParams params) async {
+    try {
+      await database.productsDao.deleteAllProducts();
+      return const DataSuccess(data: null);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<void>?> deleteSelectedProducts(List<int> ids) async {
+    try {
+      await database.productsDao.deleteProducts(ids);
+      return const DataSuccess(data: null);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
   }
 }

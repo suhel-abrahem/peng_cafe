@@ -6,4 +6,6 @@ class AddProductState with _$AddProductState {
   const factory AddProductState.loading() = AddProductStateLoading;
   const factory AddProductState.success() = AddProductStateSuccess;
   const factory AddProductState.error(String message) = AddProductStateError;
+  const factory AddProductState.itemsAlreadyExists(String message) =
+      AddProductStateItemsAlreadyExists;
 }

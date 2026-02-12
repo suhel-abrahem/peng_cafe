@@ -131,7 +131,7 @@ class AddProductForm extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //price
                       CustomInputField(
@@ -157,27 +157,30 @@ class AddProductForm extends StatelessWidget {
                         },
                       ),
                       //quantity
-                      CustomInputField(
-                        width: 250.w,
-                        height: 50.h,
-                        isRequired: true,
-                        label: LocaleKeys.productsPage_addProductForm_quantity
-                            .tr(),
-                        validator: (value) {
-                          if (value == null ||
-                              value.toString().trim().isEmpty) {
-                            return LocaleKeys.validation_requiredField.tr();
-                          }
-                          if (int.tryParse(value.toString()) == null) {
-                            return LocaleKeys.validation_quantity.tr();
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          productModel = productModel.copyWith(
-                            quantity: int.tryParse(value.toString()) ?? 0,
-                          );
-                        },
+                      Padding(
+                        padding: EdgeInsetsDirectional.only(start: 16.w),
+                        child: CustomInputField(
+                          width: 250.w,
+                          height: 50.h,
+                          isRequired: true,
+                          label: LocaleKeys.productsPage_addProductForm_quantity
+                              .tr(),
+                          validator: (value) {
+                            if (value == null ||
+                                value.toString().trim().isEmpty) {
+                              return LocaleKeys.validation_requiredField.tr();
+                            }
+                            if (int.tryParse(value.toString()) == null) {
+                              return LocaleKeys.validation_quantity.tr();
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            productModel = productModel.copyWith(
+                              quantity: int.tryParse(value.toString()) ?? 0,
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -195,37 +198,64 @@ class AddProductForm extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: ImageDropPicker(
-                    onImageSelected: (value) {
-                      productModel = productModel.copyWith(imagePath: value);
-                    },
-                    initialImage: productModel.imagePath,
+                  child: SizedBox(
+                    width: 500.w,
+                    height: 200.h,
+                    child: ImageDropPicker(
+                      onImageSelected: (value) {
+                        productModel = productModel.copyWith(imagePath: value);
+                      },
+                      initialImage: productModel.imagePath,
+                    ),
                   ),
                 ),
-                BlocBuilder<AddProductBloc, AddProductState>(
-                  builder: (context, state) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          context.read<AddProductBloc>().add(
-                            AddProductEvent.addProduct(
-                              productModel: productModel,
-                            ),
-                          );
-                        }
-                      },
-                      child: state is AddProductStateLoading
-                          ? const CircularProgressIndicator()
-                          : Text(
-                              LocaleKeys.productsPage_add.tr(),
-                              style: TextStyle(
-                                fontFamily: FontConstants.fontFamily(
-                                  context.locale,
-                                ),
-                              ),
-                            ),
-                    );
-                  },
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24.h),
+                  child: BlocBuilder<AddProductBloc, AddProductState>(
+                    builder: (context, state) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState?.validate() ?? false) {
+                                context.read<AddProductBloc>().add(
+                                  AddProductEvent.addProduct(
+                                    productModel: productModel,
+                                  ),
+                                );
+                              }
+                            },
+                            child: state is AddProductStateLoading
+                                ? const CircularProgressIndicator()
+                                : Text(
+                                    LocaleKeys.productsPage_add.tr(),
+                                    style: TextStyle(
+                                      fontFamily: FontConstants.fontFamily(
+                                        context.locale,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: state is AddProductStateLoading
+                                ? const CircularProgressIndicator()
+                                : Text(
+                                    LocaleKeys.common_close.tr(),
+                                    style: TextStyle(
+                                      fontFamily: FontConstants.fontFamily(
+                                        context.locale,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

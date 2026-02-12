@@ -7,6 +7,7 @@ import 'package:peng_cafe/core/DB/daos/products_dao.dart';
 import 'package:peng_cafe/core/DB/daos/users_dao.dart';
 import 'package:peng_cafe/core/DB/tables/products_table.dart';
 
+import '../util/app_directories.dart';
 import 'tables/users_table.dart';
 
 part 'app_database.g.dart';
@@ -23,8 +24,8 @@ class AppDatabase extends _$AppDatabase {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File('${dbFolder.path}/peng_cafe.db');
+    final dbDir = await AppDirectories.databaseDir;
+    final file = File('${dbDir.path}/bytex_cafe.db');
     return NativeDatabase(file);
   });
 }
