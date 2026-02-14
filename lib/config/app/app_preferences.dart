@@ -223,4 +223,88 @@ class AppPreferences {
       ),
     );
   }
+
+  Future<void> setTablesQuantity({required int quantity}) async {
+    await _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLES_QUANTITY,
+      quantity,
+    );
+  }
+
+  int getTablesQuantity() {
+    return _sharedPreferences.getInt(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLES_QUANTITY,
+        ) ??
+        0;
+  }
+
+  Future<void> setPoolTablesQuantity({required int quantity}) async {
+    await _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_POOL_TABLES_QUANTITY,
+      quantity,
+    );
+  }
+
+  int getPoolTablesQuantity() {
+    return _sharedPreferences.getInt(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_POOL_TABLES_QUANTITY,
+        ) ??
+        0;
+  }
+
+  Future<void> setVideoGamesTablesQuantity({required int quantity}) async {
+    await _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_VIDEO_GAMES_TABLES,
+      quantity,
+    );
+  }
+
+  int getVideoGamesTablesQuantity() {
+    return _sharedPreferences.getInt(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_VIDEO_GAMES_TABLES,
+        ) ??
+        0;
+  }
+
+  Future<void> setFishaTablesQuantity({required int quantity}) async {
+    await _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_FISHA_TABLES,
+      quantity,
+    );
+  }
+
+  int getFishaTablesQuantity() {
+    return _sharedPreferences.getInt(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_FISHA_TABLES,
+        ) ??
+        0;
+  }
+
+  Future<void> setTableBallTablesQuantity({required int quantity}) async {
+    await _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLE_BALL_TABLES,
+      quantity,
+    );
+  }
+
+  int getTableBallTablesQuantity() {
+    return _sharedPreferences.getInt(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLE_BALL_TABLES,
+        ) ??
+        0;
+  }
+
+  Future<void> setTablesType({required List<String> type}) async {
+    await _sharedPreferences.setStringList(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLES_TYPE,
+      type,
+    );
+  }
+
+  List<String> getTablesType() {
+    return _sharedPreferences.getStringList(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_TABLES_TYPE,
+        ) ??
+        [];
+  }
 }

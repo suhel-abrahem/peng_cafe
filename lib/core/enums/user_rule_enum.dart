@@ -1,1 +1,1 @@
-enum UserRule { admin, warehouseAdmin }
+enum UserRule { owner, cashier }

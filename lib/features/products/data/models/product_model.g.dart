@@ -20,7 +20,12 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
       imagePath: const FileJsonConverter().fromJson(
         json['imagePath'] as String?,
       ),
-      quantity: (json['quantity'] as num?)?.toInt() ?? 0,
+      quantity: (json['quantity'] as num?)?.toDouble() ?? 0.0,
+      discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
+      productType:
+          $enumDecodeNullable(_$ProductTypeEnumEnumMap, json['productType']) ??
+          ProductTypeEnum.foodAndBeverage,
+      costPrice: (json['costPrice'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
@@ -36,4 +41,12 @@ Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
       'price': instance.price,
       'imagePath': const FileJsonConverter().toJson(instance.imagePath),
       'quantity': instance.quantity,
+      'discount': instance.discount,
+      'productType': _$ProductTypeEnumEnumMap[instance.productType],
+      'costPrice': instance.costPrice,
     };
+
+const _$ProductTypeEnumEnumMap = {
+  ProductTypeEnum.foodAndBeverage: 'foodAndBeverage',
+  ProductTypeEnum.games: 'games',
+};

@@ -79,7 +79,7 @@ class _ImageDropPickerState extends State<ImageDropPicker> {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.file(
                     _image!,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     width: double.infinity,
                   ),
                 )

@@ -1,0 +1,1 @@
+enum ProductTypeEnum { foodAndBeverage, games }

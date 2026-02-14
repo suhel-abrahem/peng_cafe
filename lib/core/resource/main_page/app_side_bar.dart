@@ -47,7 +47,7 @@ class _AppSideBarState extends State<AppSideBar> {
     required String title,
   }) {
     return Padding(
-      padding: EdgeInsets.only(top: 50.h),
+      padding: EdgeInsets.only(top: 40.h),
       child: SizedBox(
         height: 56.h,
 
@@ -229,7 +229,7 @@ class _AppSideBarState extends State<AppSideBar> {
                     child: _menuItem(
                       index: 3,
                       icon: Icons.settings,
-                      title: LocaleKeys.sittingsPage_title.tr(),
+                      title: LocaleKeys.settingsPage_title.tr(),
                     ),
                   ),
 

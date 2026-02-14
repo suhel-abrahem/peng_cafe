@@ -8,6 +8,7 @@ import 'package:peng_cafe/features/products/domain/entities/product_entity.dart'
 import 'package:peng_cafe/features/products/domain/repositories/product_repository.dart';
 
 import '../../../../core/DB/mappers/product_mapper.dart';
+import '../../../../core/enums/product_type_enum/product_type_enum.dart';
 import '../../../../core/util/helper/image_storage_helper.dart';
 
 class ProductRepositoryImplement implements ProductRepository {
@@ -84,8 +85,13 @@ class ProductRepositoryImplement implements ProductRepository {
         descriptionEn: Value(product?.descriptionEn),
         descriptionKu: Value(product?.descriptionKu),
         price: Value(product?.price ?? 0.0),
-        quantity: Value(product?.quantity ?? 0),
+        quantity: Value(product?.quantity ?? 0.0),
         imagePath: Value(savedImagePath),
+        costPrice: Value(product?.costPrice ?? 0.0),
+        discount: Value(product?.discount ?? 0.0),
+        productType: Value(
+          (product?.productType ?? ProductTypeEnum.foodAndBeverage),
+        ),
       );
 
       await database.productsDao.insertProduct(companion);
@@ -134,8 +140,11 @@ class ProductRepositoryImplement implements ProductRepository {
         descriptionEn: Value(product?.descriptionEn),
         descriptionKu: Value(product?.descriptionKu),
         price: product?.price,
-        quantity: (product?.quantity ?? 0),
+        quantity: Value(product?.quantity ?? 0.0),
         imagePath: Value(imagePath),
+        costPrice: Value(product?.costPrice ?? 0.0),
+        discount: Value(product?.discount ?? 0.0),
+        productType: (product?.productType ?? ProductTypeEnum.foodAndBeverage),
       );
 
       await database.productsDao.updateProduct(updated);

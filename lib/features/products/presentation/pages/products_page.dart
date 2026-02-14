@@ -74,34 +74,55 @@ class ProductsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //add product button
-                        ElevatedButton(
-                          onPressed: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withValues(alpha: 0.66),
-                                title: Text(
-                                  LocaleKeys.productsPage_addProduct.tr(),
-                                  style: TextStyle(
-                                    fontFamily: FontConstants.fontFamily(
-                                      context.locale,
+                        Builder(
+                          builder: (context) {
+                            return ElevatedButton(
+                              onPressed: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) => Center(
+                                    child: SizedBox(
+                                      height: 800.h,
+                                      child: AlertDialog(
+                                        backgroundColor: Theme.of(dialogContext)
+                                            .scaffoldBackgroundColor
+                                            .withValues(alpha: 0.66),
+                                        title: Text(
+                                          LocaleKeys.productsPage_addProduct
+                                              .tr(),
+                                          style: TextStyle(
+                                            fontFamily:
+                                                FontConstants.fontFamily(
+                                                  dialogContext.locale,
+                                                ),
+                                          ),
+                                        ),
+                                        content: Center(
+                                          child: AddProductForm(
+                                            onProductAdded: (value) {
+                                              if (value) {
+                                                context.read<GetProductsBloc>().add(
+                                                  const GetProductsEvent.getProducts(),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
+                                );
+                              },
+                              child: Text(
+                                LocaleKeys.productsPage_addProduct.tr(),
+                                style: TextStyle(
+                                  fontFamily: FontConstants.fontFamily(
+                                    context.locale,
+                                  ),
                                 ),
-                                content: Center(child: AddProductForm()),
                               ),
                             );
                           },
-                          child: Text(
-                            LocaleKeys.productsPage_addProduct.tr(),
-                            style: TextStyle(
-                              fontFamily: FontConstants.fontFamily(
-                                context.locale,
-                              ),
-                            ),
-                          ),
                         ),
 
                         //delete and edit row with selections
@@ -316,6 +337,7 @@ class ProductsPage extends StatelessWidget {
                                           mainAxisExtent: 300.h,
                                         ),
                                     itemCount: value.products.length,
+
                                     itemBuilder: (context, index) {
                                       print(
                                         "product id: //${value.products[index]}",

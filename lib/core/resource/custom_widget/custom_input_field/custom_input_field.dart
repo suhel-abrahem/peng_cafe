@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constant/font_constants.dart';
 import '../../../enums/psition_enum.dart';
 import '../../../util/helper/helper.dart';
+import 'dart:ui' as ui;
 
 class CustomInputField extends StatelessWidget {
   final TextEditingController? controller;
@@ -44,6 +45,7 @@ class CustomInputField extends StatelessWidget {
   final int? minLines;
   final Function(String?)? onSaved;
   final TextStyle? errorStyle;
+  final ui.TextDirection? textDirection;
   const CustomInputField({
     super.key,
     this.controller,
@@ -82,6 +84,7 @@ class CustomInputField extends StatelessWidget {
     this.hintText,
     this.minLines,
     this.errorStyle,
+    this.textDirection,
   });
 
   @override
@@ -113,6 +116,7 @@ class CustomInputField extends StatelessWidget {
         validator: validator,
         textAlign: textAlign ?? TextAlign.start,
         readOnly: readOnly ?? false,
+        textDirection: textDirection,
         decoration: InputDecoration(
           errorStyle:
               errorStyle ??

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:peng_cafe/core/enums/product_type_enum/product_type_enum.dart';
 
 import '../../../../core/resource/json_converter/file_json_converter.dart';
 part 'product_model.freezed.dart';
@@ -19,7 +20,10 @@ abstract class ProductModel with _$ProductModel {
     @Default("") String? descriptionKu,
     @Default(0.0) double price,
     @FileJsonConverter() File? imagePath,
-    @Default(0) int quantity,
+    @Default(0.0) double? quantity,
+    @Default(0.0) double? discount,
+    @Default(ProductTypeEnum.foodAndBeverage) ProductTypeEnum? productType,
+    @Default(0.0) double? costPrice,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

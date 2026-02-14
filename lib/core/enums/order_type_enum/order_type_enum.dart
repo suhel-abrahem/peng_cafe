@@ -1,0 +1,1 @@
+enum OrderTypeEnum { dineIn, takeAway }

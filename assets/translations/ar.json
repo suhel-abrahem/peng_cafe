@@ -73,7 +73,8 @@
         "imageType": "نوع الملف غير مدعوم. يرجى اختيار صورة.",
         "youcanOnlySelectUpTo5Images": "يمكنك اختيار ما يصل إلى 5 صور فقط",
         "youcanOnlySelect1Image": "يمكنك اختيار ما يصل إلى 1 صورة فقط",
-        "imageAlreadyExist": "هذه الصورة موجودة بالفعل"
+        "imageAlreadyExist": "هذه الصورة موجودة بالفعل",
+        "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
     },
     "loginPage": {
         "welcomeBack": "مرحبًا بعودتك!",
@@ -97,12 +98,13 @@
         "status": "الحالة: {status}"
     },
     "productsPage": {
-        "title": "المنتجات",
+        "title": "صفحة المنتجات",
         "noProducts": "لا توجد منتجات لعرضها",
         "addProduct": "إضافة منتج",
         "editProduct": "تعديل المنتج",
         "deleteProduct": "حذف المنتج",
         "productName": "اسم المنتج: {name}",
+        "description": "الوصف: {description}",
         "price": "السعر: {price} د.ع",
         "quantity": "الكمية: {quantity}",
         "products": "المنتجات",
@@ -123,12 +125,20 @@
             "nameAr": "اسم المنتج بالعربية",
             "nameEn": "اسم المنتج بالإنجليزية",
             "nameKu": "اسم المنتج بالكردية",
+            "descriptionAr": "الوصف بالعربية",
+            "descriptionEn": "الوصف بالإنجليزية",
+            "descriptionKu": "الوصف بالكردية",
             "price": "السعر",
             "quantity": "الكمية",
             "image": "الصورة",
             "addButton": "إضافة",
             "productNames": "اسم المنتج",
-            "priceAndQuantity": "السعر والكمية",
+            "priceAndQuantityAndType": "السعر والكمية والنوع",
+            "type": "النوع",
+            "costPrice": "سعر التكلفة",
+            "discount": "الخصم",
+            "foodAndBeverage": "طعام وشراب",
+            "games": "ألعاب",
             "selectImage": "اختر صورة",
             "addImage": "إضافة صورة",
             "removeImage": "إزالة الصورة",
@@ -136,12 +146,28 @@
             "dragAndDropOrClickToSelectImage": "اسحب وأفلت أو انقر لاختيار صورة"
         }
     },
-    "sittingsPage": {
+    "settingsPage": {
         "title": "الإعدادات",
         "theme": "السمة",
         "language": "اللغة",
         "notifications": "الإشعارات",
         "account": "الحساب",
-        "logout": "تسجيل الخروج"
+        "logout": "تسجيل الخروج",
+        "tablesQuantity": "عدد الطاولات",
+        "poolTablesQuantity": "عدد طاولات البلياردو",
+        "videoGamesTablesQuantity": "عدد طاولات ألعاب الفيديو",
+        "fishaTablesQuantity": "عدد طاولات الفيشا",
+        "tableBallTablesQuantity": "عدد طاولات كرة الطاولة",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح",
+        "tablesSettings": {
+            "title": "إعدادات الطاولات",
+            "tablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية الطاولات أكبر من 0",
+            "poolTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات البلياردو أكبر من 0",
+            "videoGamesTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات ألعاب الفيديو أكبر من 0",
+            "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
+            "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0"
+        }
     }
 }

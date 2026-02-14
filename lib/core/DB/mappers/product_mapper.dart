@@ -26,6 +26,9 @@ ProductEntity productFromRow(ProductsTableData row, String locale) {
     description: description,
     price: row.price,
     quantity: row.quantity,
+    costPrice: row.costPrice,
+    discount: row.discount,
+    productType: row.productType,
     imagePath: row.imagePath,
     createdAt: row.createdAt,
   );

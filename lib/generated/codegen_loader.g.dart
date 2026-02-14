@@ -89,7 +89,8 @@ class CodegenLoader extends AssetLoader{
     "imageType": "نوع الملف غير مدعوم. يرجى اختيار صورة.",
     "youcanOnlySelectUpTo5Images": "يمكنك اختيار ما يصل إلى 5 صور فقط",
     "youcanOnlySelect1Image": "يمكنك اختيار ما يصل إلى 1 صورة فقط",
-    "imageAlreadyExist": "هذه الصورة موجودة بالفعل"
+    "imageAlreadyExist": "هذه الصورة موجودة بالفعل",
+    "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
   },
   "loginPage": {
     "welcomeBack": "مرحبًا بعودتك!",
@@ -113,12 +114,13 @@ class CodegenLoader extends AssetLoader{
     "status": "الحالة: {status}"
   },
   "productsPage": {
-    "title": "المنتجات",
+    "title": "صفحة المنتجات",
     "noProducts": "لا توجد منتجات لعرضها",
     "addProduct": "إضافة منتج",
     "editProduct": "تعديل المنتج",
     "deleteProduct": "حذف المنتج",
     "productName": "اسم المنتج: {name}",
+    "description": "الوصف: {description}",
     "price": "السعر: {price} د.ع",
     "quantity": "الكمية: {quantity}",
     "products": "المنتجات",
@@ -139,12 +141,20 @@ class CodegenLoader extends AssetLoader{
       "nameAr": "اسم المنتج بالعربية",
       "nameEn": "اسم المنتج بالإنجليزية",
       "nameKu": "اسم المنتج بالكردية",
+      "descriptionAr": "الوصف بالعربية",
+      "descriptionEn": "الوصف بالإنجليزية",
+      "descriptionKu": "الوصف بالكردية",
       "price": "السعر",
       "quantity": "الكمية",
       "image": "الصورة",
       "addButton": "إضافة",
       "productNames": "اسم المنتج",
-      "priceAndQuantity": "السعر والكمية",
+      "priceAndQuantityAndType": "السعر والكمية والنوع",
+      "type": "النوع",
+      "costPrice": "سعر التكلفة",
+      "discount": "الخصم",
+      "foodAndBeverage": "طعام وشراب",
+      "games": "ألعاب",
       "selectImage": "اختر صورة",
       "addImage": "إضافة صورة",
       "removeImage": "إزالة الصورة",
@@ -152,13 +162,29 @@ class CodegenLoader extends AssetLoader{
       "dragAndDropOrClickToSelectImage": "اسحب وأفلت أو انقر لاختيار صورة"
     }
   },
-  "sittingsPage": {
+  "settingsPage": {
     "title": "الإعدادات",
     "theme": "السمة",
     "language": "اللغة",
     "notifications": "الإشعارات",
     "account": "الحساب",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "tablesQuantity": "عدد الطاولات",
+    "poolTablesQuantity": "عدد طاولات البلياردو",
+    "videoGamesTablesQuantity": "عدد طاولات ألعاب الفيديو",
+    "fishaTablesQuantity": "عدد طاولات الفيشا",
+    "tableBallTablesQuantity": "عدد طاولات كرة الطاولة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح",
+    "tablesSettings": {
+      "title": "إعدادات الطاولات",
+      "tablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية الطاولات أكبر من 0",
+      "poolTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات البلياردو أكبر من 0",
+      "videoGamesTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات ألعاب الفيديو أكبر من 0",
+      "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
+      "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0"
+    }
   }
 };
 static const Map<String,dynamic> _en = {
@@ -236,7 +262,8 @@ static const Map<String,dynamic> _en = {
     "imageType": "Unsupported file type. Please select an image.",
     "youcanOnlySelectUpTo5Images": "You can only select up to 5 images",
     "youcanOnlySelect1Image": "You can only select up to 1 image",
-    "imageAlreadyExist": "This image already exists"
+    "imageAlreadyExist": "This image already exists",
+    "thereIsAlreadyAnItemWithThisName": "There is already an item with this name"
   },
   "loginPage": {
     "welcomeBack": "Welcome back!",
@@ -260,7 +287,7 @@ static const Map<String,dynamic> _en = {
     "status": "Status: {status}"
   },
   "productsPage": {
-    "title": "Products",
+    "title": "Products Page",
     "noProducts": "No products to display",
     "addProduct": "Add Product",
     "editProduct": "Edit Product",
@@ -281,17 +308,26 @@ static const Map<String,dynamic> _en = {
     "productAddedSuccessfully": "Product added successfully",
     "productEditedSuccessfully": "Product edited successfully",
     "productDeletedSuccessfully": "Product deleted successfully",
+    "description": "Description: {description}",
     "addProductForm": {
       "title": "Add Product",
       "nameAr": "Product Name in Arabic",
       "nameEn": "Product Name in English",
       "nameKu": "Product Name in Kurdish",
+      "descriptionAr": "Description in Arabic",
+      "descriptionEn": "Description in English",
+      "descriptionKu": "Description in Kurdish",
       "price": "Price",
       "quantity": "Quantity",
       "image": "Image",
       "addButton": "Add",
       "productNames": "Product Name",
-      "priceAndQuantity": "Price and Quantity",
+      "priceAndQuantityAndType": "Price, Quantity, and Type",
+      "type": "Type",
+      "costPrice": "Cost Price",
+      "discount": "Discount",
+      "foodAndBeverage": "Food and Beverage",
+      "games": "Games",
       "selectImage": "Select Image",
       "addImage": "Add Image",
       "removeImage": "Remove Image",
@@ -299,13 +335,29 @@ static const Map<String,dynamic> _en = {
       "dragAndDropOrClickToSelectImage": "Drag and drop or click to select an image"
     }
   },
-  "sittingsPage": {
+  "settingsPage": {
     "title": "Settings",
     "theme": "Theme",
     "language": "Language",
     "notifications": "Notifications",
     "account": "Account",
-    "logout": "Logout"
+    "logout": "Logout",
+    "tablesQuantity": "Tables Quantity",
+    "poolTablesQuantity": "Pool Tables Quantity",
+    "videoGamesTablesQuantity": "Video Games Tables Quantity",
+    "fishaTablesQuantity": "Fisha Tables Quantity",
+    "tableBallTablesQuantity": "Table Ball Tables Quantity",
+    "save": "Save",
+    "cancel": "Cancel",
+    "settingsSavedSuccessfully": "Settings saved successfully",
+    "tablesSettings": {
+      "title": "Tables Settings",
+      "tablesQuantityMustBeGreaterThanZero": "Tables quantity must be greater than 0",
+      "poolTablesQuantityMustBeGreaterThanZero": "Pool tables quantity must be greater than 0",
+      "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
+      "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
+      "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+    }
   }
 };
 static const Map<String,dynamic> _fa = {
@@ -383,7 +435,8 @@ static const Map<String,dynamic> _fa = {
     "imageType": "جۆری فایل پشتیوانی ناکرێت. تکایە وێنەیەک هەڵبژێرە.",
     "youcanOnlySelectUpTo5Images": "تەنها دەتوانیت تا 5 وێنە هەڵبژێریت",
     "youcanOnlySelect1Image": "تەنها دەتوانیت تا 1 وێنە هەڵبژێریت",
-    "imageAlreadyExist": "وێنەکە پێشتر هەیە"
+    "imageAlreadyExist": "وێنەکە پێشتر هەیە",
+    "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
   },
   "loginPage": {
     "welcomeBack": "بەخێربێیت دووبارە!",
@@ -407,7 +460,7 @@ static const Map<String,dynamic> _fa = {
     "status": "بارودۆخ: {status}"
   },
   "productsPage": {
-    "title": "کاڵاکان",
+    "title": "پەڕەی کاڵاکان",
     "noProducts": "هیچ کاڵایەک نیە بۆ نیشاندان",
     "addProduct": "زیادکردنی کاڵا",
     "editProduct": "دەستکاری کاڵا",
@@ -428,17 +481,26 @@ static const Map<String,dynamic> _fa = {
     "productAddedSuccessfully": "کاڵا بە سەرکەوتوویی زیادکرا",
     "productEditedSuccessfully": "کاڵا بە سەرکەوتوویی دەستکاری کرا",
     "productDeletedSuccessfully": "کاڵا بە سەرکەوتوویی سڕایەوە",
+    "description": "پێناسە: {description}",
     "addProductForm": {
       "title": "زیادکردنی کاڵا",
       "nameAr": "ناوی کاڵا بە عەرەبی",
       "nameEn": "ناوی کاڵا بە ئینگلیزی",
       "nameKu": "ناوی کاڵا بە کوردی",
+      "descriptionAr": "پێناسە بە عەرەبی",
+      "descriptionEn": "پێناسە بە ئینگلیزی",
+      "descriptionKu": "پێناسە بە کوردی",
       "price": "نرخ",
       "quantity": "ژمارە",
       "image": "وێنە",
       "addButton": "زیادکردن",
       "productNames": "ناوی کاڵا",
-      "priceAndQuantity": "نرخ و ژمارە",
+      "priceAndQuantityAndType": "نرخ، ژمارە، و جۆر",
+      "type": "جۆر",
+      "costPrice": "نرخی خەرج",
+      "discount": "داشکاندن",
+      "foodAndBeverage": "خواردن و خواردنی خۆراک",
+      "games": "یاریەکان",
       "selectImage": "وێنە هەڵبژێرە",
       "addImage": "وێنە زیاد بکە",
       "removeImage": "وێنە بسڕەوە",
@@ -446,13 +508,29 @@ static const Map<String,dynamic> _fa = {
       "dragAndDropOrClickToSelectImage": "کەش و ڕیز بکە یان کرتە بکە بۆ هەڵبژاردنی وێنە"
     }
   },
-  "sittingsPage": {
+  "settingsPage": {
     "title": "ڕێکخستنەکان",
     "theme": "مۆدێل",
     "language": "زمان",
     "notifications": "ئاگاداریەکان",
     "account": "هەژمار",
-    "logout": "چوونە دەرەوە"
+    "logout": "چوونە دەرەوە",
+    "tablesQuantity": "ژمارەی میزەکان",
+    "poolTablesQuantity": "ژمارەی میزەکانی بلیارد",
+    "videoGamesTablesQuantity": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ",
+    "fishaTablesQuantity": "ژمارەی میزەکانی فیشا",
+    "tableBallTablesQuantity": "ژمارەی میزەکانی توپە میز",
+    "save": "پاشەکەوت",
+    "cancel": "ڕەتکردنەوە",
+    "settingsSavedSuccessfully": "ڕێکخستنەکان بە سەرکەوتوویی پاشەکەوت کرا",
+    "tablesSettings": {
+      "title": "ڕێکخستنی میزەکان",
+      "tablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکان پێویستە گەورەتر بێت لە 0",
+      "poolTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی بلیارد پێویستە گەورەتر بێت لە 0",
+      "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
+      "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
+      "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+    }
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "fa": _fa};

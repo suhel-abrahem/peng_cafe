@@ -73,7 +73,8 @@
         "imageType": "Unsupported file type. Please select an image.",
         "youcanOnlySelectUpTo5Images": "You can only select up to 5 images",
         "youcanOnlySelect1Image": "You can only select up to 1 image",
-        "imageAlreadyExist": "This image already exists"
+        "imageAlreadyExist": "This image already exists",
+        "thereIsAlreadyAnItemWithThisName": "There is already an item with this name"
     },
     "loginPage": {
         "welcomeBack": "Welcome back!",
@@ -97,7 +98,7 @@
         "status": "Status: {status}"
     },
     "productsPage": {
-        "title": "Products",
+        "title": "Products Page",
         "noProducts": "No products to display",
         "addProduct": "Add Product",
         "editProduct": "Edit Product",
@@ -118,17 +119,26 @@
         "productAddedSuccessfully": "Product added successfully",
         "productEditedSuccessfully": "Product edited successfully",
         "productDeletedSuccessfully": "Product deleted successfully",
+        "description": "Description: {description}",
         "addProductForm": {
             "title": "Add Product",
             "nameAr": "Product Name in Arabic",
             "nameEn": "Product Name in English",
             "nameKu": "Product Name in Kurdish",
+            "descriptionAr": "Description in Arabic",
+            "descriptionEn": "Description in English",
+            "descriptionKu": "Description in Kurdish",
             "price": "Price",
             "quantity": "Quantity",
             "image": "Image",
             "addButton": "Add",
             "productNames": "Product Name",
-            "priceAndQuantity": "Price and Quantity",
+            "priceAndQuantityAndType": "Price, Quantity, and Type",
+            "type": "Type",
+            "costPrice": "Cost Price",
+            "discount": "Discount",
+            "foodAndBeverage": "Food and Beverage",
+            "games": "Games",
             "selectImage": "Select Image",
             "addImage": "Add Image",
             "removeImage": "Remove Image",
@@ -136,12 +146,28 @@
             "dragAndDropOrClickToSelectImage": "Drag and drop or click to select an image"
         }
     },
-    "sittingsPage": {
+    "settingsPage": {
         "title": "Settings",
         "theme": "Theme",
         "language": "Language",
         "notifications": "Notifications",
         "account": "Account",
-        "logout": "Logout"
+        "logout": "Logout",
+        "tablesQuantity": "Tables Quantity",
+        "poolTablesQuantity": "Pool Tables Quantity",
+        "videoGamesTablesQuantity": "Video Games Tables Quantity",
+        "fishaTablesQuantity": "Fisha Tables Quantity",
+        "tableBallTablesQuantity": "Table Ball Tables Quantity",
+        "save": "Save",
+        "cancel": "Cancel",
+        "settingsSavedSuccessfully": "Settings saved successfully",
+        "tablesSettings": {
+            "title": "Tables Settings",
+            "tablesQuantityMustBeGreaterThanZero": "Tables quantity must be greater than 0",
+            "poolTablesQuantityMustBeGreaterThanZero": "Pool tables quantity must be greater than 0",
+            "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
+            "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
+            "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+        }
     }
 }

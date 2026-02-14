@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
 
+import '../../enums/product_type_enum/product_type_enum.dart';
+
 class ProductsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nameAr => text().unique()();
@@ -9,7 +11,12 @@ class ProductsTable extends Table {
   TextColumn get descriptionEn => text().nullable()();
   TextColumn get descriptionKu => text().nullable()();
   TextColumn get imagePath => text().nullable()();
+  RealColumn get costPrice => real().nullable()();
   RealColumn get price => real()();
-  IntColumn get quantity => integer().withDefault(const Constant(0))();
+  RealColumn get discount => real().nullable()();
+  RealColumn get quantity => real().nullable()();
+  IntColumn get productType => intEnum<ProductTypeEnum>().withDefault(
+    Constant(ProductTypeEnum.foodAndBeverage.index),
+  )();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

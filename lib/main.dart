@@ -7,6 +7,7 @@ import 'package:peng_cafe/config/app/app.dart';
 import 'package:peng_cafe/config/app/app_preferences.dart';
 import 'package:peng_cafe/core/constant/language_constants.dart';
 import 'package:peng_cafe/core/injection_container.dart';
+import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/login/presentations/bloc/login_bloc.dart';
 import 'package:peng_cafe/features/setting/presentation/bloc/sync_setting_page/bloc/sync_setting_bloc_bloc.dart';
 import 'package:peng_cafe/firebase_options.dart';
@@ -29,8 +30,10 @@ void main() async {
       ],
       path: 'assets/translations',
       fallbackLocale: LanguageConstant.arLoacle,
-      startLocale: LanguageConstant
-          .languageLocaleMap[getItInstance<AppPreferences>().getLanguage()],
+      startLocale: Helper.getLocaleByName(
+        getItInstance<AppPreferences>().getLanguage() ??
+            LanguageConstant.arName,
+      ),
       child: const PengCafe(),
     ),
   );

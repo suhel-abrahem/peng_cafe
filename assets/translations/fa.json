@@ -73,7 +73,8 @@
         "imageType": "جۆری فایل پشتیوانی ناکرێت. تکایە وێنەیەک هەڵبژێرە.",
         "youcanOnlySelectUpTo5Images": "تەنها دەتوانیت تا 5 وێنە هەڵبژێریت",
         "youcanOnlySelect1Image": "تەنها دەتوانیت تا 1 وێنە هەڵبژێریت",
-        "imageAlreadyExist": "وێنەکە پێشتر هەیە"
+        "imageAlreadyExist": "وێنەکە پێشتر هەیە",
+        "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
     },
     "loginPage": {
         "welcomeBack": "بەخێربێیت دووبارە!",
@@ -97,7 +98,7 @@
         "status": "بارودۆخ: {status}"
     },
     "productsPage": {
-        "title": "کاڵاکان",
+        "title": "پەڕەی کاڵاکان",
         "noProducts": "هیچ کاڵایەک نیە بۆ نیشاندان",
         "addProduct": "زیادکردنی کاڵا",
         "editProduct": "دەستکاری کاڵا",
@@ -118,17 +119,26 @@
         "productAddedSuccessfully": "کاڵا بە سەرکەوتوویی زیادکرا",
         "productEditedSuccessfully": "کاڵا بە سەرکەوتوویی دەستکاری کرا",
         "productDeletedSuccessfully": "کاڵا بە سەرکەوتوویی سڕایەوە",
+        "description": "پێناسە: {description}",
         "addProductForm": {
             "title": "زیادکردنی کاڵا",
             "nameAr": "ناوی کاڵا بە عەرەبی",
             "nameEn": "ناوی کاڵا بە ئینگلیزی",
             "nameKu": "ناوی کاڵا بە کوردی",
+            "descriptionAr": "پێناسە بە عەرەبی",
+            "descriptionEn": "پێناسە بە ئینگلیزی",
+            "descriptionKu": "پێناسە بە کوردی",
             "price": "نرخ",
             "quantity": "ژمارە",
             "image": "وێنە",
             "addButton": "زیادکردن",
             "productNames": "ناوی کاڵا",
-            "priceAndQuantity": "نرخ و ژمارە",
+            "priceAndQuantityAndType": "نرخ، ژمارە، و جۆر",
+            "type": "جۆر",
+            "costPrice": "نرخی خەرج",
+            "discount": "داشکاندن",
+            "foodAndBeverage": "خواردن و خواردنی خۆراک",
+            "games": "یاریەکان",
             "selectImage": "وێنە هەڵبژێرە",
             "addImage": "وێنە زیاد بکە",
             "removeImage": "وێنە بسڕەوە",
@@ -136,12 +146,28 @@
             "dragAndDropOrClickToSelectImage": "کەش و ڕیز بکە یان کرتە بکە بۆ هەڵبژاردنی وێنە"
         }
     },
-    "sittingsPage": {
+    "settingsPage": {
         "title": "ڕێکخستنەکان",
         "theme": "مۆدێل",
         "language": "زمان",
         "notifications": "ئاگاداریەکان",
         "account": "هەژمار",
-        "logout": "چوونە دەرەوە"
+        "logout": "چوونە دەرەوە",
+        "tablesQuantity": "ژمارەی میزەکان",
+        "poolTablesQuantity": "ژمارەی میزەکانی بلیارد",
+        "videoGamesTablesQuantity": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ",
+        "fishaTablesQuantity": "ژمارەی میزەکانی فیشا",
+        "tableBallTablesQuantity": "ژمارەی میزەکانی توپە میز",
+        "save": "پاشەکەوت",
+        "cancel": "ڕەتکردنەوە",
+        "settingsSavedSuccessfully": "ڕێکخستنەکان بە سەرکەوتوویی پاشەکەوت کرا",
+        "tablesSettings": {
+            "title": "ڕێکخستنی میزەکان",
+            "tablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکان پێویستە گەورەتر بێت لە 0",
+            "poolTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی بلیارد پێویستە گەورەتر بێت لە 0",
+            "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
+            "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
+            "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+        }
     }
 }
