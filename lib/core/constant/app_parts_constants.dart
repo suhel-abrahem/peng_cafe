@@ -15,4 +15,4 @@ class AppPartsConstants {
   static String rule = "rule";
   static String rulesGroup = "rulesGroup";
   static String rulesGroupId = "rulesGroupId";
- }
+}

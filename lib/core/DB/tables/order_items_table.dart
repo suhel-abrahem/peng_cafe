@@ -13,8 +13,9 @@ class OrderItemsTable extends Table {
   IntColumn get productId =>
       integer().customConstraint('REFERENCES products(id)')();
   RealColumn get quantity => real().withDefault(const Constant(1))();
-  IntColumn get tableType =>
-      intEnum<TableType>().withDefault(Constant(TableType.cafe.index))();
+  IntColumn get tableType => intEnum<TableTypeEnum>().withDefault(
+    Constant(TableTypeEnum.cafe.index),
+  )();
   IntColumn get tableNumber => integer()();
   RealColumn get price => real()();
   RealColumn get discount => real().nullable()();

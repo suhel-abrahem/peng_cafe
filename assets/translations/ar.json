@@ -87,7 +87,15 @@
         "welcome": "مرحبًا، {name}!",
         "todayIs": "اليوم هو {day}",
         "youHave": "لديك {count} طلبات جديدة",
-        "viewOrders": "عرض الطلبات"
+        "viewOrders": "عرض الطلبات",
+        "selectTableType": "اختر نوع الطاولة",
+        "cafe": "مقهى",
+        "pool": "بلياردو",
+        "fisha": "فيشا",
+        "tableBall": "كرة الطاولة",
+        "videoGame": "ألعاب الفيديو",
+        "takeAway": "طلبات خارجية",
+        "thereIsNoTableOfThisType": "لا توجد طاولة من هذا النوع"
     },
     "ordersPage": {
         "title": "الطلبات",
@@ -158,6 +166,7 @@
         "videoGamesTablesQuantity": "عدد طاولات ألعاب الفيديو",
         "fishaTablesQuantity": "عدد طاولات الفيشا",
         "tableBallTablesQuantity": "عدد طاولات كرة الطاولة",
+        "takeAwayTablesQuantity": "عدد طاولات الطلبات الخارجية",
         "save": "حفظ",
         "cancel": "إلغاء",
         "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح",
@@ -167,7 +176,47 @@
             "poolTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات البلياردو أكبر من 0",
             "videoGamesTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات ألعاب الفيديو أكبر من 0",
             "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
-            "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0"
+            "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0",
+            "takeAwayTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الطلبات الخارجية أكبر من 0"
+        }
+    },
+    "tablePage": {
+        "title": "تفاصيل الطاولة",
+        "tableNumber": "رقم الطاولة: {number}",
+        "tableType": "نوع الطاولة: {type}",
+        "status": "الحالة: {status}",
+        "currentOrder": "الطلب الحالي",
+        "noCurrentOrder": "لا يوجد طلب حالي لهذه الطاولة",
+        "addOrder": "إضافة طلب",
+        "editOrder": "تعديل الطلب",
+        "deleteOrder": "حذف الطلب",
+        "orderDetails": "تفاصيل الطلب",
+        "productName": "اسم المنتج: {name}",
+        "quantity": "الكمية",
+        "price": "السعر: {price} د.ع",
+        "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+        "confirmDeleteOrder": "هل أنت متأكد أنك تريد حذف هذا الطلب؟",
+        "yes": "نعم",
+        "no": "لا",
+        "orderAddedSuccessfully": "تم إضافة الطلب بنجاح",
+        "orderEditedSuccessfully": "تم تعديل الطلب بنجاح",
+        "orderDeletedSuccessfully": "تم حذف الطلب بنجاح",
+        "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك تعديل هذا الطلب لأنه مكتمل بالفعل",
+        "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك حذف هذا الطلب لأنه مكتمل بالفعل",
+        "theGivenPriceIsLessThanTheTotalCostPrice": "السعر المعطى أقل من إجمالي سعر التكلفة",
+        "givenPrice": "السعر المعطى",
+        "currency": "Currency",
+        "theRemainingAmountToBePaid": "المبلغ المتبقي للدفع",
+        "each100DollarsEqualsInIqd": "كل 100 دولار يساوي {amount} دينار عراقي",
+        "checkOut": "الدفع",
+        "checkOutSuccessfully": "تم الدفع بنجاح",
+        "addOrderForm": {
+            "title": "إضافة طلب",
+            "selectProduct": "اختر منتجًا",
+            "quantity": "الكمية",
+            "addButton": "إضافة",
+            "productName": "اسم المنتج",
+            "priceAndQuantity": "السعر والكمية"
         }
     }
 }

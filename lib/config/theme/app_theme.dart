@@ -1195,29 +1195,29 @@ extension BorderThemeExtension on ThemeData {
   BorderSide get defaultBorderSide => (isDark)
       ? const BorderSide(
           color: ColorManager.borderColor,
-          width: 1,
+          width: 2,
           style: BorderStyle.solid,
         )
       : const BorderSide(
           color: ColorManager.borderColor,
-          width: 1,
+          width: 2,
           style: BorderStyle.solid,
         );
 
   BorderSide get defaultBorderSideError => const BorderSide(
     color: ColorManager.error,
-    width: 1,
+    width: 2,
     style: BorderStyle.solid,
   );
 
   BorderSide get defaultBorderSideShadow => const BorderSide(
     color: ColorManager.lightShadowColor,
-    width: 1,
+    width: 2,
     style: BorderStyle.solid,
   );
   BorderSide get defaultBorderSideDisable => const BorderSide(
     color: ColorManager.disabledColor,
-    width: 1,
+    width: 2,
     style: BorderStyle.solid,
   );
   BorderSide get defaultBorderSideFocus => const BorderSide(

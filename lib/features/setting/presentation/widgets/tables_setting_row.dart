@@ -2,67 +2,68 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
+import 'package:peng_cafe/core/enums/tables_enum/table_type_enum.dart';
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 
-class TablesSettingRow extends StatelessWidget {
-  final String title;
+import '../../domain/entities/tables_setting_entity/tables_quantity_entity.dart';
+import 'dart:ui' as ui;
 
-  final int quantity;
+class TablesSettingRow extends StatefulWidget {
+  final TablesQuantityEntity tableType;
   final ValueChanged<int> onEdit;
-  final ValueChanged<bool> onActivationChanged;
-  final bool isActive;
   final bool canEdit;
+  final ValueChanged<bool> onActivationChanged;
   final String? Function(String?)? validator;
+
   const TablesSettingRow({
     super.key,
-    required this.title,
-    required this.quantity,
+    required this.tableType,
     required this.onEdit,
     required this.onActivationChanged,
-
-    required this.isActive,
     required this.canEdit,
     this.validator,
   });
 
   @override
+  State<TablesSettingRow> createState() => _TablesSettingRowState();
+}
+
+class _TablesSettingRowState extends State<TablesSettingRow> {
+  String textInput = "";
+  @override
+  void initState() {
+    textInput = widget.tableType.quantity.toString();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: canEdit ? true : isActive,
+      visible: widget.canEdit || widget.tableType.isActive,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            widget.tableType.tableName.quantityLocaleKey.tr(),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
               fontFamily: FontConstants.fontFamily(context.locale),
             ),
           ),
+
           CustomInputField(
-            width: 150.w,
-            height: 60.h,
-            errorStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-              fontSize: 12.sp,
-              fontFamily: FontConstants.fontFamily(context.locale),
-              color: Colors.red,
-            ),
-            fillColor: Colors.transparent,
-            enabled: isActive,
-            initialValue: quantity.toString(),
-            onChanged: (value) => onEdit(int.tryParse(value) ?? quantity),
-            validator: (value) => isActive
-                ? validator != null
-                      ? validator!(value)
-                      : null
-                : null,
+            textDirection: ui.TextDirection.ltr,
+            width: 150,
+            enabled: widget.canEdit && widget.tableType.isActive,
+            initialValue: textInput,
+            validator: widget.tableType.isActive ? widget.validator : null,
+            onChanged: (v) => widget.onEdit(int.tryParse(v) ?? 0),
           ),
-          Visibility(
-            visible: canEdit,
-            child: Checkbox(
-              value: isActive,
-              onChanged: (newStatus) => onActivationChanged(newStatus ?? false),
+
+          if (widget.canEdit)
+            Checkbox(
+              value: widget.tableType.isActive,
+              onChanged: (v) => widget.onActivationChanged(v ?? false),
             ),
-          ),
         ],
       ),
     );

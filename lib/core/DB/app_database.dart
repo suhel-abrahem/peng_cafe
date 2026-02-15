@@ -15,13 +15,15 @@ import '../enums/product_type_enum/product_type_enum.dart';
 import '../enums/tables_enum/table_type_enum.dart';
 import '../enums/user_rule_enum.dart';
 import '../util/app_directories.dart';
+import 'daos/order_items_dao.dart';
+import 'daos/orders_dao.dart';
 import 'tables/users_table.dart';
 
 part 'app_database.g.dart';
 
 @DriftDatabase(
   tables: [UsersTable, ProductsTable, OrderItemsTable, OrdersTable],
-  daos: [UsersDao, ProductsDao],
+  daos: [UsersDao, ProductsDao, OrderItemsDao, OrdersDao],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());

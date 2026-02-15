@@ -1224,15 +1224,15 @@ class $OrderItemsTableTable extends OrderItemsTable
     defaultValue: const Constant(1),
   );
   @override
-  late final GeneratedColumnWithTypeConverter<TableType, int> tableType =
+  late final GeneratedColumnWithTypeConverter<TableTypeEnum, int> tableType =
       GeneratedColumn<int>(
         'table_type',
         aliasedName,
         false,
         type: DriftSqlType.int,
         requiredDuringInsert: false,
-        defaultValue: Constant(TableType.cafe.index),
-      ).withConverter<TableType>($OrderItemsTableTable.$convertertableType);
+        defaultValue: Constant(TableTypeEnum.cafe.index),
+      ).withConverter<TableTypeEnum>($OrderItemsTableTable.$convertertableType);
   static const VerificationMeta _tableNumberMeta = const VerificationMeta(
     'tableNumber',
   );
@@ -1467,8 +1467,8 @@ class $OrderItemsTableTable extends OrderItemsTable
     return $OrderItemsTableTable(attachedDatabase, alias);
   }
 
-  static JsonTypeConverter2<TableType, int, int> $convertertableType =
-      const EnumIndexConverter<TableType>(TableType.values);
+  static JsonTypeConverter2<TableTypeEnum, int, int> $convertertableType =
+      const EnumIndexConverter<TableTypeEnum>(TableTypeEnum.values);
   static JsonTypeConverter2<OrderTypeEnum, int, int> $converterorderType =
       const EnumIndexConverter<OrderTypeEnum>(OrderTypeEnum.values);
   static JsonTypeConverter2<ProductTypeEnum, int, int> $converterproductType =
@@ -1481,7 +1481,7 @@ class OrderItemsTableData extends DataClass
   final int orderId;
   final int productId;
   final double quantity;
-  final TableType tableType;
+  final TableTypeEnum tableType;
   final int tableNumber;
   final double price;
   final double? discount;
@@ -1610,7 +1610,7 @@ class OrderItemsTableData extends DataClass
     int? orderId,
     int? productId,
     double? quantity,
-    TableType? tableType,
+    TableTypeEnum? tableType,
     int? tableNumber,
     double? price,
     Value<double?> discount = const Value.absent(),
@@ -1710,7 +1710,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
   final Value<int> orderId;
   final Value<int> productId;
   final Value<double> quantity;
-  final Value<TableType> tableType;
+  final Value<TableTypeEnum> tableType;
   final Value<int> tableNumber;
   final Value<double> price;
   final Value<double?> discount;
@@ -1785,7 +1785,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     Value<int>? orderId,
     Value<int>? productId,
     Value<double>? quantity,
-    Value<TableType>? tableType,
+    Value<TableTypeEnum>? tableType,
     Value<int>? tableNumber,
     Value<double>? price,
     Value<double?>? discount,
@@ -2550,6 +2550,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $OrdersTableTable ordersTable = $OrdersTableTable(this);
   late final UsersDao usersDao = UsersDao(this as AppDatabase);
   late final ProductsDao productsDao = ProductsDao(this as AppDatabase);
+  late final OrderItemsDao orderItemsDao = OrderItemsDao(this as AppDatabase);
+  late final OrdersDao ordersDao = OrdersDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3142,7 +3144,7 @@ typedef $$OrderItemsTableTableCreateCompanionBuilder =
       required int orderId,
       required int productId,
       Value<double> quantity,
-      Value<TableType> tableType,
+      Value<TableTypeEnum> tableType,
       required int tableNumber,
       required double price,
       Value<double?> discount,
@@ -3157,7 +3159,7 @@ typedef $$OrderItemsTableTableUpdateCompanionBuilder =
       Value<int> orderId,
       Value<int> productId,
       Value<double> quantity,
-      Value<TableType> tableType,
+      Value<TableTypeEnum> tableType,
       Value<int> tableNumber,
       Value<double> price,
       Value<double?> discount,
@@ -3196,11 +3198,11 @@ class $$OrderItemsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnWithTypeConverterFilters<TableType, TableType, int> get tableType =>
-      $composableBuilder(
-        column: $table.tableType,
-        builder: (column) => ColumnWithTypeConverterFilters(column),
-      );
+  ColumnWithTypeConverterFilters<TableTypeEnum, TableTypeEnum, int>
+  get tableType => $composableBuilder(
+    column: $table.tableType,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
 
   ColumnFilters<int> get tableNumber => $composableBuilder(
     column: $table.tableNumber,
@@ -3331,7 +3333,7 @@ class $$OrderItemsTableTableAnnotationComposer
   GeneratedColumn<double> get quantity =>
       $composableBuilder(column: $table.quantity, builder: (column) => column);
 
-  GeneratedColumnWithTypeConverter<TableType, int> get tableType =>
+  GeneratedColumnWithTypeConverter<TableTypeEnum, int> get tableType =>
       $composableBuilder(column: $table.tableType, builder: (column) => column);
 
   GeneratedColumn<int> get tableNumber => $composableBuilder(
@@ -3402,7 +3404,7 @@ class $$OrderItemsTableTableTableManager
                 Value<int> orderId = const Value.absent(),
                 Value<int> productId = const Value.absent(),
                 Value<double> quantity = const Value.absent(),
-                Value<TableType> tableType = const Value.absent(),
+                Value<TableTypeEnum> tableType = const Value.absent(),
                 Value<int> tableNumber = const Value.absent(),
                 Value<double> price = const Value.absent(),
                 Value<double?> discount = const Value.absent(),
@@ -3430,7 +3432,7 @@ class $$OrderItemsTableTableTableManager
                 required int orderId,
                 required int productId,
                 Value<double> quantity = const Value.absent(),
-                Value<TableType> tableType = const Value.absent(),
+                Value<TableTypeEnum> tableType = const Value.absent(),
                 required int tableNumber,
                 required double price,
                 Value<double?> discount = const Value.absent(),

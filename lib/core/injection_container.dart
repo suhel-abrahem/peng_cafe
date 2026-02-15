@@ -5,6 +5,7 @@ import 'package:peng_cafe/features/login/data/repositories/login_repository_impl
 import 'package:peng_cafe/features/products/domain/usecases/get_all_product_usecase.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_produtc_usecase.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
+import 'package:peng_cafe/features/table_page/domain/usecases/get_or_create_order_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app/app_preferences.dart';
@@ -24,6 +25,13 @@ import '../features/products/domain/usecases/update_product_usecase.dart';
 import '../features/products/presentation/bloc/add_product_bloc.dart';
 import '../features/products/presentation/bloc/delete_product_bloc.dart';
 
+import '../features/table_page/data/repositories/table_repository_implements.dart';
+import '../features/table_page/domain/repositories/table_repository.dart';
+import '../features/table_page/domain/usecases/add_item_usecase.dart';
+import '../features/table_page/domain/usecases/delete_item_usecase.dart';
+import '../features/table_page/domain/usecases/get_order_items_usecase.dart';
+import '../features/table_page/domain/usecases/update_item_usecase.dart';
+import '../features/table_page/presentation/bloc/table_page_bloc.dart';
 import 'resource/connectivity/check_connectivity.dart';
 import 'resource/selection_bloc/bloc/selection_bloc.dart';
 
@@ -96,6 +104,38 @@ Future<void> initializeDependencies() async {
       getItInstance<DeleteSelectedProductsUsecase>(),
       getItInstance<DeleteAllProductUsecase>(),
       getItInstance<DeleteAllProductExceptExcludingUsecase>(),
+    ),
+  );
+  //end
+  //table feature
+  //repository
+  getItInstance.registerSingleton<TableRepository>(
+    TableRepositoryImplements(getItInstance()),
+  );
+  //usecase
+  getItInstance.registerSingleton<GetOrCreateOrderUsecase>(
+    GetOrCreateOrderUsecase(getItInstance<TableRepository>()),
+  );
+  getItInstance.registerSingleton<AddItemUsecase>(
+    AddItemUsecase(getItInstance<TableRepository>()),
+  );
+  getItInstance.registerSingleton<GetOrderItemsUsecase>(
+    GetOrderItemsUsecase(getItInstance<TableRepository>()),
+  );
+  getItInstance.registerSingleton<DeleteItemUsecase>(
+    DeleteItemUsecase(getItInstance<TableRepository>()),
+  );
+  getItInstance.registerSingleton<UpdateItemUsecase>(
+    UpdateItemUsecase(getItInstance<TableRepository>()),
+  );
+  //bloc
+  getItInstance.registerFactory(
+    () => TablePageBloc(
+      getItInstance<GetOrCreateOrderUsecase>(),
+      getItInstance<AddItemUsecase>(),
+      getItInstance<UpdateItemUsecase>(),
+      getItInstance<GetOrderItemsUsecase>(),
+      getItInstance<DeleteItemUsecase>(),
     ),
   );
 }

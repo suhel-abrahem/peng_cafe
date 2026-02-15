@@ -87,7 +87,15 @@
         "welcome": "Welcome, {name}!",
         "todayIs": "Today is {day}",
         "youHave": "You have {count} new orders",
-        "viewOrders": "View Orders"
+        "viewOrders": "View Orders",
+        "selectTableType": "Select Table Type",
+        "cafe": "Cafe",
+        "pool": "Pool",
+        "fisha": "Fisha",
+        "tableBall": "Table Ball",
+        "videoGame": "Video Game",
+        "takeAway": "Take Away",
+        "thereIsNoTableOfThisType": "There is no table of this type"
     },
     "ordersPage": {
         "title": "Orders",
@@ -158,6 +166,7 @@
         "videoGamesTablesQuantity": "Video Games Tables Quantity",
         "fishaTablesQuantity": "Fisha Tables Quantity",
         "tableBallTablesQuantity": "Table Ball Tables Quantity",
+        "takeAwayTablesQuantity": "Take Away Tables Quantity",
         "save": "Save",
         "cancel": "Cancel",
         "settingsSavedSuccessfully": "Settings saved successfully",
@@ -168,6 +177,45 @@
             "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
             "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
             "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+        }
+    },
+    "tablePage": {
+        "title": "Table Details",
+        "tableNumber": "Table Number: {number}",
+        "tableType": "Table Type: {type}",
+        "status": "Status: {status}",
+        "currentOrder": "Current Order",
+        "noCurrentOrder": "No current order for this table",
+        "addOrder": "Add Order",
+        "editOrder": "Edit Order",
+        "deleteOrder": "Delete Order",
+        "orderDetails": "Order Details",
+        "productName": "Product Name: {name}",
+        "quantity": "Quantity",
+        "price": "Price: {price} IQD",
+        "totalAmount": "Total Amount: {amount} IQD",
+        "confirmDeleteOrder": "Are you sure you want to delete this order?",
+        "yes": "Yes",
+        "no": "No",
+        "orderAddedSuccessfully": "Order added successfully",
+        "orderEditedSuccessfully": "Order edited successfully",
+        "orderDeletedSuccessfully": "Order deleted successfully",
+        "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "You cannot edit this order because it is already completed",
+        "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "You cannot delete this order because it is already completed",
+        "theGivenPriceIsLessThanTheTotalCostPrice": "The given price is less than the total cost price",
+        "givenPrice": "Given Price",
+        "currency": "Currency",
+        "theRemainingAmountToBePaid": "The remaining amount to be paid",
+        "each100DollarsEqualsInIqd": "Each 100 dollars equals {amount} IQD",
+        "checkOut": "Check Out",
+        "checkOutSuccessfully": "Check Out Successfully",
+        "addOrderForm": {
+            "title": "Add Order",
+            "selectProduct": "Select Product",
+            "quantity": "Quantity",
+            "addButton": "Add",
+            "productName": "Product Name",
+            "priceAndQuantity": "Price and Quantity"
         }
     }
 }

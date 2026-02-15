@@ -103,7 +103,15 @@ class CodegenLoader extends AssetLoader{
     "welcome": "مرحبًا، {name}!",
     "todayIs": "اليوم هو {day}",
     "youHave": "لديك {count} طلبات جديدة",
-    "viewOrders": "عرض الطلبات"
+    "viewOrders": "عرض الطلبات",
+    "selectTableType": "اختر نوع الطاولة",
+    "cafe": "مقهى",
+    "pool": "بلياردو",
+    "fisha": "فيشا",
+    "tableBall": "كرة الطاولة",
+    "videoGame": "ألعاب الفيديو",
+    "takeAway": "طلبات خارجية",
+    "thereIsNoTableOfThisType": "لا توجد طاولة من هذا النوع"
   },
   "ordersPage": {
     "title": "الطلبات",
@@ -174,6 +182,7 @@ class CodegenLoader extends AssetLoader{
     "videoGamesTablesQuantity": "عدد طاولات ألعاب الفيديو",
     "fishaTablesQuantity": "عدد طاولات الفيشا",
     "tableBallTablesQuantity": "عدد طاولات كرة الطاولة",
+    "takeAwayTablesQuantity": "عدد طاولات الطلبات الخارجية",
     "save": "حفظ",
     "cancel": "إلغاء",
     "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح",
@@ -183,7 +192,47 @@ class CodegenLoader extends AssetLoader{
       "poolTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات البلياردو أكبر من 0",
       "videoGamesTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات ألعاب الفيديو أكبر من 0",
       "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
-      "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0"
+      "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0",
+      "takeAwayTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الطلبات الخارجية أكبر من 0"
+    }
+  },
+  "tablePage": {
+    "title": "تفاصيل الطاولة",
+    "tableNumber": "رقم الطاولة: {number}",
+    "tableType": "نوع الطاولة: {type}",
+    "status": "الحالة: {status}",
+    "currentOrder": "الطلب الحالي",
+    "noCurrentOrder": "لا يوجد طلب حالي لهذه الطاولة",
+    "addOrder": "إضافة طلب",
+    "editOrder": "تعديل الطلب",
+    "deleteOrder": "حذف الطلب",
+    "orderDetails": "تفاصيل الطلب",
+    "productName": "اسم المنتج: {name}",
+    "quantity": "الكمية",
+    "price": "السعر: {price} د.ع",
+    "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+    "confirmDeleteOrder": "هل أنت متأكد أنك تريد حذف هذا الطلب؟",
+    "yes": "نعم",
+    "no": "لا",
+    "orderAddedSuccessfully": "تم إضافة الطلب بنجاح",
+    "orderEditedSuccessfully": "تم تعديل الطلب بنجاح",
+    "orderDeletedSuccessfully": "تم حذف الطلب بنجاح",
+    "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك تعديل هذا الطلب لأنه مكتمل بالفعل",
+    "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك حذف هذا الطلب لأنه مكتمل بالفعل",
+    "theGivenPriceIsLessThanTheTotalCostPrice": "السعر المعطى أقل من إجمالي سعر التكلفة",
+    "givenPrice": "السعر المعطى",
+    "currency": "Currency",
+    "theRemainingAmountToBePaid": "المبلغ المتبقي للدفع",
+    "each100DollarsEqualsInIqd": "كل 100 دولار يساوي {amount} دينار عراقي",
+    "checkOut": "الدفع",
+    "checkOutSuccessfully": "تم الدفع بنجاح",
+    "addOrderForm": {
+      "title": "إضافة طلب",
+      "selectProduct": "اختر منتجًا",
+      "quantity": "الكمية",
+      "addButton": "إضافة",
+      "productName": "اسم المنتج",
+      "priceAndQuantity": "السعر والكمية"
     }
   }
 };
@@ -276,7 +325,15 @@ static const Map<String,dynamic> _en = {
     "welcome": "Welcome, {name}!",
     "todayIs": "Today is {day}",
     "youHave": "You have {count} new orders",
-    "viewOrders": "View Orders"
+    "viewOrders": "View Orders",
+    "selectTableType": "Select Table Type",
+    "cafe": "Cafe",
+    "pool": "Pool",
+    "fisha": "Fisha",
+    "tableBall": "Table Ball",
+    "videoGame": "Video Game",
+    "takeAway": "Take Away",
+    "thereIsNoTableOfThisType": "There is no table of this type"
   },
   "ordersPage": {
     "title": "Orders",
@@ -347,6 +404,7 @@ static const Map<String,dynamic> _en = {
     "videoGamesTablesQuantity": "Video Games Tables Quantity",
     "fishaTablesQuantity": "Fisha Tables Quantity",
     "tableBallTablesQuantity": "Table Ball Tables Quantity",
+    "takeAwayTablesQuantity": "Take Away Tables Quantity",
     "save": "Save",
     "cancel": "Cancel",
     "settingsSavedSuccessfully": "Settings saved successfully",
@@ -357,6 +415,45 @@ static const Map<String,dynamic> _en = {
       "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
       "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
       "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+    }
+  },
+  "tablePage": {
+    "title": "Table Details",
+    "tableNumber": "Table Number: {number}",
+    "tableType": "Table Type: {type}",
+    "status": "Status: {status}",
+    "currentOrder": "Current Order",
+    "noCurrentOrder": "No current order for this table",
+    "addOrder": "Add Order",
+    "editOrder": "Edit Order",
+    "deleteOrder": "Delete Order",
+    "orderDetails": "Order Details",
+    "productName": "Product Name: {name}",
+    "quantity": "Quantity",
+    "price": "Price: {price} IQD",
+    "totalAmount": "Total Amount: {amount} IQD",
+    "confirmDeleteOrder": "Are you sure you want to delete this order?",
+    "yes": "Yes",
+    "no": "No",
+    "orderAddedSuccessfully": "Order added successfully",
+    "orderEditedSuccessfully": "Order edited successfully",
+    "orderDeletedSuccessfully": "Order deleted successfully",
+    "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "You cannot edit this order because it is already completed",
+    "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "You cannot delete this order because it is already completed",
+    "theGivenPriceIsLessThanTheTotalCostPrice": "The given price is less than the total cost price",
+    "givenPrice": "Given Price",
+    "currency": "Currency",
+    "theRemainingAmountToBePaid": "The remaining amount to be paid",
+    "each100DollarsEqualsInIqd": "Each 100 dollars equals {amount} IQD",
+    "checkOut": "Check Out",
+    "checkOutSuccessfully": "Check Out Successfully",
+    "addOrderForm": {
+      "title": "Add Order",
+      "selectProduct": "Select Product",
+      "quantity": "Quantity",
+      "addButton": "Add",
+      "productName": "Product Name",
+      "priceAndQuantity": "Price and Quantity"
     }
   }
 };
@@ -436,7 +533,7 @@ static const Map<String,dynamic> _fa = {
     "youcanOnlySelectUpTo5Images": "تەنها دەتوانیت تا 5 وێنە هەڵبژێریت",
     "youcanOnlySelect1Image": "تەنها دەتوانیت تا 1 وێنە هەڵبژێریت",
     "imageAlreadyExist": "وێنەکە پێشتر هەیە",
-    "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
+    "thereIsAlreadyAnItemWithThisName": "ئەم ناوە پێشتر هەیە"
   },
   "loginPage": {
     "welcomeBack": "بەخێربێیت دووبارە!",
@@ -449,7 +546,15 @@ static const Map<String,dynamic> _fa = {
     "welcome": "بەخێربێیت، {name}!",
     "todayIs": "ئەمڕۆ {day}ە",
     "youHave": "تۆ {count} داواکاری نوێت هەیە",
-    "viewOrders": "بینینی داواکاریەکان"
+    "viewOrders": "بینینی داواکاریەکان",
+    "selectTableType": "جۆری مێز هەڵبژێرە",
+    "cafe": "کافێ",
+    "pool": "پۆل",
+    "fisha": "فیشا",
+    "tableBall": "تێبل بال",
+    "videoGame": "یاریەکانی ڤیدیۆ",
+    "takeAway": "داواکاریی دەرەوە",
+    "thereIsNoTableOfThisType": "هیچ مێزێک لە ئەم جۆرە نیە"
   },
   "ordersPage": {
     "title": "داواکاریەکان",
@@ -520,6 +625,7 @@ static const Map<String,dynamic> _fa = {
     "videoGamesTablesQuantity": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ",
     "fishaTablesQuantity": "ژمارەی میزەکانی فیشا",
     "tableBallTablesQuantity": "ژمارەی میزەکانی توپە میز",
+    "takeAwayTablesQuantity": "ژمارەی میزەکانی داواکاریی دەرەوە",
     "save": "پاشەکەوت",
     "cancel": "ڕەتکردنەوە",
     "settingsSavedSuccessfully": "ڕێکخستنەکان بە سەرکەوتوویی پاشەکەوت کرا",
@@ -530,6 +636,45 @@ static const Map<String,dynamic> _fa = {
       "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
       "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
       "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+    }
+  },
+  "tablePage": {
+    "title": "وردەکاریی میز",
+    "tableNumber": "ژمارەی میز: {number}",
+    "tableType": "جۆری میز: {type}",
+    "status": "بارودۆخ: {status}",
+    "currentOrder": "داواکاریی ئێستا",
+    "noCurrentOrder": "هیچ داواکاریی ئێستا نییە بۆ ئەم میزە",
+    "addOrder": "زیادکردنی داواکاری",
+    "editOrder": "دەستکاری داواکاری",
+    "deleteOrder": "سڕینەوەی داواکاری",
+    "orderDetails": "وردەکاریی داواکاری",
+    "productName": "ناوی کاڵا: {name}",
+    "quantity": "ژمارە",
+    "price": "نرخ: {price} د.ع",
+    "totalAmount": "کۆی گشتی: {amount} د.ع",
+    "confirmDeleteOrder": "دڵنیایت دەتەوێت ئەم داواکاریە بسڕیتەوە؟",
+    "yes": "بەڵێ",
+    "no": "نەخێر",
+    "orderAddedSuccessfully": "داواکاری بە سەرکەوتوویی زیادکرا",
+    "orderEditedSuccessfully": "داواکاری بە سەرکەوتوویی دەستکاری کرا",
+    "orderDeletedSuccessfully": "داواکاری بە سەرکەوتوویی سڕایەوە",
+    "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "ناتوانیت ئەم داواکاریە دەستکاری بکەیت چونکە پێشتر تەواو بوو",
+    "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "ناتوانیت ئەم داواکاریە بسڕیتەوە چونکە پێشتر تەواو بوو",
+    "theGivenPriceIsLessThanTheTotalCostPrice": "نرخی دابینکراو کەمترە لە کۆی نرخی خەرج",
+    "givenPrice": "نرخی دابینکراو",
+    "currency": "پارە",
+    "theRemainingAmountToBePaid": "باقیمانەی پارەی پێویست بۆ پارەدان",
+    "each100DollarsEqualsInIqd": "هەر 100 دۆلار یەکسانە بە {amount} دینار عێراقی",
+    "checkOut": "پارەدان",
+    "checkOutSuccessfully": "پارەدان بە سەرکەوتوویی تەواو بوو",
+    "addOrderForm": {
+      "title": "زیادکردنی داواکاری",
+      "selectProduct": "کاڵا هەڵبژێرە",
+      "quantity": "ژمارە",
+      "addButton": "زیادکردن",
+      "productName": "ناوی کاڵا",
+      "priceAndQuantity": "نرخ و ژمارە"
     }
   }
 };

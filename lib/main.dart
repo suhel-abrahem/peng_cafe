@@ -9,7 +9,7 @@ import 'package:peng_cafe/core/constant/language_constants.dart';
 import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/login/presentations/bloc/login_bloc.dart';
-import 'package:peng_cafe/features/setting/presentation/bloc/sync_setting_page/bloc/sync_setting_bloc_bloc.dart';
+
 import 'package:peng_cafe/firebase_options.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ void main() async {
   await initializeDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  await getItInstance<AppPreferences>().checkDateToSync();
+
   runApp(
     EasyLocalization(
       supportedLocales: [

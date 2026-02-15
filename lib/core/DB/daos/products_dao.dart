@@ -83,4 +83,14 @@ class ProductsDao extends DatabaseAccessor<AppDatabase>
       productsTable,
     )..where((t) => t.id.isNotIn(excludedIds))).go();
   }
+
+  Future<List<ProductsTableData>> searchProductsByName(String query) {
+    return (select(productsTable)..where(
+          (t) =>
+              t.nameAr.contains(query) |
+              t.nameEn.contains(query) |
+              t.nameKu.contains(query),
+        ))
+        .get();
+  }
 }

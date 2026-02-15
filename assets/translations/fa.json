@@ -74,7 +74,7 @@
         "youcanOnlySelectUpTo5Images": "تەنها دەتوانیت تا 5 وێنە هەڵبژێریت",
         "youcanOnlySelect1Image": "تەنها دەتوانیت تا 1 وێنە هەڵبژێریت",
         "imageAlreadyExist": "وێنەکە پێشتر هەیە",
-        "thereIsAlreadyAnItemWithThisName": "يوجد بالفعل عنصر بهذا الاسم"
+        "thereIsAlreadyAnItemWithThisName": "ئەم ناوە پێشتر هەیە"
     },
     "loginPage": {
         "welcomeBack": "بەخێربێیت دووبارە!",
@@ -87,7 +87,15 @@
         "welcome": "بەخێربێیت، {name}!",
         "todayIs": "ئەمڕۆ {day}ە",
         "youHave": "تۆ {count} داواکاری نوێت هەیە",
-        "viewOrders": "بینینی داواکاریەکان"
+        "viewOrders": "بینینی داواکاریەکان",
+        "selectTableType": "جۆری مێز هەڵبژێرە",
+        "cafe": "کافێ",
+        "pool": "پۆل",
+        "fisha": "فیشا",
+        "tableBall": "تێبل بال",
+        "videoGame": "یاریەکانی ڤیدیۆ",
+        "takeAway": "داواکاریی دەرەوە",
+        "thereIsNoTableOfThisType": "هیچ مێزێک لە ئەم جۆرە نیە"
     },
     "ordersPage": {
         "title": "داواکاریەکان",
@@ -158,6 +166,7 @@
         "videoGamesTablesQuantity": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ",
         "fishaTablesQuantity": "ژمارەی میزەکانی فیشا",
         "tableBallTablesQuantity": "ژمارەی میزەکانی توپە میز",
+        "takeAwayTablesQuantity": "ژمارەی میزەکانی داواکاریی دەرەوە",
         "save": "پاشەکەوت",
         "cancel": "ڕەتکردنەوە",
         "settingsSavedSuccessfully": "ڕێکخستنەکان بە سەرکەوتوویی پاشەکەوت کرا",
@@ -168,6 +177,45 @@
             "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
             "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
             "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+        }
+    },
+    "tablePage": {
+        "title": "وردەکاریی میز",
+        "tableNumber": "ژمارەی میز: {number}",
+        "tableType": "جۆری میز: {type}",
+        "status": "بارودۆخ: {status}",
+        "currentOrder": "داواکاریی ئێستا",
+        "noCurrentOrder": "هیچ داواکاریی ئێستا نییە بۆ ئەم میزە",
+        "addOrder": "زیادکردنی داواکاری",
+        "editOrder": "دەستکاری داواکاری",
+        "deleteOrder": "سڕینەوەی داواکاری",
+        "orderDetails": "وردەکاریی داواکاری",
+        "productName": "ناوی کاڵا: {name}",
+        "quantity": "ژمارە",
+        "price": "نرخ: {price} د.ع",
+        "totalAmount": "کۆی گشتی: {amount} د.ع",
+        "confirmDeleteOrder": "دڵنیایت دەتەوێت ئەم داواکاریە بسڕیتەوە؟",
+        "yes": "بەڵێ",
+        "no": "نەخێر",
+        "orderAddedSuccessfully": "داواکاری بە سەرکەوتوویی زیادکرا",
+        "orderEditedSuccessfully": "داواکاری بە سەرکەوتوویی دەستکاری کرا",
+        "orderDeletedSuccessfully": "داواکاری بە سەرکەوتوویی سڕایەوە",
+        "youCanNotEditThisOrderBecauseItIsAlreadyCompleted": "ناتوانیت ئەم داواکاریە دەستکاری بکەیت چونکە پێشتر تەواو بوو",
+        "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "ناتوانیت ئەم داواکاریە بسڕیتەوە چونکە پێشتر تەواو بوو",
+        "theGivenPriceIsLessThanTheTotalCostPrice": "نرخی دابینکراو کەمترە لە کۆی نرخی خەرج",
+        "givenPrice": "نرخی دابینکراو",
+        "currency": "پارە",
+        "theRemainingAmountToBePaid": "باقیمانەی پارەی پێویست بۆ پارەدان",
+        "each100DollarsEqualsInIqd": "هەر 100 دۆلار یەکسانە بە {amount} دینار عێراقی",
+        "checkOut": "پارەدان",
+        "checkOutSuccessfully": "پارەدان بە سەرکەوتوویی تەواو بوو",
+        "addOrderForm": {
+            "title": "زیادکردنی داواکاری",
+            "selectProduct": "کاڵا هەڵبژێرە",
+            "quantity": "ژمارە",
+            "addButton": "زیادکردن",
+            "productName": "ناوی کاڵا",
+            "priceAndQuantity": "نرخ و ژمارە"
         }
     }
 }
