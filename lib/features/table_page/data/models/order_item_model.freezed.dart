@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderItemModel {
 
- int get id; int get orderId; int get productId; double get price; double get quantity; double? get discount; TableTypeEnum get tableType; int get tableNumber; ProductTypeEnum get productType;
+ String get locale; int get id; int get orderId; int get productId; double get price; double get quantity; double? get discount; TableTypeEnum get tableType; int get tableNumber; ProductTypeEnum get productType;
 /// Create a copy of OrderItemModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OrderItemModelCopyWith<OrderItemModel> get copyWith => _$OrderItemModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.productType, productType) || other.productType == productType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderItemModel&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.id, id) || other.id == id)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.productType, productType) || other.productType == productType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderId,productId,price,quantity,discount,tableType,tableNumber,productType);
+int get hashCode => Object.hash(runtimeType,locale,id,orderId,productId,price,quantity,discount,tableType,tableNumber,productType);
 
 @override
 String toString() {
-  return 'OrderItemModel(id: $id, orderId: $orderId, productId: $productId, price: $price, quantity: $quantity, discount: $discount, tableType: $tableType, tableNumber: $tableNumber, productType: $productType)';
+  return 'OrderItemModel(locale: $locale, id: $id, orderId: $orderId, productId: $productId, price: $price, quantity: $quantity, discount: $discount, tableType: $tableType, tableNumber: $tableNumber, productType: $productType)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OrderItemModelCopyWith<$Res>  {
   factory $OrderItemModelCopyWith(OrderItemModel value, $Res Function(OrderItemModel) _then) = _$OrderItemModelCopyWithImpl;
 @useResult
 $Res call({
- int id, int orderId, int productId, double price, double quantity, double? discount, TableTypeEnum tableType, int tableNumber, ProductTypeEnum productType
+ String locale, int id, int orderId, int productId, double price, double quantity, double? discount, TableTypeEnum tableType, int tableNumber, ProductTypeEnum productType
 });
 
 
@@ -65,9 +65,10 @@ class _$OrderItemModelCopyWithImpl<$Res>
 
 /// Create a copy of OrderItemModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderId = null,Object? productId = null,Object? price = null,Object? quantity = null,Object? discount = freezed,Object? tableType = null,Object? tableNumber = null,Object? productType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? id = null,Object? orderId = null,Object? productId = null,Object? price = null,Object? quantity = null,Object? discount = freezed,Object? tableType = null,Object? tableNumber = null,Object? productType = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderId: null == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
 as int,productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
 as int,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String locale,  int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderItemModel() when $default != null:
-return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
+return $default(_that.locale,_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantit
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String locale,  int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)  $default,) {final _that = this;
 switch (_that) {
 case _OrderItemModel():
-return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
+return $default(_that.locale,_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantit
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String locale,  int id,  int orderId,  int productId,  double price,  double quantity,  double? discount,  TableTypeEnum tableType,  int tableNumber,  ProductTypeEnum productType)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderItemModel() when $default != null:
-return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
+return $default(_that.locale,_that.id,_that.orderId,_that.productId,_that.price,_that.quantity,_that.discount,_that.tableType,_that.tableNumber,_that.productType);case _:
   return null;
 
 }
@@ -217,18 +218,19 @@ return $default(_that.id,_that.orderId,_that.productId,_that.price,_that.quantit
 @JsonSerializable()
 
 class _OrderItemModel implements OrderItemModel {
-  const _OrderItemModel({this.id = 0, this.orderId = 0, this.productId = 0, this.price = 0.0, this.quantity = 0.0, this.discount, this.tableType = TableTypeEnum.cafe, this.tableNumber = 0, this.productType = ProductTypeEnum.foodAndBeverage});
+  const _OrderItemModel({this.locale = "ar", this.id = 0, this.orderId = 0, this.productId = 0, this.price = 0.0, this.quantity = 0.0, this.discount, required this.tableType, this.tableNumber = 0, required this.productType});
   factory _OrderItemModel.fromJson(Map<String, dynamic> json) => _$OrderItemModelFromJson(json);
 
+@override@JsonKey() final  String locale;
 @override@JsonKey() final  int id;
 @override@JsonKey() final  int orderId;
 @override@JsonKey() final  int productId;
 @override@JsonKey() final  double price;
 @override@JsonKey() final  double quantity;
 @override final  double? discount;
-@override@JsonKey() final  TableTypeEnum tableType;
+@override final  TableTypeEnum tableType;
 @override@JsonKey() final  int tableNumber;
-@override@JsonKey() final  ProductTypeEnum productType;
+@override final  ProductTypeEnum productType;
 
 /// Create a copy of OrderItemModel
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +245,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.productType, productType) || other.productType == productType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderItemModel&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.id, id) || other.id == id)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.productType, productType) || other.productType == productType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderId,productId,price,quantity,discount,tableType,tableNumber,productType);
+int get hashCode => Object.hash(runtimeType,locale,id,orderId,productId,price,quantity,discount,tableType,tableNumber,productType);
 
 @override
 String toString() {
-  return 'OrderItemModel(id: $id, orderId: $orderId, productId: $productId, price: $price, quantity: $quantity, discount: $discount, tableType: $tableType, tableNumber: $tableNumber, productType: $productType)';
+  return 'OrderItemModel(locale: $locale, id: $id, orderId: $orderId, productId: $productId, price: $price, quantity: $quantity, discount: $discount, tableType: $tableType, tableNumber: $tableNumber, productType: $productType)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$OrderItemModelCopyWith<$Res> implements $OrderItemModelCo
   factory _$OrderItemModelCopyWith(_OrderItemModel value, $Res Function(_OrderItemModel) _then) = __$OrderItemModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int orderId, int productId, double price, double quantity, double? discount, TableTypeEnum tableType, int tableNumber, ProductTypeEnum productType
+ String locale, int id, int orderId, int productId, double price, double quantity, double? discount, TableTypeEnum tableType, int tableNumber, ProductTypeEnum productType
 });
 
 
@@ -280,9 +282,10 @@ class __$OrderItemModelCopyWithImpl<$Res>
 
 /// Create a copy of OrderItemModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderId = null,Object? productId = null,Object? price = null,Object? quantity = null,Object? discount = freezed,Object? tableType = null,Object? tableNumber = null,Object? productType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? id = null,Object? orderId = null,Object? productId = null,Object? price = null,Object? quantity = null,Object? discount = freezed,Object? tableType = null,Object? tableNumber = null,Object? productType = null,}) {
   return _then(_OrderItemModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderId: null == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
 as int,productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
 as int,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable

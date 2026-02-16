@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:peng_cafe/core/resource/data_state.dart';
+import 'package:peng_cafe/core/usecase/usecase.dart';
+import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/table_page/data/models/order_item_model.dart';
 import 'package:peng_cafe/features/table_page/data/models/order_model.dart';
 import 'package:peng_cafe/features/table_page/domain/entities/order_entity.dart';
@@ -15,15 +17,19 @@ class TableRepositoryImplements implements TableRepository {
 
   TableRepositoryImplements(this._database);
 
+  // =========================
+  // 1) GET OR CREATE ORDER
+  // =========================
   @override
   Future<DataState<OrderEntity?>> getActiveOrderByTable({
-    OrderModel? orderModel,
+    required OrderModel orderModel,
   }) async {
     try {
       final ordersDao = _database.ordersDao;
 
       final existing = await ordersDao.getActiveOrderByTable(
-        orderModel!.tableNumber,
+        tableNumber: orderModel.tableNumber,
+        tableType: orderModel.tableType,
       );
 
       if (existing != null) {
@@ -36,6 +42,7 @@ class TableRepositoryImplements implements TableRepository {
         OrdersTableCompanion(
           orderNumber: Value(orderNumber),
           tableNumber: Value(orderModel.tableNumber),
+          tableType: Value(orderModel.tableType), // ✅ important
           price: const Value(0),
           total: const Value(0),
           userId: Value(orderModel.userId),
@@ -54,37 +61,111 @@ class TableRepositoryImplements implements TableRepository {
     }
   }
 
+  // =========================
+  // 2) ADD ITEM (OR INCREASE)
+  // =========================
   @override
   Future<DataState<OrderItemEntity?>> addItem({
-    OrderItemModel? orderModel,
+    required OrderItemModel orderModel,
   }) async {
     try {
       final dao = _database.orderItemsDao;
 
+      // ✅ prevent duplicates (order + product + tableType)
+      final existing = await dao.getItemByOrderAndProduct(
+        orderId: orderModel.orderId,
+        productId: orderModel.productId,
+        tableType: orderModel.tableType,
+      );
+
+      if (existing != null) {
+        final newQty = existing.quantity + 1;
+        final newTotal = newQty * existing.price;
+
+        await dao.updateQuantity(
+          id: existing.id,
+          quantity: newQty,
+          total: newTotal,
+        );
+
+        // ✅ return updated with product name (JOIN)
+        final rows = await dao.getItemsWithProduct(orderModel.orderId);
+        final updated = rows.firstWhere((r) => r.$1.id == existing.id);
+
+        return DataSuccess(
+          data: orderItemFromJoin(
+            updated.$1,
+            updated.$2,
+            Helper.getLocaleByCode(orderModel.locale),
+          ),
+        );
+      }
+
+      // ✅ insert new item with quantity=1 always
       await dao.addItem(
         OrderItemsTableCompanion(
-          orderId: Value(orderModel!.orderId),
+          orderId: Value(orderModel.orderId),
           productId: Value(orderModel.productId),
-          quantity: Value(orderModel.quantity),
+          quantity: const Value(1),
           price: Value(orderModel.price),
-          total: Value(orderModel.quantity * orderModel.price),
+          total: Value(orderModel.price),
           tableType: Value(orderModel.tableType),
           tableNumber: Value(orderModel.tableNumber),
           productType: Value(orderModel.productType),
         ),
       );
 
-      final created = await dao.getItem(
-        orderId: orderModel.orderId,
-        productId: orderModel.productId,
+      // ✅ fetch created with product name (JOIN)
+      final rows = await dao.getItemsWithProduct(orderModel.orderId);
+      final created = rows.firstWhere(
+        (r) =>
+            r.$1.productId == orderModel.productId &&
+            r.$1.tableType == orderModel.tableType.index,
       );
 
-      return DataSuccess(data: orderItemFromRow(created!));
+      return DataSuccess(
+        data: orderItemFromJoin(
+          created.$1,
+          created.$2,
+          Helper.getLocaleByCode(orderModel.locale),
+        ),
+      );
     } catch (e) {
       return DataFailed(error: e.toString());
     }
   }
 
+  // =========================
+  // 3) GET ORDER ITEMS (WITH PRODUCT NAMES)
+  // =========================
+  @override
+  Future<DataState<List<OrderItemEntity>>> getOrderItems({
+    required GetOrderItemsParams params,
+  }) async {
+    try {
+      final rows = await _database.orderItemsDao.getItemsWithProduct(
+        params.orderId,
+      );
+
+      final items = rows
+          .map(
+            (row) => orderItemFromJoin(
+              row.$1,
+              row.$2,
+              Helper.getLocaleByCode(params.locale),
+            ),
+          )
+          .toList();
+
+      return DataSuccess(data: items);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
+
+  // =========================
+  // 4) UPDATE ITEM QUANTITY (MANUAL INPUT)
+  // =========================
   @override
   Future<DataState<void>> updateItemQuantity({
     required OrderItemModel orderModel,
@@ -111,20 +192,9 @@ class TableRepositoryImplements implements TableRepository {
     }
   }
 
-  @override
-  Future<DataState<List<OrderItemEntity>>> getOrderItems({
-    required int orderId,
-  }) async {
-    try {
-      final rows = await _database.orderItemsDao.getItemsByOrder(orderId);
-
-      final items = rows.map(orderItemFromRow).toList();
-      return DataSuccess(data: items);
-    } catch (e) {
-      return DataFailed(error: e.toString());
-    }
-  }
-
+  // =========================
+  // 5) DELETE ORDER ITEM
+  // =========================
   @override
   Future<DataState<void>> deleteOrderItem({required int itemId}) async {
     try {

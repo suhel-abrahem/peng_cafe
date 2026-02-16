@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 
 import '../../enums/order_status_enum/order_status_enum.dart';
 import '../../enums/order_type_enum/order_type_enum.dart';
+import '../../enums/tables_enum/table_type_enum.dart';
 import 'users_table.dart';
 
 class OrdersTable extends Table {
@@ -11,6 +12,8 @@ class OrdersTable extends Table {
   RealColumn get price => real()();
   RealColumn get discount => real().nullable()();
   RealColumn get total => real()();
+  IntColumn get tableType => intEnum<TableTypeEnum>()();
+
   IntColumn get orderType => intEnum<OrderTypeEnum>().withDefault(
     Constant(OrderTypeEnum.dineIn.index),
   )();

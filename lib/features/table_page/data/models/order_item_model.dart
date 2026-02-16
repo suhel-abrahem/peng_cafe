@@ -8,15 +8,16 @@ part 'order_item_model.g.dart';
 @freezed
 abstract class OrderItemModel with _$OrderItemModel {
   const factory OrderItemModel({
+    @Default("ar") String locale,
     @Default(0) int id,
     @Default(0) int orderId,
     @Default(0) int productId,
     @Default(0.0) double price,
     @Default(0.0) double quantity,
     double? discount,
-    @Default(TableTypeEnum.cafe) TableTypeEnum tableType,
+    required TableTypeEnum tableType,
     @Default(0) int tableNumber,
-    @Default(ProductTypeEnum.foodAndBeverage) ProductTypeEnum productType,
+    required ProductTypeEnum productType,
   }) = _OrderItemModel;
   factory OrderItemModel.fromJson(Map<String, Object?> json) =>
       _$OrderItemModelFromJson(json);

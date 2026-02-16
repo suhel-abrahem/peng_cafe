@@ -8,14 +8,14 @@ part of 'order_model.dart';
 
 _OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => _OrderModel(
   tableNumber: (json['tableNumber'] as num).toInt(),
-  tableType: $enumDecodeNullable(_$TableTypeEnumEnumMap, json['tableType']),
+  tableType: $enumDecode(_$TableTypeEnumEnumMap, json['tableType']),
   userId: (json['userId'] as num).toInt(),
 );
 
 Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
     <String, dynamic>{
       'tableNumber': instance.tableNumber,
-      'tableType': _$TableTypeEnumEnumMap[instance.tableType],
+      'tableType': _$TableTypeEnumEnumMap[instance.tableType]!,
       'userId': instance.userId,
     };
 

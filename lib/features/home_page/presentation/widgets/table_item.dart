@@ -19,7 +19,10 @@ class TableItem extends StatelessWidget {
       onTap: () {
         context.pushNamed(
           RoutesName.tablePage,
-          pathParameters: {"tableNumber": index.toString()},
+          pathParameters: {
+            "tableNumber": index.toString(),
+            "tableType": tableType.name,
+          },
         );
       },
       child: Container(

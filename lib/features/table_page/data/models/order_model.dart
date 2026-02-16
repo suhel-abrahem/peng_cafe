@@ -8,7 +8,7 @@ part 'order_model.g.dart';
 abstract class OrderModel with _$OrderModel {
   const factory OrderModel({
     required int tableNumber,
-    TableTypeEnum? tableType,
+    required TableTypeEnum tableType,
     required int userId,
   }) = _OrderModel;
   factory OrderModel.fromJson(Map<String, Object?> json) =>

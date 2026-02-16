@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import '../../enums/order_status_enum/order_status_enum.dart';
+import '../../enums/tables_enum/table_type_enum.dart';
 import '../app_database.dart';
 import '../tables/orders_table.dart';
 
@@ -9,22 +10,26 @@ part 'orders_dao.g.dart';
 class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
   OrdersDao(super.db);
 
-  // 🔹 Create new order
+  //  Create new order
   Future<int> createOrder(OrdersTableCompanion order) {
     return into(ordersTable).insert(order);
   }
 
-  // 🔹 Get active order by table number
-  Future<OrdersTableData?> getActiveOrderByTable(int tableNumber) {
+  //  Get active order by table number
+  Future<OrdersTableData?> getActiveOrderByTable({
+    required int tableNumber,
+    required TableTypeEnum tableType,
+  }) {
     return (select(ordersTable)..where(
           (t) =>
               t.tableNumber.equals(tableNumber) &
+              t.tableType.equals(tableType.index) &
               t.orderStatus.equals(OrderStatusEnum.inProgress.index),
         ))
         .getSingleOrNull();
   }
 
-  // 🔹 Update totals
+  //  Update totals
   Future<int> updateOrderTotals({
     required int orderId,
     required double price,
@@ -40,7 +45,7 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     );
   }
 
-  // 🔹 Close order
+  //  Close order
   Future<int> closeOrder(int orderId) {
     return (update(ordersTable)..where((t) => t.id.equals(orderId))).write(
       OrdersTableCompanion(

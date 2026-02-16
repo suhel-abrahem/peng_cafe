@@ -8,23 +8,21 @@ part of 'order_item_model.dart';
 
 _OrderItemModel _$OrderItemModelFromJson(Map<String, dynamic> json) =>
     _OrderItemModel(
+      locale: json['locale'] as String? ?? "ar",
       id: (json['id'] as num?)?.toInt() ?? 0,
       orderId: (json['orderId'] as num?)?.toInt() ?? 0,
       productId: (json['productId'] as num?)?.toInt() ?? 0,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       quantity: (json['quantity'] as num?)?.toDouble() ?? 0.0,
       discount: (json['discount'] as num?)?.toDouble(),
-      tableType:
-          $enumDecodeNullable(_$TableTypeEnumEnumMap, json['tableType']) ??
-          TableTypeEnum.cafe,
+      tableType: $enumDecode(_$TableTypeEnumEnumMap, json['tableType']),
       tableNumber: (json['tableNumber'] as num?)?.toInt() ?? 0,
-      productType:
-          $enumDecodeNullable(_$ProductTypeEnumEnumMap, json['productType']) ??
-          ProductTypeEnum.foodAndBeverage,
+      productType: $enumDecode(_$ProductTypeEnumEnumMap, json['productType']),
     );
 
 Map<String, dynamic> _$OrderItemModelToJson(_OrderItemModel instance) =>
     <String, dynamic>{
+      'locale': instance.locale,
       'id': instance.id,
       'orderId': instance.orderId,
       'productId': instance.productId,

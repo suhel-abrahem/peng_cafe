@@ -1,20 +1,27 @@
+import 'package:flutter/widgets.dart';
 import '../../../../core/DB/app_database.dart';
 import '../../../../core/enums/product_type_enum/product_type_enum.dart';
 import '../../../../core/enums/tables_enum/table_type_enum.dart';
-import '../../../features/table_page/domain/entities/order_item_entity.dart';
+import '../../../../features/table_page/domain/entities/order_item_entity.dart';
+import '../../../../core/extensions/product_locale_extension.dart';
 
-OrderItemEntity orderItemFromRow(OrderItemsTableData row) {
+OrderItemEntity orderItemFromJoin(
+  OrderItemsTableData item,
+  ProductsTableData product,
+  Locale locale,
+) {
   return OrderItemEntity(
-    id: row.id,
-    orderId: row.orderId,
-    productId: row.productId,
-    quantity: row.quantity,
-    price: row.price,
-    total: row.total,
-    discount: row.discount,
-    tableType: TableTypeEnum.values[row.tableType.index],
-    tableNumber: row.tableNumber,
-    productType: ProductTypeEnum.values[row.productType.index],
-    createdAt: row.createdAt,
+    id: item.id,
+    orderId: item.orderId,
+    productId: item.productId,
+    quantity: item.quantity,
+    price: item.price,
+    total: item.total,
+    productName: product.localizedName(locale), // ✅ FIXED
+    discount: item.discount,
+    tableType: TableTypeEnum.values[item.tableType.index],
+    tableNumber: item.tableNumber,
+    productType: ProductTypeEnum.values[item.productType.index],
+    createdAt: item.createdAt,
   );
 }

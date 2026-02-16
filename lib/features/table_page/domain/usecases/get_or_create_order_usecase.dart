@@ -10,7 +10,7 @@ class GetOrCreateOrderUsecase
   final TableRepository _repository;
   GetOrCreateOrderUsecase(this._repository);
   @override
-  Future<DataState<OrderEntity?>> call({OrderModel? params}) async {
+  Future<DataState<OrderEntity?>> call({required OrderModel params}) async {
     return await _repository.getActiveOrderByTable(orderModel: params);
   }
 }

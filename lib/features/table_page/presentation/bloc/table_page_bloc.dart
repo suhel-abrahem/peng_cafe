@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:peng_cafe/core/usecase/usecase.dart';
 import 'package:peng_cafe/features/table_page/domain/usecases/add_item_usecase.dart';
 import 'package:peng_cafe/features/table_page/domain/usecases/update_item_usecase.dart';
 
+import '../../../../core/enums/tables_enum/table_type_enum.dart';
 import '../../../../core/resource/data_state.dart';
 import '../../data/models/order_item_model.dart';
 import '../../data/models/order_model.dart';
@@ -47,13 +51,22 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     emit(const TablePageState.loading());
 
     final result = await _getOrCreateOrder.call(
-      params: OrderModel(tableNumber: event.tableNumber, userId: event.userId),
+      params: OrderModel(
+        tableNumber: event.tableNumber,
+        userId: event.userId,
+        tableType: event.tableType,
+      ),
     );
 
     if (result is DataSuccess && result.data != null) {
       _currentOrder = result.data;
 
-      final itemsResult = await _getOrderItems.call(params: _currentOrder!.id);
+      final itemsResult = await _getOrderItems.call(
+        params: GetOrderItemsParams(
+          orderId: _currentOrder!.id,
+          locale: event.locale,
+        ),
+      );
 
       emit(
         TablePageState.loaded(
@@ -75,10 +88,15 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     if (_currentOrder == null) return;
 
     await _addItem.call(
-      params: event.item.copyWith(orderId: _currentOrder!.id),
+      params: event.item.copyWith(
+        orderId: _currentOrder!.id,
+        quantity: 1,
+        tableType: _currentOrder!.tableType,
+        tableNumber: _currentOrder!.tableNumber,
+      ),
     );
 
-    add(const TablePageEvent.refreshItems());
+    add(TablePageEvent.refreshItems(locale: event.item.locale));
   }
 
   // ================= SET ITEM QUANTITY =================
@@ -89,18 +107,29 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
   ) async {
     if (_currentOrder == null) return;
 
+    final state = this.state;
+    if (state is! _Loaded) return;
+
+    final item = state.items.firstWhere((e) => e.id == event.itemId);
+
     if (event.quantity <= 0) {
       await _deleteOrderItem.call(params: event.itemId);
     } else {
       await _updateItemQuantity.call(
         params: OrderItemModel(
-          id: event.itemId, // ✅ item id
+          id: item.id,
+          orderId: _currentOrder!.id,
+          productId: item.productId,
+          price: item.price,
           quantity: event.quantity,
+          tableType: _currentOrder!.tableType,
+          tableNumber: _currentOrder!.tableNumber,
+          productType: item.productType,
         ),
       );
     }
 
-    add(const TablePageEvent.refreshItems());
+    add(TablePageEvent.refreshItems(locale: event.locale));
   }
 
   // ================= REFRESH =================
@@ -111,7 +140,12 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
   ) async {
     if (_currentOrder == null) return;
 
-    final itemsResult = await _getOrderItems.call(params: _currentOrder!.id);
+    final itemsResult = await _getOrderItems.call(
+      params: GetOrderItemsParams(
+        orderId: _currentOrder!.id,
+        locale: event.locale ?? "ar",
+      ),
+    );
 
     emit(
       TablePageState.loaded(

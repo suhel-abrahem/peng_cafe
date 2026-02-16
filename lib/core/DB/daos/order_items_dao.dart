@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../enums/tables_enum/table_type_enum.dart';
 import '../app_database.dart';
 import '../tables/order_items_table.dart';
 import '../tables/products_table.dart';
@@ -14,6 +15,21 @@ class OrderItemsDao extends DatabaseAccessor<AppDatabase>
   // 🔹 Add item
   Future<int> addItem(OrderItemsTableCompanion item) {
     return into(orderItemsTable).insert(item);
+  }
+
+  // 🔹 Get single item by order + product + tableType
+  Future<OrderItemsTableData?> getItemByOrderAndProduct({
+    required int orderId,
+    required int productId,
+    required TableTypeEnum tableType,
+  }) {
+    return (select(orderItemsTable)..where(
+          (t) =>
+              t.orderId.equals(orderId) &
+              t.productId.equals(productId) &
+              t.tableType.equals(tableType.index),
+        ))
+        .getSingleOrNull();
   }
 
   // 🔹 Get single item by order + product

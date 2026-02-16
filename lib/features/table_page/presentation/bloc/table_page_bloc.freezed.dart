@@ -131,14 +131,14 @@ return refreshItems(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int tableNumber,  int userId)?  loadTable,TResult Function( OrderItemModel item)?  addProduct,TResult Function( int itemId,  double quantity)?  setItemQuantity,TResult Function( int itemId)?  deleteItem,TResult Function()?  refreshItems,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)?  loadTable,TResult Function( OrderItemModel item)?  addProduct,TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult Function( int itemId,  String locale)?  deleteItem,TResult Function( String? locale)?  refreshItems,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoadTable() when loadTable != null:
-return loadTable(_that.tableNumber,_that.userId);case _AddProduct() when addProduct != null:
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct() when addProduct != null:
 return addProduct(_that.item);case _SetItemQuantity() when setItemQuantity != null:
-return setItemQuantity(_that.itemId,_that.quantity);case _DeleteItem() when deleteItem != null:
-return deleteItem(_that.itemId);case _RefreshItems() when refreshItems != null:
-return refreshItems();case _:
+return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem() when deleteItem != null:
+return deleteItem(_that.itemId,_that.locale);case _RefreshItems() when refreshItems != null:
+return refreshItems(_that.locale);case _:
   return orElse();
 
 }
@@ -156,14 +156,14 @@ return refreshItems();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int tableNumber,  int userId)  loadTable,required TResult Function( OrderItemModel item)  addProduct,required TResult Function( int itemId,  double quantity)  setItemQuantity,required TResult Function( int itemId)  deleteItem,required TResult Function()  refreshItems,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)  loadTable,required TResult Function( OrderItemModel item)  addProduct,required TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)  setItemQuantity,required TResult Function( int itemId,  String locale)  deleteItem,required TResult Function( String? locale)  refreshItems,}) {final _that = this;
 switch (_that) {
 case _LoadTable():
-return loadTable(_that.tableNumber,_that.userId);case _AddProduct():
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct():
 return addProduct(_that.item);case _SetItemQuantity():
-return setItemQuantity(_that.itemId,_that.quantity);case _DeleteItem():
-return deleteItem(_that.itemId);case _RefreshItems():
-return refreshItems();case _:
+return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem():
+return deleteItem(_that.itemId,_that.locale);case _RefreshItems():
+return refreshItems(_that.locale);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -180,14 +180,14 @@ return refreshItems();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int tableNumber,  int userId)?  loadTable,TResult? Function( OrderItemModel item)?  addProduct,TResult? Function( int itemId,  double quantity)?  setItemQuantity,TResult? Function( int itemId)?  deleteItem,TResult? Function()?  refreshItems,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)?  loadTable,TResult? Function( OrderItemModel item)?  addProduct,TResult? Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult? Function( int itemId,  String locale)?  deleteItem,TResult? Function( String? locale)?  refreshItems,}) {final _that = this;
 switch (_that) {
 case _LoadTable() when loadTable != null:
-return loadTable(_that.tableNumber,_that.userId);case _AddProduct() when addProduct != null:
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct() when addProduct != null:
 return addProduct(_that.item);case _SetItemQuantity() when setItemQuantity != null:
-return setItemQuantity(_that.itemId,_that.quantity);case _DeleteItem() when deleteItem != null:
-return deleteItem(_that.itemId);case _RefreshItems() when refreshItems != null:
-return refreshItems();case _:
+return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem() when deleteItem != null:
+return deleteItem(_that.itemId,_that.locale);case _RefreshItems() when refreshItems != null:
+return refreshItems(_that.locale);case _:
   return null;
 
 }
@@ -199,11 +199,13 @@ return refreshItems();case _:
 
 
 class _LoadTable implements TablePageEvent {
-  const _LoadTable({required this.tableNumber, required this.userId});
+  const _LoadTable({required this.tableNumber, required this.tableType, required this.userId, required this.locale});
   
 
  final  int tableNumber;
+ final  TableTypeEnum tableType;
  final  int userId;
+ final  String locale;
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -215,16 +217,16 @@ _$LoadTableCopyWith<_LoadTable> get copyWith => __$LoadTableCopyWithImpl<_LoadTa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadTable&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadTable&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tableNumber,userId);
+int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId,locale);
 
 @override
 String toString() {
-  return 'TablePageEvent.loadTable(tableNumber: $tableNumber, userId: $userId)';
+  return 'TablePageEvent.loadTable(tableNumber: $tableNumber, tableType: $tableType, userId: $userId, locale: $locale)';
 }
 
 
@@ -235,7 +237,7 @@ abstract mixin class _$LoadTableCopyWith<$Res> implements $TablePageEventCopyWit
   factory _$LoadTableCopyWith(_LoadTable value, $Res Function(_LoadTable) _then) = __$LoadTableCopyWithImpl;
 @useResult
 $Res call({
- int tableNumber, int userId
+ int tableNumber, TableTypeEnum tableType, int userId, String locale
 });
 
 
@@ -252,11 +254,13 @@ class __$LoadTableCopyWithImpl<$Res>
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? userId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,Object? locale = null,}) {
   return _then(_LoadTable(
 tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // ignore: cast_nullable_to_non_nullable
-as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as int,
+as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
+as TableTypeEnum,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -342,11 +346,13 @@ $OrderItemModelCopyWith<$Res> get item {
 
 
 class _SetItemQuantity implements TablePageEvent {
-  const _SetItemQuantity({required this.itemId, required this.quantity});
+  const _SetItemQuantity({required this.itemId, required this.quantity, required this.tableType, required this.locale});
   
 
  final  int itemId;
  final  double quantity;
+ final  TableTypeEnum tableType;
+ final  String locale;
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -358,16 +364,16 @@ _$SetItemQuantityCopyWith<_SetItemQuantity> get copyWith => __$SetItemQuantityCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetItemQuantity&&(identical(other.itemId, itemId) || other.itemId == itemId)&&(identical(other.quantity, quantity) || other.quantity == quantity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetItemQuantity&&(identical(other.itemId, itemId) || other.itemId == itemId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,itemId,quantity);
+int get hashCode => Object.hash(runtimeType,itemId,quantity,tableType,locale);
 
 @override
 String toString() {
-  return 'TablePageEvent.setItemQuantity(itemId: $itemId, quantity: $quantity)';
+  return 'TablePageEvent.setItemQuantity(itemId: $itemId, quantity: $quantity, tableType: $tableType, locale: $locale)';
 }
 
 
@@ -378,7 +384,7 @@ abstract mixin class _$SetItemQuantityCopyWith<$Res> implements $TablePageEventC
   factory _$SetItemQuantityCopyWith(_SetItemQuantity value, $Res Function(_SetItemQuantity) _then) = __$SetItemQuantityCopyWithImpl;
 @useResult
 $Res call({
- int itemId, double quantity
+ int itemId, double quantity, TableTypeEnum tableType, String locale
 });
 
 
@@ -395,11 +401,13 @@ class __$SetItemQuantityCopyWithImpl<$Res>
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? itemId = null,Object? quantity = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? itemId = null,Object? quantity = null,Object? tableType = null,Object? locale = null,}) {
   return _then(_SetItemQuantity(
 itemId: null == itemId ? _self.itemId : itemId // ignore: cast_nullable_to_non_nullable
 as int,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as double,
+as double,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
+as TableTypeEnum,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -410,10 +418,11 @@ as double,
 
 
 class _DeleteItem implements TablePageEvent {
-  const _DeleteItem({required this.itemId});
+  const _DeleteItem({required this.itemId, required this.locale});
   
 
  final  int itemId;
+ final  String locale;
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -425,16 +434,16 @@ _$DeleteItemCopyWith<_DeleteItem> get copyWith => __$DeleteItemCopyWithImpl<_Del
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteItem&&(identical(other.itemId, itemId) || other.itemId == itemId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteItem&&(identical(other.itemId, itemId) || other.itemId == itemId)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,itemId);
+int get hashCode => Object.hash(runtimeType,itemId,locale);
 
 @override
 String toString() {
-  return 'TablePageEvent.deleteItem(itemId: $itemId)';
+  return 'TablePageEvent.deleteItem(itemId: $itemId, locale: $locale)';
 }
 
 
@@ -445,7 +454,7 @@ abstract mixin class _$DeleteItemCopyWith<$Res> implements $TablePageEventCopyWi
   factory _$DeleteItemCopyWith(_DeleteItem value, $Res Function(_DeleteItem) _then) = __$DeleteItemCopyWithImpl;
 @useResult
 $Res call({
- int itemId
+ int itemId, String locale
 });
 
 
@@ -462,10 +471,11 @@ class __$DeleteItemCopyWithImpl<$Res>
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? itemId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? itemId = null,Object? locale = null,}) {
   return _then(_DeleteItem(
 itemId: null == itemId ? _self.itemId : itemId // ignore: cast_nullable_to_non_nullable
-as int,
+as int,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -476,33 +486,67 @@ as int,
 
 
 class _RefreshItems implements TablePageEvent {
-  const _RefreshItems();
+  const _RefreshItems({required this.locale});
   
 
+ final  String? locale;
 
-
+/// Create a copy of TablePageEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RefreshItemsCopyWith<_RefreshItems> get copyWith => __$RefreshItemsCopyWithImpl<_RefreshItems>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RefreshItems);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RefreshItems&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,locale);
 
 @override
 String toString() {
-  return 'TablePageEvent.refreshItems()';
+  return 'TablePageEvent.refreshItems(locale: $locale)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$RefreshItemsCopyWith<$Res> implements $TablePageEventCopyWith<$Res> {
+  factory _$RefreshItemsCopyWith(_RefreshItems value, $Res Function(_RefreshItems) _then) = __$RefreshItemsCopyWithImpl;
+@useResult
+$Res call({
+ String? locale
+});
 
 
+
+
+}
+/// @nodoc
+class __$RefreshItemsCopyWithImpl<$Res>
+    implements _$RefreshItemsCopyWith<$Res> {
+  __$RefreshItemsCopyWithImpl(this._self, this._then);
+
+  final _RefreshItems _self;
+  final $Res Function(_RefreshItems) _then;
+
+/// Create a copy of TablePageEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? locale = freezed,}) {
+  return _then(_RefreshItems(
+locale: freezed == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$TablePageState {

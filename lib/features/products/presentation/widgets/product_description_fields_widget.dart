@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass/glass.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
+import 'package:peng_cafe/core/constant/language_constants.dart';
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 
 import '../../../../core/constant/font_constants.dart';
@@ -29,38 +30,28 @@ class ProductDescriptionFields extends StatefulWidget {
 }
 
 class _ProductDescriptionFieldsState extends State<ProductDescriptionFields> {
-  String selectedLanguage = LocaleKeys.productsPage_addProductForm_descriptionAr
-      .tr();
+  String selectedLanguage = LanguageConstant.arName;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _languageSelectionButton(
-                context,
-                LocaleKeys.productsPage_addProductForm_descriptionAr.tr(),
-              ),
+              _languageSelectionButton(context, LanguageConstant.arName),
               SizedBox(width: 10.w),
-              _languageSelectionButton(
-                context,
-                LocaleKeys.productsPage_addProductForm_descriptionEn.tr(),
-              ),
+              _languageSelectionButton(context, LanguageConstant.enName),
               SizedBox(width: 10.w),
-              _languageSelectionButton(
-                context,
-                LocaleKeys.productsPage_addProductForm_descriptionKu.tr(),
-              ),
+              _languageSelectionButton(context, LanguageConstant.faName),
             ],
           ),
-          Expanded(child: Container()),
+          Spacer(),
           Visibility(
-            visible:
-                selectedLanguage ==
-                LocaleKeys.productsPage_addProductForm_descriptionAr.tr(),
+            visible: selectedLanguage == LanguageConstant.arName,
             child: _field(
               context,
               controller: widget.arController,
@@ -70,9 +61,7 @@ class _ProductDescriptionFieldsState extends State<ProductDescriptionFields> {
           ),
 
           Visibility(
-            visible:
-                selectedLanguage ==
-                LocaleKeys.productsPage_addProductForm_descriptionEn.tr(),
+            visible: selectedLanguage == LanguageConstant.enName,
             child: _field(
               context,
               controller: widget.enController,
@@ -81,9 +70,7 @@ class _ProductDescriptionFieldsState extends State<ProductDescriptionFields> {
             ),
           ),
           Visibility(
-            visible:
-                selectedLanguage ==
-                LocaleKeys.productsPage_addProductForm_descriptionKu.tr(),
+            visible: selectedLanguage == LanguageConstant.faName,
             child: _field(
               context,
               controller: widget.kuController,

@@ -10,6 +10,7 @@ import 'package:peng_cafe/core/injection_container.dart';
 
 import 'package:peng_cafe/features/setting/presentation/pages/setting_page.dart';
 
+import '../../core/enums/tables_enum/table_type_enum.dart';
 import '../../core/resource/main_page/app_side_bar.dart';
 import '../../features/home_page/presentation/pages/home_page.dart';
 import '../../features/login/presentations/pages/login_page.dart';
@@ -38,7 +39,7 @@ class RoutesPath {
   static String productsPage = '/products';
   static String settingPage = '/setting';
   static String ordersPage = '/orders';
-  static String tablePage = '/table/:tableNumber';
+  static String tablePage = '/table/:tableNumber/:tableType';
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -92,8 +93,16 @@ GoRouter goRouter = GoRouter(
                 final tableNumber =
                     int.tryParse(state.pathParameters['tableNumber'] ?? "0") ??
                     0;
+                final tableType = TableTypeEnum.values.firstWhere(
+                  (e) => e.toString() == state.pathParameters['tableType'],
+                  orElse: () => TableTypeEnum.cafe,
+                );
                 return _customTransitionPage(
-                  child: TablePage(tableNumber: tableNumber, userId: 0),
+                  child: TablePage(
+                    tableNumber: tableNumber,
+                    tableType: tableType,
+                    userId: 0, // TODO: replace with logged user id
+                  ),
                   state: state,
                 );
               },

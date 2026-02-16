@@ -12,7 +12,7 @@ class AddItemUsecase
   AddItemUsecase(this._repository);
 
   @override
-  Future<DataState<OrderItemEntity?>> call({OrderItemModel? params}) {
+  Future<DataState<OrderItemEntity?>> call({required OrderItemModel params}) {
     return _repository.addItem(orderModel: params);
   }
 }

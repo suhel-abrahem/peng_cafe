@@ -4,7 +4,9 @@ part of 'table_page_bloc.dart';
 class TablePageEvent with _$TablePageEvent {
   const factory TablePageEvent.loadTable({
     required int tableNumber,
+    required TableTypeEnum tableType,
     required int userId,
+    required String locale,
   }) = _LoadTable;
 
   const factory TablePageEvent.addProduct({required OrderItemModel item}) =
@@ -13,9 +15,15 @@ class TablePageEvent with _$TablePageEvent {
   const factory TablePageEvent.setItemQuantity({
     required int itemId,
     required double quantity,
+    required TableTypeEnum tableType,
+    required String locale,
   }) = _SetItemQuantity;
 
-  const factory TablePageEvent.deleteItem({required int itemId}) = _DeleteItem;
+  const factory TablePageEvent.deleteItem({
+    required int itemId,
+    required String locale,
+  }) = _DeleteItem;
 
-  const factory TablePageEvent.refreshItems() = _RefreshItems;
+  const factory TablePageEvent.refreshItems({required String? locale}) =
+      _RefreshItems;
 }

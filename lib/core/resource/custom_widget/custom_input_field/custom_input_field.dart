@@ -46,6 +46,7 @@ class CustomInputField extends StatelessWidget {
   final Function(String?)? onSaved;
   final TextStyle? errorStyle;
   final ui.TextDirection? textDirection;
+
   const CustomInputField({
     super.key,
     this.controller,
@@ -84,7 +85,7 @@ class CustomInputField extends StatelessWidget {
     this.hintText,
     this.minLines,
     this.errorStyle,
-    this.textDirection,
+    this.textDirection = ui.TextDirection.ltr,
   });
 
   @override
@@ -112,6 +113,7 @@ class CustomInputField extends StatelessWidget {
         onChanged: onChanged,
         onTapOutside: onTapOut,
         onTap: onTap,
+
         onFieldSubmitted: onSubmitted,
         validator: validator,
         textAlign: textAlign ?? TextAlign.start,
