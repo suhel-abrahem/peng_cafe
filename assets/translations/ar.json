@@ -178,6 +178,11 @@
             "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
             "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0",
             "takeAwayTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الطلبات الخارجية أكبر من 0"
+        },
+        "oneHundredDollarsEqualsInIqdSetting": {
+            "title": "كم يساوي 100 دولار بالدينار العراقي؟",
+            "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "يجب أن يكون المبلغ الذي يساوي 100 دولار بالدينار العراقي أكبر من 0",
+            "priceFoeOneHundredDollars": "المبلغ الذي يساوي 100 دولار بالدينار العراقي"
         }
     },
     "tablePage": {
@@ -205,8 +210,8 @@
         "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك حذف هذا الطلب لأنه مكتمل بالفعل",
         "theGivenPriceIsLessThanTheTotalCostPrice": "السعر المعطى أقل من إجمالي سعر التكلفة",
         "givenPrice": "السعر المعطى",
-        "currency": "Currency",
-        "theRemainingAmountToBePaid": "المبلغ المتبقي للدفع",
+        "currency": "العملة",
+        "theRemainingAmountToBeReturned": "المبلغ المتبقي للإرجاع",
         "each100DollarsEqualsInIqd": "كل 100 دولار يساوي {amount} دينار عراقي",
         "checkOut": "الدفع",
         "checkOutSuccessfully": "تم الدفع بنجاح",

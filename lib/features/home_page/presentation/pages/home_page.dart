@@ -136,7 +136,7 @@ class HomePage extends StatelessWidget {
                               itemCount: count,
                               itemBuilder: (context, index) {
                                 return TableItem(
-                                  tableType: selectedType.tableName,
+                                  tableType: selectedType.tableType,
                                   index: index + 1,
                                 );
                               },

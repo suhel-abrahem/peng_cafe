@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,8 +12,11 @@ import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/products/data/models/product_model.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
 import 'package:peng_cafe/features/products/presentation/widgets/product_widget.dart';
+import 'package:peng_cafe/features/table_page/presentation/widgets/checkout_widget.dart';
 
+import '../../../../core/constant/font_constants.dart';
 import '../../../../core/enums/tables_enum/table_type_enum.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../../data/models/order_item_model.dart';
 import '../bloc/table_page_bloc.dart';
 
@@ -136,16 +140,56 @@ class ProductsArea extends StatelessWidget {
                   );
 
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "Total: ${total.toStringAsFixed(2)}",
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context).textTheme.headlineLarge
+                            ?.copyWith(
+                              fontFamily: FontConstants.fontFamily(
+                                context.locale,
+                              ),
+                              fontSize: 28.sp,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                       ),
                       SizedBox(height: 10.h),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text("Checkout"),
+                      Builder(
+                        builder: (context) {
+                          return ElevatedButton(
+                            onPressed: total > 0
+                                ? () async {
+                                    final tableBloc = context
+                                        .read<TablePageBloc>();
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Center(
+                                        child: CheckoutWidget(
+                                          totalAmount: total,
+                                          onCheckout: (value) {
+                                            tableBloc.add(
+                                              TablePageEvent.checkout(
+                                                paidAmount: value.paidAmount,
+                                                remaining: value.remaining,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                : null,
+                            child: Text(
+                              LocaleKeys.tablePage_checkOut.tr(),
+                              style: TextStyle(
+                                fontFamily: FontConstants.fontFamily(
+                                  context.locale,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   );

@@ -170,6 +170,10 @@ abstract class  LocaleKeys {
   static const settingsPage_tablesSettings_tableBallTablesQuantityMustBeGreaterThanZero = 'settingsPage.tablesSettings.tableBallTablesQuantityMustBeGreaterThanZero';
   static const settingsPage_tablesSettings_takeAwayTablesQuantityMustBeGreaterThanZero = 'settingsPage.tablesSettings.takeAwayTablesQuantityMustBeGreaterThanZero';
   static const settingsPage_tablesSettings = 'settingsPage.tablesSettings';
+  static const settingsPage_oneHundredDollarsEqualsInIqdSetting_title = 'settingsPage.oneHundredDollarsEqualsInIqdSetting.title';
+  static const settingsPage_oneHundredDollarsEqualsInIqdSetting_oneHundredDollarsEqualsInIqdMustBeGreaterThanZero = 'settingsPage.oneHundredDollarsEqualsInIqdSetting.oneHundredDollarsEqualsInIqdMustBeGreaterThanZero';
+  static const settingsPage_oneHundredDollarsEqualsInIqdSetting_priceFoeOneHundredDollars = 'settingsPage.oneHundredDollarsEqualsInIqdSetting.priceFoeOneHundredDollars';
+  static const settingsPage_oneHundredDollarsEqualsInIqdSetting = 'settingsPage.oneHundredDollarsEqualsInIqdSetting';
   static const settingsPage = 'settingsPage';
   static const tablePage_title = 'tablePage.title';
   static const tablePage_tableNumber = 'tablePage.tableNumber';
@@ -196,7 +200,7 @@ abstract class  LocaleKeys {
   static const tablePage_theGivenPriceIsLessThanTheTotalCostPrice = 'tablePage.theGivenPriceIsLessThanTheTotalCostPrice';
   static const tablePage_givenPrice = 'tablePage.givenPrice';
   static const tablePage_currency = 'tablePage.currency';
-  static const tablePage_theRemainingAmountToBePaid = 'tablePage.theRemainingAmountToBePaid';
+  static const tablePage_theRemainingAmountToBeReturned = 'tablePage.theRemainingAmountToBeReturned';
   static const tablePage_each100DollarsEqualsInIqd = 'tablePage.each100DollarsEqualsInIqd';
   static const tablePage_checkOut = 'tablePage.checkOut';
   static const tablePage_checkOutSuccessfully = 'tablePage.checkOutSuccessfully';

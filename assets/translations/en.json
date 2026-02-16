@@ -177,6 +177,11 @@
             "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
             "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
             "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+        },
+        "oneHundredDollarsEqualsInIqdSetting": {
+            "title": "How much is 100 dollars in Iraqi Dinar?",
+            "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "The amount that equals 100 dollars in Iraqi Dinar must be greater than 0",
+            "priceFoeOneHundredDollars": "The amount that equals 100 dollars in Iraqi Dinar"
         }
     },
     "tablePage": {
@@ -205,7 +210,7 @@
         "theGivenPriceIsLessThanTheTotalCostPrice": "The given price is less than the total cost price",
         "givenPrice": "Given Price",
         "currency": "Currency",
-        "theRemainingAmountToBePaid": "The remaining amount to be paid",
+        "theRemainingAmountToBeReturned": "The remaining amount to be returned",
         "each100DollarsEqualsInIqd": "Each 100 dollars equals {amount} IQD",
         "checkOut": "Check Out",
         "checkOutSuccessfully": "Check Out Successfully",

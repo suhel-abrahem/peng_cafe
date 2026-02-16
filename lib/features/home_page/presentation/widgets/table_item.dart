@@ -17,6 +17,7 @@ class TableItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        print("Tapped on ${tableType.name} $index");
         context.pushNamed(
           RoutesName.tablePage,
           pathParameters: {

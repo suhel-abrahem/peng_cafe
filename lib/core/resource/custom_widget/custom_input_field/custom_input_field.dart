@@ -85,7 +85,7 @@ class CustomInputField extends StatelessWidget {
     this.hintText,
     this.minLines,
     this.errorStyle,
-    this.textDirection = ui.TextDirection.ltr,
+    this.textDirection,
   });
 
   @override

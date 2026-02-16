@@ -89,19 +89,30 @@ GoRouter goRouter = GoRouter(
             GoRoute(
               path: RoutesPath.tablePage,
               name: RoutesName.tablePage,
+              redirect: (context, state) {
+                final tableNumber = state.pathParameters['tableNumber'];
+                final tableType = state.pathParameters['tableType'];
+
+                if (tableNumber == null || tableType == null) {
+                  return RoutesPath.homeRoute;
+                }
+
+                return null; // ✅ كل شيء تمام
+              },
               pageBuilder: (context, state) {
-                final tableNumber =
-                    int.tryParse(state.pathParameters['tableNumber'] ?? "0") ??
-                    0;
-                final tableType = TableTypeEnum.values.firstWhere(
-                  (e) => e.toString() == state.pathParameters['tableType'],
-                  orElse: () => TableTypeEnum.cafe,
+                final tableNumber = int.parse(
+                  state.pathParameters['tableNumber']!,
                 );
+
+                final tableType = TableTypeEnum.values.firstWhere(
+                  (e) => e.name == state.pathParameters['tableType']!,
+                );
+
                 return _customTransitionPage(
                   child: TablePage(
                     tableNumber: tableNumber,
                     tableType: tableType,
-                    userId: 0, // TODO: replace with logged user id
+                    userId: 0,
                   ),
                   state: state,
                 );

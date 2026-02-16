@@ -204,4 +204,52 @@ class TableRepositoryImplements implements TableRepository {
       return DataFailed(error: e.toString());
     }
   }
+
+  @override
+  Future<DataState<void>> closeOrder({
+    required int orderId,
+    required double paidAmount,
+    required double remaining,
+  }) async {
+    try {
+      final ordersDao = _database.ordersDao;
+      final itemsDao = _database.orderItemsDao;
+
+      // 1️⃣ get all items
+      final items = await itemsDao.getItemsByOrder(orderId);
+
+      if (items.isEmpty) {
+        return const DataFailed(error: 'Order has no items');
+      }
+
+      // 2️⃣ calculate totals
+      double price = 0;
+      double discount = 0;
+
+      for (final item in items) {
+        price += item.total;
+        discount += item.discount ?? 0;
+      }
+
+      final total = price - discount;
+
+      // 3️⃣ update order totals
+      await ordersDao.updateOrderTotals(
+        orderId: orderId,
+        price: price,
+        discount: discount,
+        total: total,
+      );
+
+      // 4️⃣ close order
+      await ordersDao.closeOrder(orderId);
+
+      // ⛔️ optional (later):
+      // save payment log (paidAmount / remaining)
+
+      return const DataSuccess(data: null);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
 }

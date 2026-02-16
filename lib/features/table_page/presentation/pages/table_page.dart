@@ -27,6 +27,9 @@ class TablePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? locale = Helper.getCountryCode(context);
+    print(
+      "table page:  type: ${tableType.name}, number: $tableNumber, userId: $userId, locale: $locale",
+    );
     return MainPage(
       body: BlocProvider(
         create: (context) => getItInstance<TablePageBloc>()

@@ -177,6 +177,11 @@
             "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
             "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
             "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+        },
+        "oneHundredDollarsEqualsInIqdSetting": {
+            "title": "100 دۆلار چەند دینار عێراقیە؟",
+            "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "پێویستە بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی گەورەتر بێت لە 0",
+            "priceFoeOneHundredDollars": "بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی"
         }
     },
     "tablePage": {
@@ -205,7 +210,7 @@
         "theGivenPriceIsLessThanTheTotalCostPrice": "نرخی دابینکراو کەمترە لە کۆی نرخی خەرج",
         "givenPrice": "نرخی دابینکراو",
         "currency": "پارە",
-        "theRemainingAmountToBePaid": "باقیمانەی پارەی پێویست بۆ پارەدان",
+        "theRemainingAmountToBeReturned": "بڕی ماوە بۆ گەڕاندن",
         "each100DollarsEqualsInIqd": "هەر 100 دۆلار یەکسانە بە {amount} دینار عێراقی",
         "checkOut": "پارەدان",
         "checkOutSuccessfully": "پارەدان بە سەرکەوتوویی تەواو بوو",

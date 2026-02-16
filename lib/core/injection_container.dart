@@ -28,6 +28,7 @@ import '../features/products/presentation/bloc/delete_product_bloc.dart';
 import '../features/table_page/data/repositories/table_repository_implements.dart';
 import '../features/table_page/domain/repositories/table_repository.dart';
 import '../features/table_page/domain/usecases/add_item_usecase.dart';
+import '../features/table_page/domain/usecases/close_order_usecase.dart';
 import '../features/table_page/domain/usecases/delete_item_usecase.dart';
 import '../features/table_page/domain/usecases/get_order_items_usecase.dart';
 import '../features/table_page/domain/usecases/update_item_usecase.dart';
@@ -128,6 +129,9 @@ Future<void> initializeDependencies() async {
   getItInstance.registerSingleton<UpdateItemUsecase>(
     UpdateItemUsecase(getItInstance<TableRepository>()),
   );
+  getItInstance.registerSingleton<CloseOrderUsecase>(
+    CloseOrderUsecase(getItInstance<TableRepository>()),
+  );
   //bloc
   getItInstance.registerFactory(
     () => TablePageBloc(
@@ -136,6 +140,7 @@ Future<void> initializeDependencies() async {
       getItInstance<UpdateItemUsecase>(),
       getItInstance<GetOrderItemsUsecase>(),
       getItInstance<DeleteItemUsecase>(),
+      getItInstance<CloseOrderUsecase>(),
     ),
   );
 }

@@ -6,6 +6,7 @@ import 'package:glass/glass.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
 import 'package:peng_cafe/core/enums/tables_enum/table_type_enum.dart';
+import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget.dart';
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 
@@ -21,7 +22,7 @@ class OrderArea extends StatelessWidget {
     return BlocBuilder<TablePageBloc, TablePageState>(
       builder: (context, state) {
         return state.when(
-          initial: () => const SizedBox(),
+          initial: () => NodataStateWidget(),
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (message) => Center(child: Text(message)),
           loaded: (order, items) {
@@ -143,7 +144,15 @@ class OrderArea extends StatelessWidget {
 
                               SizedBox(width: 20.w),
 
-                              Text("${item.total.toStringAsFixed(2)}"),
+                              Text(
+                                "${item.total.toStringAsFixed(2)}",
+                                style: Theme.of(context).textTheme.labelLarge
+                                    ?.copyWith(
+                                      fontFamily: FontConstants.fontFamily(
+                                        context.locale,
+                                      ),
+                                    ),
+                              ),
 
                               IconButton(
                                 icon: const Icon(Icons.delete),

@@ -12,6 +12,7 @@ import '../../data/models/order_item_model.dart';
 import '../../data/models/order_model.dart';
 import '../../domain/entities/order_entity.dart';
 import '../../domain/entities/order_item_entity.dart';
+import '../../domain/usecases/close_order_usecase.dart';
 import '../../domain/usecases/delete_item_usecase.dart';
 import '../../domain/usecases/get_or_create_order_usecase.dart';
 import '../../domain/usecases/get_order_items_usecase.dart';
@@ -26,6 +27,7 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
   final UpdateItemUsecase _updateItemQuantity;
   final GetOrderItemsUsecase _getOrderItems;
   final DeleteItemUsecase _deleteOrderItem;
+  final CloseOrderUsecase _closeOrderUsecase;
 
   OrderEntity? _currentOrder;
 
@@ -35,11 +37,13 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     this._updateItemQuantity,
     this._getOrderItems,
     this._deleteOrderItem,
+    this._closeOrderUsecase,
   ) : super(const TablePageState.initial()) {
     on<_LoadTable>(_onLoadTable);
     on<_AddProduct>(_onAddProduct);
     on<_RefreshItems>(_onRefreshItems);
     on<_SetItemQuantity>(_onSetItemQuantity);
+    on<_Checkout>(_onCheckout);
   }
 
   // ================= LOAD TABLE =================
@@ -77,6 +81,8 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     } else {
       emit(TablePageState.error(result.error ?? 'Failed to load table'));
     }
+    print('LOAD TABLE → number=${event.tableNumber} type=${event.tableType}');
+    print('ORDER ID → ${_currentOrder?.id}');
   }
 
   // ================= ADD PRODUCT =================
@@ -153,5 +159,27 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
         items: itemsResult.data ?? [],
       ),
     );
+  }
+
+  Future<void> _onCheckout(
+    _Checkout event,
+    Emitter<TablePageState> emit,
+  ) async {
+    if (_currentOrder == null) return;
+
+    // 1️⃣ close order
+    await _closeOrderUsecase.call(
+      params: CloseOrderParams(
+        orderId: _currentOrder!.id,
+        paidAmount: event.paidAmount,
+        remaining: event.remaining,
+      ),
+    );
+
+    // 2️⃣ reset state
+    emit(const TablePageState.initial());
+
+    // 3️⃣ ممكن تنقل المستخدم
+    // navigator.pop / go to tables page
   }
 }

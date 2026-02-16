@@ -194,6 +194,11 @@ class CodegenLoader extends AssetLoader{
       "fishaTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الفيشا أكبر من 0",
       "tableBallTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات كرة الطاولة أكبر من 0",
       "takeAwayTablesQuantityMustBeGreaterThanZero": "يجب أن تكون كمية طاولات الطلبات الخارجية أكبر من 0"
+    },
+    "oneHundredDollarsEqualsInIqdSetting": {
+      "title": "كم يساوي 100 دولار بالدينار العراقي؟",
+      "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "يجب أن يكون المبلغ الذي يساوي 100 دولار بالدينار العراقي أكبر من 0",
+      "priceFoeOneHundredDollars": "المبلغ الذي يساوي 100 دولار بالدينار العراقي"
     }
   },
   "tablePage": {
@@ -221,8 +226,8 @@ class CodegenLoader extends AssetLoader{
     "youCanNotDeleteThisOrderBecauseItIsAlreadyCompleted": "لا يمكنك حذف هذا الطلب لأنه مكتمل بالفعل",
     "theGivenPriceIsLessThanTheTotalCostPrice": "السعر المعطى أقل من إجمالي سعر التكلفة",
     "givenPrice": "السعر المعطى",
-    "currency": "Currency",
-    "theRemainingAmountToBePaid": "المبلغ المتبقي للدفع",
+    "currency": "العملة",
+    "theRemainingAmountToBeReturned": "المبلغ المتبقي للإرجاع",
     "each100DollarsEqualsInIqd": "كل 100 دولار يساوي {amount} دينار عراقي",
     "checkOut": "الدفع",
     "checkOutSuccessfully": "تم الدفع بنجاح",
@@ -415,6 +420,11 @@ static const Map<String,dynamic> _en = {
       "videoGamesTablesQuantityMustBeGreaterThanZero": "Video games tables quantity must be greater than 0",
       "fishaTablesQuantityMustBeGreaterThanZero": "Fisha tables quantity must be greater than 0",
       "tableBallTablesQuantityMustBeGreaterThanZero": "Table ball tables quantity must be greater than 0"
+    },
+    "oneHundredDollarsEqualsInIqdSetting": {
+      "title": "How much is 100 dollars in Iraqi Dinar?",
+      "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "The amount that equals 100 dollars in Iraqi Dinar must be greater than 0",
+      "priceFoeOneHundredDollars": "The amount that equals 100 dollars in Iraqi Dinar"
     }
   },
   "tablePage": {
@@ -443,7 +453,7 @@ static const Map<String,dynamic> _en = {
     "theGivenPriceIsLessThanTheTotalCostPrice": "The given price is less than the total cost price",
     "givenPrice": "Given Price",
     "currency": "Currency",
-    "theRemainingAmountToBePaid": "The remaining amount to be paid",
+    "theRemainingAmountToBeReturned": "The remaining amount to be returned",
     "each100DollarsEqualsInIqd": "Each 100 dollars equals {amount} IQD",
     "checkOut": "Check Out",
     "checkOutSuccessfully": "Check Out Successfully",
@@ -636,6 +646,11 @@ static const Map<String,dynamic> _fa = {
       "videoGamesTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی یاریەکانی ڤیدیۆ پێویستە گەورەتر بێت لە 0",
       "fishaTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی فیشا پێویستە گەورەتر بێت لە 0",
       "tableBallTablesQuantityMustBeGreaterThanZero": "ژمارەی میزەکانی توپە میز پێویستە گەورەتر بێت لە 0"
+    },
+    "oneHundredDollarsEqualsInIqdSetting": {
+      "title": "100 دۆلار چەند دینار عێراقیە؟",
+      "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "پێویستە بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی گەورەتر بێت لە 0",
+      "priceFoeOneHundredDollars": "بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی"
     }
   },
   "tablePage": {
@@ -664,7 +679,7 @@ static const Map<String,dynamic> _fa = {
     "theGivenPriceIsLessThanTheTotalCostPrice": "نرخی دابینکراو کەمترە لە کۆی نرخی خەرج",
     "givenPrice": "نرخی دابینکراو",
     "currency": "پارە",
-    "theRemainingAmountToBePaid": "باقیمانەی پارەی پێویست بۆ پارەدان",
+    "theRemainingAmountToBeReturned": "بڕی ماوە بۆ گەڕاندن",
     "each100DollarsEqualsInIqd": "هەر 100 دۆلار یەکسانە بە {amount} دینار عێراقی",
     "checkOut": "پارەدان",
     "checkOutSuccessfully": "پارەدان بە سەرکەوتوویی تەواو بوو",

@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:peng_cafe/core/enums/tables_enum/table_type_enum.dart';
 part 'tables_quantity_entity.freezed.dart';
@@ -7,6 +8,7 @@ part 'tables_quantity_entity.g.dart';
 abstract class TablesQuantityEntity with _$TablesQuantityEntity {
   const factory TablesQuantityEntity({
     required TableTypeEnum tableName,
+    required TableTypeEnum tableType,
     @Default(0) int quantity,
     @Default(false) bool isActive,
   }) = _TablesQuantityEntity;

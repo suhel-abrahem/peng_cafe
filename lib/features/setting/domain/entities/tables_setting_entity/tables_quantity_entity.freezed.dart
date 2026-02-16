@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TablesQuantityEntity {
 
- TableTypeEnum get tableName; int get quantity; bool get isActive;
+ TableTypeEnum get tableName; TableTypeEnum get tableType; int get quantity; bool get isActive;
 /// Create a copy of TablesQuantityEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TablesQuantityEntityCopyWith<TablesQuantityEntity> get copyWith => _$TablesQuan
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TablesQuantityEntity&&(identical(other.tableName, tableName) || other.tableName == tableName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isActive, isActive) || other.isActive == isActive));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TablesQuantityEntity&&(identical(other.tableName, tableName) || other.tableName == tableName)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isActive, isActive) || other.isActive == isActive));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tableName,quantity,isActive);
+int get hashCode => Object.hash(runtimeType,tableName,tableType,quantity,isActive);
 
 @override
 String toString() {
-  return 'TablesQuantityEntity(tableName: $tableName, quantity: $quantity, isActive: $isActive)';
+  return 'TablesQuantityEntity(tableName: $tableName, tableType: $tableType, quantity: $quantity, isActive: $isActive)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TablesQuantityEntityCopyWith<$Res>  {
   factory $TablesQuantityEntityCopyWith(TablesQuantityEntity value, $Res Function(TablesQuantityEntity) _then) = _$TablesQuantityEntityCopyWithImpl;
 @useResult
 $Res call({
- TableTypeEnum tableName, int quantity, bool isActive
+ TableTypeEnum tableName, TableTypeEnum tableType, int quantity, bool isActive
 });
 
 
@@ -65,9 +65,10 @@ class _$TablesQuantityEntityCopyWithImpl<$Res>
 
 /// Create a copy of TablesQuantityEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? tableName = null,Object? quantity = null,Object? isActive = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? tableName = null,Object? tableType = null,Object? quantity = null,Object? isActive = null,}) {
   return _then(_self.copyWith(
 tableName: null == tableName ? _self.tableName : tableName // ignore: cast_nullable_to_non_nullable
+as TableTypeEnum,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TableTypeEnum tableName,  int quantity,  bool isActive)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TableTypeEnum tableName,  TableTypeEnum tableType,  int quantity,  bool isActive)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TablesQuantityEntity() when $default != null:
-return $default(_that.tableName,_that.quantity,_that.isActive);case _:
+return $default(_that.tableName,_that.tableType,_that.quantity,_that.isActive);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.tableName,_that.quantity,_that.isActive);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TableTypeEnum tableName,  int quantity,  bool isActive)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TableTypeEnum tableName,  TableTypeEnum tableType,  int quantity,  bool isActive)  $default,) {final _that = this;
 switch (_that) {
 case _TablesQuantityEntity():
-return $default(_that.tableName,_that.quantity,_that.isActive);case _:
+return $default(_that.tableName,_that.tableType,_that.quantity,_that.isActive);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.tableName,_that.quantity,_that.isActive);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TableTypeEnum tableName,  int quantity,  bool isActive)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TableTypeEnum tableName,  TableTypeEnum tableType,  int quantity,  bool isActive)?  $default,) {final _that = this;
 switch (_that) {
 case _TablesQuantityEntity() when $default != null:
-return $default(_that.tableName,_that.quantity,_that.isActive);case _:
+return $default(_that.tableName,_that.tableType,_that.quantity,_that.isActive);case _:
   return null;
 
 }
@@ -211,10 +212,11 @@ return $default(_that.tableName,_that.quantity,_that.isActive);case _:
 @JsonSerializable()
 
 class _TablesQuantityEntity implements TablesQuantityEntity {
-  const _TablesQuantityEntity({required this.tableName, this.quantity = 0, this.isActive = false});
+  const _TablesQuantityEntity({required this.tableName, required this.tableType, this.quantity = 0, this.isActive = false});
   factory _TablesQuantityEntity.fromJson(Map<String, dynamic> json) => _$TablesQuantityEntityFromJson(json);
 
 @override final  TableTypeEnum tableName;
+@override final  TableTypeEnum tableType;
 @override@JsonKey() final  int quantity;
 @override@JsonKey() final  bool isActive;
 
@@ -231,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TablesQuantityEntity&&(identical(other.tableName, tableName) || other.tableName == tableName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isActive, isActive) || other.isActive == isActive));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TablesQuantityEntity&&(identical(other.tableName, tableName) || other.tableName == tableName)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isActive, isActive) || other.isActive == isActive));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tableName,quantity,isActive);
+int get hashCode => Object.hash(runtimeType,tableName,tableType,quantity,isActive);
 
 @override
 String toString() {
-  return 'TablesQuantityEntity(tableName: $tableName, quantity: $quantity, isActive: $isActive)';
+  return 'TablesQuantityEntity(tableName: $tableName, tableType: $tableType, quantity: $quantity, isActive: $isActive)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$TablesQuantityEntityCopyWith<$Res> implements $TablesQuan
   factory _$TablesQuantityEntityCopyWith(_TablesQuantityEntity value, $Res Function(_TablesQuantityEntity) _then) = __$TablesQuantityEntityCopyWithImpl;
 @override @useResult
 $Res call({
- TableTypeEnum tableName, int quantity, bool isActive
+ TableTypeEnum tableName, TableTypeEnum tableType, int quantity, bool isActive
 });
 
 
@@ -268,9 +270,10 @@ class __$TablesQuantityEntityCopyWithImpl<$Res>
 
 /// Create a copy of TablesQuantityEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? tableName = null,Object? quantity = null,Object? isActive = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? tableName = null,Object? tableType = null,Object? quantity = null,Object? isActive = null,}) {
   return _then(_TablesQuantityEntity(
 tableName: null == tableName ? _self.tableName : tableName // ignore: cast_nullable_to_non_nullable
+as TableTypeEnum,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,

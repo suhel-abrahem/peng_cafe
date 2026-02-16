@@ -106,31 +106,50 @@ class AppPreferences {
             tableName: TableTypeEnum.cafe,
             quantity: 10,
             isActive: true,
+            tableType: TableTypeEnum.cafe,
           ),
           TablesQuantityEntity(
             tableName: TableTypeEnum.pool,
             quantity: 0,
             isActive: false,
+            tableType: TableTypeEnum.pool,
           ),
           TablesQuantityEntity(
             tableName: TableTypeEnum.fisha,
             quantity: 0,
             isActive: false,
+            tableType: TableTypeEnum.fisha,
           ),
           TablesQuantityEntity(
             tableName: TableTypeEnum.tableBall,
             quantity: 0,
             isActive: false,
+            tableType: TableTypeEnum.tableBall,
           ),
           TablesQuantityEntity(
             tableName: TableTypeEnum.videoGame,
             quantity: 0,
             isActive: false,
+            tableType: TableTypeEnum.videoGame,
           ),
         ],
       );
     } else {
       return TablesTypesModel.fromJson(jsonDecode(tablesTypesString));
     }
+  }
+
+  Future<void> setUsdPrice(double usdPrice) async {
+    _sharedPreferences.setDouble(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_USD_PRICE,
+      usdPrice,
+    );
+  }
+
+  double getUsdPrice() {
+    return _sharedPreferences.getDouble(
+          SharedPreferencesKeys.PREFS_KEY_LOCALLY_USD_PRICE,
+        ) ??
+        150000.0;
   }
 }

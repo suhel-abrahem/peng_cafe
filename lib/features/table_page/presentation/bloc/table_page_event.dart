@@ -26,4 +26,8 @@ class TablePageEvent with _$TablePageEvent {
 
   const factory TablePageEvent.refreshItems({required String? locale}) =
       _RefreshItems;
+  const factory TablePageEvent.checkout({
+    required double paidAmount,
+    required double remaining,
+  }) = _Checkout;
 }
