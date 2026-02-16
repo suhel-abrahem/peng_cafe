@@ -8,4 +8,8 @@ class GetProductsEvent with _$GetProductsEvent {
       GetProductsEventGetProducts;
   const factory GetProductsEvent.getProduct({ProductModel? productModel}) =
       GetProductsEventGetProduct;
+  const factory GetProductsEvent.searchProducts({
+    required String query,
+    required String locale,
+  }) = GetProductsEventSearchProducts;
 }

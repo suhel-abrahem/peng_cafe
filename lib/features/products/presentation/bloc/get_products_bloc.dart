@@ -6,6 +6,7 @@ import '../../../../core/resource/data_state.dart';
 import '../../data/models/product_model.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/usecases/get_produtc_usecase.dart';
+import '../../domain/usecases/search_products_usecase.dart';
 
 part 'get_products_event.dart';
 part 'get_products_state.dart';
@@ -14,8 +15,13 @@ part 'get_products_bloc.freezed.dart';
 class GetProductsBloc extends Bloc<GetProductsEvent, GetProductsState> {
   final GetAllProductUsecase _getAllProductUsecase;
   final GetProdutcUsecase _getProductUsecase;
-  GetProductsBloc(this._getAllProductUsecase, this._getProductUsecase)
-    : super(GetProductsState.initial()) {
+  final SearchProductsUsecase _searchProductsUsecase;
+
+  GetProductsBloc(
+    this._getAllProductUsecase,
+    this._getProductUsecase,
+    this._searchProductsUsecase,
+  ) : super(GetProductsState.initial()) {
     on<GetProductsEventStarted>((event, emit) {
       emit(const GetProductsState.initial());
     });
@@ -64,6 +70,30 @@ class GetProductsBloc extends Bloc<GetProductsEvent, GetProductsState> {
           );
         }
       });
+    });
+    on<GetProductsEventSearchProducts>((event, emit) async {
+      if (event.query.trim().isEmpty) {
+        add(
+          GetProductsEvent.getProducts(
+            productsModel: ProductModel(locale: event.locale),
+          ),
+        );
+        return;
+      }
+
+      emit(const GetProductsState.loading());
+
+      final result = await _searchProductsUsecase.call(
+        params: SearchProductsParams(query: event.query, locale: event.locale),
+      );
+
+      if (result is DataSuccess) {
+        emit(GetProductsState.loaded(result.data ?? []));
+      } else if (result is NoDataDataState) {
+        emit(const GetProductsState.noData());
+      } else {
+        emit(GetProductsState.error(result.error ?? 'Search failed'));
+      }
     });
   }
 }

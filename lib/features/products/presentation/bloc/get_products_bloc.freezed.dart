@@ -55,13 +55,14 @@ extension GetProductsEventPatterns on GetProductsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( GetProductsEventStarted value)?  started,TResult Function( GetProductsEventGetProducts value)?  getProducts,TResult Function( GetProductsEventGetProduct value)?  getProduct,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( GetProductsEventStarted value)?  started,TResult Function( GetProductsEventGetProducts value)?  getProducts,TResult Function( GetProductsEventGetProduct value)?  getProduct,TResult Function( GetProductsEventSearchProducts value)?  searchProducts,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case GetProductsEventStarted() when started != null:
 return started(_that);case GetProductsEventGetProducts() when getProducts != null:
 return getProducts(_that);case GetProductsEventGetProduct() when getProduct != null:
-return getProduct(_that);case _:
+return getProduct(_that);case GetProductsEventSearchProducts() when searchProducts != null:
+return searchProducts(_that);case _:
   return orElse();
 
 }
@@ -79,13 +80,14 @@ return getProduct(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( GetProductsEventStarted value)  started,required TResult Function( GetProductsEventGetProducts value)  getProducts,required TResult Function( GetProductsEventGetProduct value)  getProduct,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( GetProductsEventStarted value)  started,required TResult Function( GetProductsEventGetProducts value)  getProducts,required TResult Function( GetProductsEventGetProduct value)  getProduct,required TResult Function( GetProductsEventSearchProducts value)  searchProducts,}){
 final _that = this;
 switch (_that) {
 case GetProductsEventStarted():
 return started(_that);case GetProductsEventGetProducts():
 return getProducts(_that);case GetProductsEventGetProduct():
-return getProduct(_that);case _:
+return getProduct(_that);case GetProductsEventSearchProducts():
+return searchProducts(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +104,14 @@ return getProduct(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( GetProductsEventStarted value)?  started,TResult? Function( GetProductsEventGetProducts value)?  getProducts,TResult? Function( GetProductsEventGetProduct value)?  getProduct,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( GetProductsEventStarted value)?  started,TResult? Function( GetProductsEventGetProducts value)?  getProducts,TResult? Function( GetProductsEventGetProduct value)?  getProduct,TResult? Function( GetProductsEventSearchProducts value)?  searchProducts,}){
 final _that = this;
 switch (_that) {
 case GetProductsEventStarted() when started != null:
 return started(_that);case GetProductsEventGetProducts() when getProducts != null:
 return getProducts(_that);case GetProductsEventGetProduct() when getProduct != null:
-return getProduct(_that);case _:
+return getProduct(_that);case GetProductsEventSearchProducts() when searchProducts != null:
+return searchProducts(_that);case _:
   return null;
 
 }
@@ -125,12 +128,13 @@ return getProduct(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( ProductModel? productsModel)?  getProducts,TResult Function( ProductModel? productModel)?  getProduct,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( ProductModel? productsModel)?  getProducts,TResult Function( ProductModel? productModel)?  getProduct,TResult Function( String query,  String locale)?  searchProducts,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case GetProductsEventStarted() when started != null:
 return started();case GetProductsEventGetProducts() when getProducts != null:
 return getProducts(_that.productsModel);case GetProductsEventGetProduct() when getProduct != null:
-return getProduct(_that.productModel);case _:
+return getProduct(_that.productModel);case GetProductsEventSearchProducts() when searchProducts != null:
+return searchProducts(_that.query,_that.locale);case _:
   return orElse();
 
 }
@@ -148,12 +152,13 @@ return getProduct(_that.productModel);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( ProductModel? productsModel)  getProducts,required TResult Function( ProductModel? productModel)  getProduct,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( ProductModel? productsModel)  getProducts,required TResult Function( ProductModel? productModel)  getProduct,required TResult Function( String query,  String locale)  searchProducts,}) {final _that = this;
 switch (_that) {
 case GetProductsEventStarted():
 return started();case GetProductsEventGetProducts():
 return getProducts(_that.productsModel);case GetProductsEventGetProduct():
-return getProduct(_that.productModel);case _:
+return getProduct(_that.productModel);case GetProductsEventSearchProducts():
+return searchProducts(_that.query,_that.locale);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +175,13 @@ return getProduct(_that.productModel);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( ProductModel? productsModel)?  getProducts,TResult? Function( ProductModel? productModel)?  getProduct,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( ProductModel? productsModel)?  getProducts,TResult? Function( ProductModel? productModel)?  getProduct,TResult? Function( String query,  String locale)?  searchProducts,}) {final _that = this;
 switch (_that) {
 case GetProductsEventStarted() when started != null:
 return started();case GetProductsEventGetProducts() when getProducts != null:
 return getProducts(_that.productsModel);case GetProductsEventGetProduct() when getProduct != null:
-return getProduct(_that.productModel);case _:
+return getProduct(_that.productModel);case GetProductsEventSearchProducts() when searchProducts != null:
+return searchProducts(_that.query,_that.locale);case _:
   return null;
 
 }
@@ -369,6 +375,74 @@ $ProductModelCopyWith<$Res>? get productModel {
     return _then(_self.copyWith(productModel: value));
   });
 }
+}
+
+/// @nodoc
+
+
+class GetProductsEventSearchProducts implements GetProductsEvent {
+  const GetProductsEventSearchProducts({required this.query, required this.locale});
+  
+
+ final  String query;
+ final  String locale;
+
+/// Create a copy of GetProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GetProductsEventSearchProductsCopyWith<GetProductsEventSearchProducts> get copyWith => _$GetProductsEventSearchProductsCopyWithImpl<GetProductsEventSearchProducts>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsEventSearchProducts&&(identical(other.query, query) || other.query == query)&&(identical(other.locale, locale) || other.locale == locale));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,query,locale);
+
+@override
+String toString() {
+  return 'GetProductsEvent.searchProducts(query: $query, locale: $locale)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $GetProductsEventSearchProductsCopyWith<$Res> implements $GetProductsEventCopyWith<$Res> {
+  factory $GetProductsEventSearchProductsCopyWith(GetProductsEventSearchProducts value, $Res Function(GetProductsEventSearchProducts) _then) = _$GetProductsEventSearchProductsCopyWithImpl;
+@useResult
+$Res call({
+ String query, String locale
+});
+
+
+
+
+}
+/// @nodoc
+class _$GetProductsEventSearchProductsCopyWithImpl<$Res>
+    implements $GetProductsEventSearchProductsCopyWith<$Res> {
+  _$GetProductsEventSearchProductsCopyWithImpl(this._self, this._then);
+
+  final GetProductsEventSearchProducts _self;
+  final $Res Function(GetProductsEventSearchProducts) _then;
+
+/// Create a copy of GetProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? query = null,Object? locale = null,}) {
+  return _then(GetProductsEventSearchProducts(
+query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 /// @nodoc

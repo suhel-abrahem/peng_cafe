@@ -14,4 +14,8 @@ abstract class ProductRepository {
   Future<DataState<void>?> deleteAllExceptExcludedProducts(
     List<int> excludedIds,
   );
+  Future<DataState<List<ProductEntity>>> searchProducts({
+    required String query,
+    required String locale,
+  });
 }

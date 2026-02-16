@@ -186,4 +186,20 @@ class ProductRepositoryImplement implements ProductRepository {
       return DataFailed(error: e.toString());
     }
   }
+
+  @override
+  Future<DataState<List<ProductEntity>>> searchProducts({
+    required String query,
+    required String locale,
+  }) async {
+    try {
+      final rows = await database.productsDao.searchProductsByName(query);
+
+      final products = rows.map((row) => productFromRow(row, locale)).toList();
+
+      return DataSuccess(data: products);
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
 }

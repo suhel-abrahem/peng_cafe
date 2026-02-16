@@ -21,6 +21,7 @@ import '../features/products/domain/usecases/delete_all_product_except_excluding
 import '../features/products/domain/usecases/delete_all_product_usecase.dart';
 
 import '../features/products/domain/usecases/delete_selected_products_usecase.dart';
+import '../features/products/domain/usecases/search_products_usecase.dart';
 import '../features/products/domain/usecases/update_product_usecase.dart';
 import '../features/products/presentation/bloc/add_product_bloc.dart';
 import '../features/products/presentation/bloc/delete_product_bloc.dart';
@@ -90,11 +91,15 @@ Future<void> initializeDependencies() async {
   getItInstance.registerSingleton<DeleteAllProductExceptExcludingUsecase>(
     DeleteAllProductExceptExcludingUsecase(getItInstance<ProductRepository>()),
   );
+  getItInstance.registerSingleton<SearchProductsUsecase>(
+    SearchProductsUsecase(getItInstance<ProductRepository>()),
+  );
   //bloc
   getItInstance.registerFactory(
     () => GetProductsBloc(
       getItInstance<GetAllProductUsecase>(),
       getItInstance<GetProdutcUsecase>(),
+      getItInstance<SearchProductsUsecase>(),
     ),
   );
   getItInstance.registerFactory(

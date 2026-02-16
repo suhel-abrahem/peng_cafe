@@ -240,9 +240,18 @@ class TableRepositoryImplements implements TableRepository {
         discount: discount,
         total: total,
       );
-
-      // 4️⃣ close order
       await ordersDao.closeOrder(orderId);
+      // 4️⃣ 🔥 decrease product quantities
+      for (final item in items) {
+        print(
+          'Decreasing product ${item.productId} by quantity ${item.quantity}',
+        );
+        await _database.productsDao.decreaseProductQuantity(
+          productId: item.productId,
+          quantity: item.quantity,
+        );
+      }
+      // 4️⃣ close order
 
       // ⛔️ optional (later):
       // save payment log (paidAmount / remaining)

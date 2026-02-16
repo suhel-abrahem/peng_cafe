@@ -93,4 +93,18 @@ class ProductsDao extends DatabaseAccessor<AppDatabase>
         ))
         .get();
   }
+
+  Future<void> decreaseProductQuantity({
+    required int productId,
+    required double quantity,
+  }) async {
+    final product = await getProductById(productId);
+    if (product == null) return;
+
+    final newQty = (product.quantity ?? 0) - quantity;
+
+    await (update(productsTable)..where((t) => t.id.equals(productId))).write(
+      ProductsTableCompanion(quantity: Value(newQty < 0 ? 0 : newQty)),
+    );
+  }
 }

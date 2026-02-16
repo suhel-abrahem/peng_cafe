@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +22,16 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../data/models/order_item_model.dart';
 import '../bloc/table_page_bloc.dart';
 
-class ProductsArea extends StatelessWidget {
+class ProductsArea extends StatefulWidget {
   final TableTypeEnum tableType;
   const ProductsArea({super.key, required this.tableType});
+
+  @override
+  State<ProductsArea> createState() => _ProductsAreaState();
+}
+
+class _ProductsAreaState extends State<ProductsArea> {
+  Timer? _debounce;
   @override
   Widget build(BuildContext context) {
     final ProductModel productModel = ProductModel(
@@ -32,97 +41,118 @@ class ProductsArea extends StatelessWidget {
       padding: EdgeInsets.all(16.w),
       child: Column(
         children: [
-          TextField(
-            decoration: const InputDecoration(
-              hintText: "Search product...",
-              prefixIcon: Icon(Icons.search),
-            ),
-            onChanged: (value) {
-              // later connect to searchProductsByName
-            },
-          ),
+          BlocProvider(
+            create: (context) => getItInstance<GetProductsBloc>()
+              ..add(GetProductsEvent.getProducts(productsModel: productModel)),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Builder(
+                    builder: (context) {
+                      return TextField(
+                        decoration: const InputDecoration(
+                          hintText: "Search product...",
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                        onChanged: (value) {
+                          if (_debounce?.isActive ?? false) _debounce!.cancel();
 
-          SizedBox(height: 20.h),
-
-          Expanded(
-            child: BlocProvider(
-              create: (context) => getItInstance<GetProductsBloc>()
-                ..add(
-                  GetProductsEvent.getProducts(productsModel: productModel),
-                ),
-              child: BlocBuilder<GetProductsBloc, GetProductsState>(
-                builder: (context, state) {
-                  print(" Products state: $state");
-                  if (state is GetProductsStateLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is GetProductsStateError) {
-                    return Center(child: ErrorStateWidget());
-                  } else if (state is GetProductsStateNoData) {
-                    return const Center(child: NodataStateWidget());
-                  } else if (state is GetProductsStateLoaded) {
-                    final products = state.products;
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12,
-                          ),
-                      itemCount: products.length,
-                      itemBuilder: (context, index) {
-                        final product = products[index];
-                        return InkWell(
-                          onTap: () {
-                            context.read<TablePageBloc>().add(
-                              TablePageEvent.addProduct(
-                                item: OrderItemModel(
-                                  productId: product.id ?? 0,
-                                  productType:
-                                      product.productType ??
-                                      ProductTypeEnum.foodAndBeverage,
-                                  price: product.price,
-                                  tableType: tableType,
+                          _debounce = Timer(
+                            const Duration(milliseconds: 300),
+                            () {
+                              context.read<GetProductsBloc>().add(
+                                GetProductsEvent.searchProducts(
+                                  query: value.trim(),
+                                  locale: context.locale.languageCode,
                                 ),
-                              ),
-                            );
-                          },
-                          child: ProductWidget(
-                            isSelected: false,
-                            canSelect: false,
-                            productEntity: products[index],
-                          ),
-                        );
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+
+                  SizedBox(height: 20.h),
+                  Expanded(
+                    child: BlocBuilder<GetProductsBloc, GetProductsState>(
+                      builder: (context, state) {
+                        print(" Products state: $state");
+                        if (state is GetProductsStateLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (state is GetProductsStateError) {
+                          return Center(child: ErrorStateWidget());
+                        } else if (state is GetProductsStateNoData) {
+                          return const Center(child: NodataStateWidget());
+                        } else if (state is GetProductsStateLoaded) {
+                          final products = state.products;
+                          return GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                ),
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                              final product = products[index];
+                              return InkWell(
+                                onTap: () {
+                                  context.read<TablePageBloc>().add(
+                                    TablePageEvent.addProduct(
+                                      item: OrderItemModel(
+                                        productId: product.id ?? 0,
+                                        productType:
+                                            product.productType ??
+                                            ProductTypeEnum.foodAndBeverage,
+                                        price: product.price,
+                                        tableType: widget.tableType,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: ProductWidget(
+                                  isSelected: false,
+                                  canSelect: false,
+                                  productEntity: products[index],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return ErrorStateWidget();
+                        }
+                        // return GridView.builder(
+                        //                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        //                         crossAxisCount: 3,
+                        //                         mainAxisSpacing: 12,
+                        //                         crossAxisSpacing: 12,
+                        //                       ),
+                        //                       itemCount: 20, // temporary
+                        //                       itemBuilder: (context, index) {
+                        //                         return InkWell(
+                        //                           onTap: () {
+                        //                             context.read<TablePageBloc>().add(
+                        //                               TablePageEvent.addProduct(
+                        //                                 item: OrderItemModel(
+                        //                                   productType: ,
+                        //                                   productId: index,
+                        //                                   price: 5,
+                        //                                   tableType: tableType,
+                        //                                 ),
+                        //                               ),
+                        //                             );
+                        //                           },
+                        //                           child: Card(child: Center(child: Text("Product $index"))),
+                        //                         );
+                        //                       },
+                        //                     );
                       },
-                    );
-                  } else {
-                    return ErrorStateWidget();
-                  }
-                  // return GridView.builder(
-                  //                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //                         crossAxisCount: 3,
-                  //                         mainAxisSpacing: 12,
-                  //                         crossAxisSpacing: 12,
-                  //                       ),
-                  //                       itemCount: 20, // temporary
-                  //                       itemBuilder: (context, index) {
-                  //                         return InkWell(
-                  //                           onTap: () {
-                  //                             context.read<TablePageBloc>().add(
-                  //                               TablePageEvent.addProduct(
-                  //                                 item: OrderItemModel(
-                  //                                   productType: ,
-                  //                                   productId: index,
-                  //                                   price: 5,
-                  //                                   tableType: tableType,
-                  //                                 ),
-                  //                               ),
-                  //                             );
-                  //                           },
-                  //                           child: Card(child: Center(child: Text("Product $index"))),
-                  //                         );
-                  //                       },
-                  //                     );
-                },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
