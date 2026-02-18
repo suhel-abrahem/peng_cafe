@@ -35,8 +35,8 @@ dependencies:
   flutter_svg: ^2.2.3
   connectivity_plus: ^7.0.0
   fl_chart: ^1.1.1
-  lottie: ^3.3.2
-  animated_emoji: ^3.2.1
+  lottie: 
+  animated_emoji: 
   firebase_core: ^4.4.0
   firebase_auth: ^6.1.4
   glass: ^2.0.0+2
@@ -48,9 +48,12 @@ dependencies:
   mobkit_dashed_border: ^0.0.8
   file_picker: ^10.3.10
   desktop_drop: ^0.7.0
-  image_compression_flutter: ^1.0.4
+  image_compression_flutter: 
   path: ^1.9.1
- 
+  flutter_pos_printer_platform_image_3: 
+  printing:
+  pdf:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -18,6 +18,7 @@ import 'package:peng_cafe/features/table_page/presentation/widgets/checkout_widg
 
 import '../../../../core/constant/font_constants.dart';
 import '../../../../core/enums/tables_enum/table_type_enum.dart';
+import '../../../../core/resource/printing_service.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../data/models/order_item_model.dart';
 import '../bloc/table_page_bloc.dart';
@@ -160,73 +161,93 @@ class _ProductsAreaState extends State<ProductsArea> {
           Divider(),
 
           /// BILL SUMMARY
-          BlocBuilder<TablePageBloc, TablePageState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loaded: (order, items) {
-                  final total = items.fold<double>(
-                    0,
-                    (sum, e) => sum + (e.quantity * e.price),
-                  );
+          BlocListener<TablePageBloc, TablePageState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                checkoutSuccess: (order, items, paid, remaining) async {
+                  // 🔔 اغلق popup
+                  Navigator.of(context).pop();
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Total: ${total.toStringAsFixed(2)}",
-                        style: Theme.of(context).textTheme.headlineLarge
-                            ?.copyWith(
-                              fontFamily: FontConstants.fontFamily(
-                                context.locale,
-                              ),
-                              fontSize: 28.sp,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Builder(
-                        builder: (context) {
-                          return ElevatedButton(
-                            onPressed: total > 0
-                                ? () async {
-                                    final tableBloc = context
-                                        .read<TablePageBloc>();
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Center(
-                                        child: CheckoutWidget(
-                                          totalAmount: total,
-                                          onCheckout: (value) {
-                                            tableBloc.add(
-                                              TablePageEvent.checkout(
-                                                paidAmount: value.paidAmount,
-                                                remaining: value.remaining,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                : null,
-                            child: Text(
-                              LocaleKeys.tablePage_checkOut.tr(),
-                              style: TextStyle(
+                  // 🖨️ اطبع الفاتورة
+                  await BillPrinter.printBill(
+                    context: context,
+                    order: order,
+                    items: items,
+                    paidAmount: paid,
+                    remaining: remaining,
+                  );
+                },
+                orElse: () {},
+              );
+            },
+            child: BlocBuilder<TablePageBloc, TablePageState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loaded: (order, items) {
+                    final total = items.fold<double>(
+                      0,
+                      (sum, e) => sum + (e.quantity * e.price),
+                    );
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total: ${total.toStringAsFixed(2)}",
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(
                                 fontFamily: FontConstants.fontFamily(
                                   context.locale,
                                 ),
+                                fontSize: 28.sp,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                },
-                orElse: () => const SizedBox(),
-              );
-            },
+                        ),
+                        SizedBox(height: 10.h),
+                        Builder(
+                          builder: (context) {
+                            return ElevatedButton(
+                              onPressed: total > 0
+                                  ? () async {
+                                      final tableBloc = context
+                                          .read<TablePageBloc>();
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Center(
+                                          child: CheckoutWidget(
+                                            totalAmount: total,
+                                            onCheckout: (value) {
+                                              tableBloc.add(
+                                                TablePageEvent.checkout(
+                                                  paidAmount: value.paidAmount,
+                                                  remaining: value.remaining,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                              child: Text(
+                                LocaleKeys.tablePage_checkOut.tr(),
+                                style: TextStyle(
+                                  fontFamily: FontConstants.fontFamily(
+                                    context.locale,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                  orElse: () => const SizedBox(),
+                );
+              },
+            ),
           ),
         ],
       ),

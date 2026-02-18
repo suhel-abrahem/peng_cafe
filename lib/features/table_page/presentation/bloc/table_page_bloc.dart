@@ -167,8 +167,12 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
   ) async {
     if (_currentOrder == null) return;
 
-    // 1️⃣ close order
-    await _closeOrderUsecase.call(
+    final currentState = state;
+    if (currentState is! _Loaded) return;
+
+    emit(const TablePageState.loading());
+
+    final result = await _closeOrderUsecase.call(
       params: CloseOrderParams(
         orderId: _currentOrder!.id,
         paidAmount: event.paidAmount,
@@ -176,10 +180,17 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
       ),
     );
 
-    // 2️⃣ reset state
-    emit(const TablePageState.initial());
-
-    // 3️⃣ ممكن تنقل المستخدم
-    // navigator.pop / go to tables page
+    if (result is DataSuccess) {
+      emit(
+        TablePageState.checkoutSuccess(
+          order: _currentOrder!,
+          items: currentState.items,
+          paidAmount: event.paidAmount,
+          remaining: event.remaining,
+        ),
+      );
+    } else {
+      emit(TablePageState.error(result.error ?? 'Checkout failed'));
+    }
   }
 }

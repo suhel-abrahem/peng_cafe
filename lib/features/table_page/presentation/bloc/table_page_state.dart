@@ -9,6 +9,11 @@ class TablePageState with _$TablePageState {
     required OrderEntity order,
     required List<OrderItemEntity> items,
   }) = _Loaded;
-
+  const factory TablePageState.checkoutSuccess({
+    required OrderEntity order,
+    required List<OrderItemEntity> items,
+    required double paidAmount,
+    required double remaining,
+  }) = _CheckoutSuccess;
   const factory TablePageState.error(String message) = _Error;
 }

@@ -45,7 +45,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
   @override
   void initState() {
     amountPaid = widget.totalAmount;
-    usdToIqdRate = getItInstance<AppPreferences>().getUsdPrice();
+    usdToIqdRate = getItInstance<AppPreferences>().getUsdPrice() / 100;
     super.initState();
   }
 
@@ -90,6 +90,11 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                             onChanged: (value) => setState(() {
                               amountPaid = double.tryParse(value);
                             }),
+                            onSubmitted: (value) {
+                              setState(() {
+                                amountPaid = double.tryParse(value);
+                              });
+                            },
                             validator: (value) {
                               double? parsedValue = double.tryParse(
                                 value.toString().trim(),
