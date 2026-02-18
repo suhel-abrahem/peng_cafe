@@ -53,6 +53,7 @@ class _TablesSettingRowState extends State<TablesSettingRow> {
           CustomInputField(
             textDirection: ui.TextDirection.ltr,
             width: 150,
+            height: 60,
             enabled: widget.canEdit && widget.tableType.isActive,
             initialValue: textInput,
             validator: widget.tableType.isActive ? widget.validator : null,

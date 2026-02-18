@@ -222,7 +222,7 @@ return $default(_that.id,_that.locale,_that.nameAr,_that.nameEn,_that.nameKu,_th
 @JsonSerializable()
 
 class _ProductModel implements ProductModel {
-  const _ProductModel({this.id = 0, this.locale = "ar", this.nameAr = "", this.nameEn = "", this.nameKu = null, this.descriptionAr = "", this.descriptionEn = "", this.descriptionKu = "", this.price = 0.0, @FileJsonConverter() this.imagePath, this.quantity = 0.0, this.discount = 0.0, this.productType = ProductTypeEnum.foodAndBeverage, this.costPrice = 0.0});
+  const _ProductModel({this.id = 0, this.locale = "ar", this.nameAr = "", this.nameEn = null, this.nameKu = null, this.descriptionAr = "", this.descriptionEn = "", this.descriptionKu = "", this.price = 0.0, @FileJsonConverter() this.imagePath, this.quantity = 0.0, this.discount = 0.0, this.productType = ProductTypeEnum.foodAndBeverage, this.costPrice = 0.0});
   factory _ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 
 @override@JsonKey() final  int? id;

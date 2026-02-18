@@ -36,32 +36,35 @@ class _TablesSettingWidgetState extends State<TablesSettingWidget> {
           return AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             width: state.isEditing ? 600.w : 450.w,
-            height: state.tablesTypes.tablesTypes.length * 150.h,
+            height: (state.tablesTypes.tablesTypes.length * 100.h) + 100.h,
             padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        LocaleKeys.settingsPage_tablesSettings_title.tr(),
-                        style: Theme.of(context).textTheme.headlineMedium
-                            ?.copyWith(
-                              fontFamily: FontConstants.fontFamily(
-                                context.locale,
+                  SizedBox(
+                    height: 40.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          LocaleKeys.settingsPage_tablesSettings_title.tr(),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
+                                fontFamily: FontConstants.fontFamily(
+                                  context.locale,
+                                ),
                               ),
-                            ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () => context.read<TablesTypesBloc>().add(
-                          const TablesTypesEvent.toggleEdit(),
                         ),
-                      ),
-                    ],
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () => context.read<TablesTypesBloc>().add(
+                            const TablesTypesEvent.toggleEdit(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   ...state.tablesTypes.tablesTypes.map(

@@ -11,7 +11,7 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt() ?? 0,
       locale: json['locale'] as String? ?? "ar",
       nameAr: json['nameAr'] as String? ?? "",
-      nameEn: json['nameEn'] as String? ?? "",
+      nameEn: json['nameEn'] as String? ?? null,
       nameKu: json['nameKu'] as String? ?? null,
       descriptionAr: json['descriptionAr'] as String? ?? "",
       descriptionEn: json['descriptionEn'] as String? ?? "",

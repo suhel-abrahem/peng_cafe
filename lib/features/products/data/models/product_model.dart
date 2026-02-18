@@ -13,7 +13,7 @@ abstract class ProductModel with _$ProductModel {
     @Default(0) int? id,
     @Default("ar") String? locale,
     @Default("") String? nameAr,
-    @Default("") String? nameEn,
+    @Default(null) String? nameEn,
     @Default(null) String? nameKu,
     @Default("") String? descriptionAr,
     @Default("") String? descriptionEn,

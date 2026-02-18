@@ -132,6 +132,12 @@ class AppPreferences {
             isActive: false,
             tableType: TableTypeEnum.videoGame,
           ),
+          TablesQuantityEntity(
+            tableName: TableTypeEnum.takeAway,
+            quantity: 0,
+            isActive: false,
+            tableType: TableTypeEnum.takeAway,
+          ),
         ],
       );
     } else {

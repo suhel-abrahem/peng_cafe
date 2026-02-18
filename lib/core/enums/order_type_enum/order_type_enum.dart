@@ -1,1 +1,1 @@
-enum OrderTypeEnum { dineIn, takeAway }
+enum OrderTypeEnum { dineIn, takeAway, withdrawal }

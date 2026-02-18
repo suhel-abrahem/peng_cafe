@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
+import '../../../features/orders/data/models/orders_section_model.dart';
 import '../../enums/order_status_enum/order_status_enum.dart';
+import '../../enums/order_type_enum/order_type_enum.dart';
 import '../../enums/tables_enum/table_type_enum.dart';
 import '../app_database.dart';
 import '../tables/orders_table.dart';
@@ -59,5 +61,74 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     return (select(
       ordersTable,
     )..where((t) => t.orderNumber.equals(orderNumber))).getSingleOrNull();
+  }
+
+  Expression<bool> _closedOnly(OrdersTable t) {
+    return t.orderStatus.equals(OrderStatusEnum.completed.index);
+  }
+
+  Future<List<OrdersTableData>> getTodayOrders() {
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day);
+
+    return (select(ordersTable)..where(
+          (t) => _closedOnly(t) & t.createdAt.isBiggerOrEqualValue(start),
+        ))
+        .get();
+  }
+
+  Future<List<OrdersTableData>> getLastWeekOrders() {
+    final start = DateTime.now().subtract(const Duration(days: 7));
+
+    return (select(ordersTable)..where(
+          (t) => _closedOnly(t) & t.createdAt.isBiggerOrEqualValue(start),
+        ))
+        .get();
+  }
+
+  Future<List<OrdersTableData>> getLastMonthOrders() {
+    final start = DateTime.now().subtract(const Duration(days: 30));
+
+    return (select(ordersTable)..where(
+          (t) => _closedOnly(t) & t.createdAt.isBiggerOrEqualValue(start),
+        ))
+        .get();
+  }
+
+  Future<int> deleteOrdersOlderThan60Days() {
+    final limit = DateTime.now().subtract(const Duration(days: 60));
+
+    return (delete(
+      ordersTable,
+    )..where((t) => t.createdAt.isSmallerThanValue(limit))).go();
+  }
+
+  Future<OrdersTableData?> getOrderById(int orderId) {
+    return (select(
+      ordersTable,
+    )..where((t) => t.id.equals(orderId))).getSingleOrNull();
+  }
+
+  double calculateTotal(List<OrdersTableData> orders) {
+    double total = 0;
+
+    for (final o in orders) {
+      if (OrderTypeEnum.values[o.orderType.index] == OrderTypeEnum.withdrawal) {
+        total -= o.total;
+      } else {
+        total += o.total;
+      }
+    }
+
+    return total;
+  }
+
+  Future<List<OrdersTableData>> getOrdersBetween(DateTime from, DateTime to) {
+    return (select(ordersTable)..where(
+          (t) =>
+              t.createdAt.isBetweenValues(from, to) &
+              t.orderStatus.equals(OrderStatusEnum.completed.index),
+        ))
+        .get();
   }
 }

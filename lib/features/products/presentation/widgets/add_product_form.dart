@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,15 +31,30 @@ class AddProductForm extends StatefulWidget {
 
 class _AddProductFormState extends State<AddProductForm> {
   ProductModel productModel = ProductModel();
+  File? imagePath;
+  String? arName;
+  String? enName;
+  String? kuName;
+  String? costPrice;
+  String? price;
+  String? discount;
+  String? quantity;
+  ProductTypeEnum? productType = ProductTypeEnum.foodAndBeverage;
   TextEditingController arDescriptionController = TextEditingController();
   TextEditingController enDescriptionController = TextEditingController();
   TextEditingController kuDescriptionController = TextEditingController();
   @override
-  Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  void didUpdateWidget(covariant AddProductForm oldWidget) {
     productModel = productModel.copyWith(
       locale: Helper.getCountryCode(context),
     );
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return BlocProvider<AddProductBloc>(
       create: (context) =>
           getItInstance<AddProductBloc>()..add(AddProductEvent.started()),
@@ -47,6 +64,7 @@ class _AddProductFormState extends State<AddProductForm> {
             if (widget.onProductAdded != null) {
               widget.onProductAdded!(true);
             }
+            formKey.currentState?.reset();
             Navigator.of(context).pop();
           } else if (state is AddProductStateItemsAlreadyExists) {
             if (widget.onProductAdded != null) {
@@ -110,8 +128,9 @@ class _AddProductFormState extends State<AddProductForm> {
                           return null;
                         },
                         onChanged: (value) {
-                          productModel = productModel.copyWith(nameAr: value);
+                          arName = value;
                         },
+                        initialValue: arName,
                       ),
                       //en name
                       CustomInputField(
@@ -121,18 +140,20 @@ class _AddProductFormState extends State<AddProductForm> {
                             .tr(),
                         isRequired: false,
                         onChanged: (value) {
-                          productModel = productModel.copyWith(nameEn: value);
+                          enName = value;
                         },
+                        initialValue: enName,
                       ),
                       //ku name
                       CustomInputField(
+                        initialValue: kuName,
                         width: 250.w,
                         height: 50.h,
                         label: LocaleKeys.productsPage_addProductForm_nameKu
                             .tr(),
                         isRequired: false,
                         onChanged: (value) {
-                          productModel = productModel.copyWith(nameKu: value);
+                          kuName = value;
                         },
                       ),
                     ],
@@ -161,6 +182,7 @@ class _AddProductFormState extends State<AddProductForm> {
                     children: [
                       //cost price
                       CustomInputField(
+                        initialValue: costPrice,
                         width: 150.w,
                         height: 50.h,
                         isRequired: false,
@@ -170,22 +192,23 @@ class _AddProductFormState extends State<AddProductForm> {
                         label: LocaleKeys.productsPage_addProductForm_costPrice
                             .tr(),
                         validator: (value) {
-                          if (!RegExp(
-                            Validator.numberRegex,
-                          ).hasMatch(value.toString().trim())) {
-                            return LocaleKeys.validation_price.tr();
+                          if (value != null &&
+                              value.toString().trim().isNotEmpty) {
+                            if ((double.tryParse(value.toString()) == null) ||
+                                (double.tryParse(value.toString()) ?? 0) >= 0) {
+                              return LocaleKeys.validation_price.tr();
+                            }
                           }
 
                           return null;
                         },
                         onChanged: (value) {
-                          productModel = productModel.copyWith(
-                            costPrice: double.tryParse(value.toString()) ?? 0,
-                          );
+                          costPrice = value;
                         },
                       ),
                       //price
                       CustomInputField(
+                        initialValue: price,
                         width: 150.w,
                         height: 50.h,
                         isRequired: true,
@@ -202,34 +225,34 @@ class _AddProductFormState extends State<AddProductForm> {
                           return null;
                         },
                         onChanged: (value) {
-                          productModel = productModel.copyWith(
-                            price: double.tryParse(value.toString()) ?? 0,
-                          );
+                          price = value;
                         },
                       ),
                       //discount
                       CustomInputField(
+                        initialValue: discount,
                         width: 150.w,
                         height: 50.h,
                         isRequired: false,
                         label: LocaleKeys.productsPage_addProductForm_discount
                             .tr(),
                         validator: (value) {
-                          if (!RegExp(
-                            Validator.numberRegex,
-                          ).hasMatch(value.toString().trim())) {
-                            return LocaleKeys.validation_price.tr();
+                          if (value != null &&
+                              value.toString().trim().isNotEmpty) {
+                            if ((double.tryParse(value.toString()) == null) ||
+                                (double.tryParse(value.toString()) ?? 0) >= 0) {
+                              return LocaleKeys.validation_price.tr();
+                            }
                           }
                           return null;
                         },
                         onChanged: (value) {
-                          productModel = productModel.copyWith(
-                            discount: double.tryParse(value.toString()) ?? 0,
-                          );
+                          discount = value;
                         },
                       ),
                       //quantity
                       CustomInputField(
+                        initialValue: quantity,
                         key: ValueKey("quantity_${productModel.productType}"),
                         width: 150.w,
                         height: 50.h,
@@ -237,13 +260,11 @@ class _AddProductFormState extends State<AddProductForm> {
                             productModel.productType ==
                             ProductTypeEnum.foodAndBeverage,
                         isRequired:
-                            productModel.productType ==
-                            ProductTypeEnum.foodAndBeverage,
+                            productType == ProductTypeEnum.foodAndBeverage,
                         label: LocaleKeys.productsPage_addProductForm_quantity
                             .tr(),
                         validator: (value) {
-                          if (productModel.productType ==
-                              ProductTypeEnum.foodAndBeverage) {
+                          if (productType == ProductTypeEnum.foodAndBeverage) {
                             if (!RegExp(
                               Validator.numberRegex,
                             ).hasMatch(value.toString().trim())) {
@@ -253,9 +274,7 @@ class _AddProductFormState extends State<AddProductForm> {
                           return null;
                         },
                         onChanged: (value) {
-                          productModel = productModel.copyWith(
-                            quantity: double.tryParse(value.toString()) ?? 0,
-                          );
+                          quantity = value;
                         },
                       ),
                       //type
@@ -267,9 +286,7 @@ class _AddProductFormState extends State<AddProductForm> {
                           end: 8.w,
                         ),
                         onChange: (newValue) {
-                          productModel = productModel.copyWith(
-                            productType: newValue,
-                          );
+                          productType = newValue;
                           setState(() {});
                         },
                         stringConverter: (value) {
@@ -287,7 +304,7 @@ class _AddProductFormState extends State<AddProductForm> {
                         dropDownWidth: 150.w,
                         dropDownHeight: 50.h,
                         isLoading: false,
-                        value: productModel.productType,
+                        value: productType,
                       ),
                     ],
                   ),
@@ -313,11 +330,9 @@ class _AddProductFormState extends State<AddProductForm> {
                       height: 200.h,
                       child: ImageDropPicker(
                         onImageSelected: (value) {
-                          productModel = productModel.copyWith(
-                            imagePath: value,
-                          );
+                          imagePath = value;
                         },
-                        initialImage: productModel.imagePath,
+                        initialImage: imagePath,
                       ),
                     ),
                     SizedBox(
@@ -345,6 +360,18 @@ class _AddProductFormState extends State<AddProductForm> {
                                   descriptionAr: arDescriptionController.text,
                                   descriptionEn: enDescriptionController.text,
                                   descriptionKu: kuDescriptionController.text,
+                                  nameAr: arName,
+                                  nameEn: enName,
+                                  nameKu: kuName,
+                                  price: double.tryParse(price ?? "0") ?? 0,
+                                  quantity:
+                                      double.tryParse(quantity ?? "0") ?? 0,
+                                  imagePath: imagePath,
+                                  costPrice:
+                                      double.tryParse(costPrice ?? "0") ?? 0,
+                                  discount:
+                                      double.tryParse(discount ?? "0") ?? 0,
+                                  productType: productType,
                                 );
                                 context.read<AddProductBloc>().add(
                                   AddProductEvent.addProduct(

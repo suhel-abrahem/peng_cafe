@@ -1,9 +1,10 @@
 part of 'orders_bloc.dart';
 
-abstract class OrdersState extends Equatable {
-  const OrdersState();  
+@freezed
+class OrdersState with _$OrdersState {
+  const factory OrdersState.loading() = _Loading;
 
-  @override
-  List<Object> get props => [];
+  const factory OrdersState.loaded(List<OrdersSection> sections) = _Loaded;
+
+  const factory OrdersState.error(String message) = _Error;
 }
-class OrdersInitial extends OrdersState {}

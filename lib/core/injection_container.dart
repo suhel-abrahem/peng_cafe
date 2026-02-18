@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:peng_cafe/core/DB/app_database.dart';
 import 'package:peng_cafe/features/login/data/model/login_model.dart';
 import 'package:peng_cafe/features/login/data/repositories/login_repository_implement.dart';
+import 'package:peng_cafe/features/orders/domain/usecases/get_order_details_usecase.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_all_product_usecase.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_produtc_usecase.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
@@ -14,6 +15,11 @@ import '../features/login/data/data_sources/remote/service.dart';
 import '../features/login/domain/repositories/login_repository.dart';
 import '../features/login/domain/usecase/login.dart';
 import '../features/login/presentations/bloc/login_bloc.dart';
+import '../features/orders/data/repositories/orders_repository_implement.dart';
+import '../features/orders/domain/repositories/orders_repository.dart';
+import '../features/orders/domain/usecases/get_orders_summary_usecas.dart';
+import '../features/orders/presentation/bloc/order_details_bloc.dart';
+import '../features/orders/presentation/bloc/orders_bloc.dart';
 import '../features/products/data/repositories/product_repository_implement.dart';
 import '../features/products/domain/repositories/product_repository.dart';
 import '../features/products/domain/usecases/add_product_usecase.dart';
@@ -147,5 +153,24 @@ Future<void> initializeDependencies() async {
       getItInstance<DeleteItemUsecase>(),
       getItInstance<CloseOrderUsecase>(),
     ),
+  );
+  // orders feature
+  //repository
+  getItInstance.registerSingleton<OrdersRepository>(
+    OrdersRepositoryImpl(getItInstance()),
+  );
+  //usecase
+  getItInstance.registerSingleton<GetOrdersSummaryUsecase>(
+    GetOrdersSummaryUsecase(getItInstance<OrdersRepository>()),
+  );
+  getItInstance.registerSingleton<GetOrderDetailsUsecase>(
+    GetOrderDetailsUsecase(getItInstance<OrdersRepository>()),
+  );
+  //bloc
+  getItInstance.registerFactory(
+    () => OrdersBloc(getItInstance<GetOrdersSummaryUsecase>()),
+  );
+  getItInstance.registerFactory(
+    () => OrderDetailsBloc(getItInstance<GetOrderDetailsUsecase>()),
   );
 }
