@@ -222,5 +222,16 @@
             "productName": "Product Name",
             "priceAndQuantity": "Price and Quantity"
         }
+    },
+    "durationEnum": {
+        "never": "Never",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "twoMonthly": "Every Two Months",
+        "quarterly": "Quarterly",
+        "halfYearly": "Half Yearly",
+        "yearly": "Yearly",
+        "allTime": "All Time"
     }
 }

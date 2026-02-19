@@ -20,8 +20,8 @@ class GetOrderDetailsUsecase
   }) async {
     try {
       final order = await repository.getOrder(params.orderId);
-      if (order == null) {
-        return const DataFailed(error: 'Order not found');
+      if (order is DataFailed) {
+        return DataFailed(error: order.error);
       }
 
       final items = await repository.getOrderItems(
@@ -29,7 +29,11 @@ class GetOrderDetailsUsecase
         locale: params.locale,
       );
 
-      return DataSuccess(data: (order, items));
+      if (items is DataFailed) {
+        return DataFailed(error: items.error);
+      }
+
+      return DataSuccess(data: (order.data!, items.data!));
     } catch (e) {
       return DataFailed(error: e.toString());
     }

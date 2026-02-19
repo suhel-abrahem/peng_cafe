@@ -1,10 +1,14 @@
 import 'package:peng_cafe/core/DB/app_database.dart';
+import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 
+import '../../../../config/app/app_preferences.dart';
 import '../../../../core/DB/daos/order_items_dao.dart';
 import '../../../../core/DB/daos/orders_dao.dart';
 import '../../../../core/DB/mappers/order_item_mapper.dart';
 import '../../../../core/DB/mappers/orders_mapper.dart';
+import '../../../../core/enums/duration_enum.dart';
+import '../../../../core/resource/data_state.dart';
 import '../../../table_page/domain/entities/order_entity.dart';
 import '../../../table_page/domain/entities/order_item_entity.dart';
 import '../../domain/repositories/orders_repository.dart';
@@ -21,48 +25,63 @@ class OrdersRepositoryImpl implements OrdersRepository {
   }
 
   @override
-  Future<OrderEntity?> getOrder(int orderId) async {
+  Future<DataState<OrderEntity?>> getOrder(int orderId) async {
     final row = await ordersDao.getOrderById(orderId);
-    return row == null ? null : orderFromRow(row);
+    return row == null
+        ? NoDataDataState()
+        : DataSuccess(data: orderFromRow(row));
   }
 
   @override
-  Future<List<OrderItemEntity>> getOrderItems({
+  Future<DataState<List<OrderItemEntity>>> getOrderItems({
     required int orderId,
     required String locale,
   }) async {
     final rows = await itemsDao.getItemsWithProduct(orderId);
 
-    return rows.map((r) {
-      return orderItemFromJoin(r.$1, r.$2, Helper.getLocaleByCode(locale));
-    }).toList();
+    return DataSuccess(
+      data: rows.map((r) {
+        return orderItemFromJoin(r.$1, r.$2, Helper.getLocaleByCode(locale));
+      }).toList(),
+    );
   }
 
   @override
-  Future<List<OrdersSection>> getOrdersSummary() async {
-    // تنظيف قديم
-    await ordersDao.deleteOrdersOlderThan60Days();
+  Future<DataState<List<OrdersSection>>> getOrdersSummary({
+    required DurationEnum duration,
+  }) async {
+    try {
+      final DurationEnum durationToDeleteOrders =
+          getItInstance<AppPreferences>().getDurationToDeleteOrders();
+      await ordersDao.deleteOlderOrders(durationToDeleteOrders);
+      List<OrdersTableData> orders = [];
+      if (duration == DurationEnum.never) {
+        orders = [];
+      } else if (duration == DurationEnum.daily) {
+        print('Getting daily orders');
+        orders = await ordersDao.getTodayOrders();
+      } else if (duration == DurationEnum.weekly) {
+        print('Getting weekly orders');
+        orders = await ordersDao.getLastWeekOrders();
+      } else if (duration == DurationEnum.monthly) {
+        print('Getting monthly orders');
+        orders = await ordersDao.getLastMonthOrders();
+      } else {
+        print("Getting all orders");
+        orders = await ordersDao.getTodayOrders();
+      }
 
-    final today = await ordersDao.getTodayOrders();
-    final week = await ordersDao.getLastWeekOrders();
-    final month = await ordersDao.getLastMonthOrders();
-
-    return [
-      OrdersSection(
-        title: 'Today',
-        orders: today.map(orderFromRow).toList(),
-        total: ordersDao.calculateTotal(today),
-      ),
-      OrdersSection(
-        title: 'Last Week',
-        orders: week.map(orderFromRow).toList(),
-        total: ordersDao.calculateTotal(week),
-      ),
-      OrdersSection(
-        title: 'Last Month',
-        orders: month.map(orderFromRow).toList(),
-        total: ordersDao.calculateTotal(month),
-      ),
-    ];
+      return DataSuccess(
+        data: [
+          OrdersSection(
+            title: duration.displayName,
+            orders: orders.map(orderFromRow).toList(),
+            total: ordersDao.calculateTotal(orders),
+          ),
+        ],
+      );
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
-import '../../../features/orders/data/models/orders_section_model.dart';
+import 'package:peng_cafe/core/enums/duration_enum.dart';
+
 import '../../enums/order_status_enum/order_status_enum.dart';
 import '../../enums/order_type_enum/order_type_enum.dart';
 import '../../enums/tables_enum/table_type_enum.dart';
@@ -95,8 +96,38 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         .get();
   }
 
-  Future<int> deleteOrdersOlderThan60Days() {
-    final limit = DateTime.now().subtract(const Duration(days: 60));
+  Future<int> deleteOlderOrders(DurationEnum duration) {
+    int days;
+    switch (duration) {
+      case DurationEnum.never:
+        days = 0;
+        break;
+      case DurationEnum.daily:
+        days = 1;
+        break;
+      case DurationEnum.weekly:
+        days = 7;
+        break;
+      case DurationEnum.monthly:
+        days = 30;
+        break;
+      case DurationEnum.twoMonthly:
+        days = 60;
+        break;
+      case DurationEnum.quarterly:
+        days = 90;
+        break;
+      case DurationEnum.halfYearly:
+        days = 180;
+        break;
+      case DurationEnum.yearly:
+        days = 365;
+        break;
+      case DurationEnum.allTime:
+        days = 0;
+        break;
+    }
+    final limit = DateTime.now().subtract(Duration(days: days));
 
     return (delete(
       ordersTable,

@@ -212,5 +212,15 @@ abstract class  LocaleKeys {
   static const tablePage_addOrderForm_priceAndQuantity = 'tablePage.addOrderForm.priceAndQuantity';
   static const tablePage_addOrderForm = 'tablePage.addOrderForm';
   static const tablePage = 'tablePage';
+  static const durationEnum_never = 'durationEnum.never';
+  static const durationEnum_daily = 'durationEnum.daily';
+  static const durationEnum_weekly = 'durationEnum.weekly';
+  static const durationEnum_monthly = 'durationEnum.monthly';
+  static const durationEnum_twoMonthly = 'durationEnum.twoMonthly';
+  static const durationEnum_quarterly = 'durationEnum.quarterly';
+  static const durationEnum_halfYearly = 'durationEnum.halfYearly';
+  static const durationEnum_yearly = 'durationEnum.yearly';
+  static const durationEnum_allTime = 'durationEnum.allTime';
+  static const durationEnum = 'durationEnum';
 
 }

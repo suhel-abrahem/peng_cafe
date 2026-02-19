@@ -14,30 +14,61 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrdersEvent {
 
-
+ DurationEnum get duration;
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OrdersEventCopyWith<OrdersEvent> get copyWith => _$OrdersEventCopyWithImpl<OrdersEvent>(this as OrdersEvent, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersEvent&&(identical(other.duration, duration) || other.duration == duration));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,duration);
 
 @override
 String toString() {
-  return 'OrdersEvent()';
+  return 'OrdersEvent(duration: $duration)';
 }
 
 
 }
 
 /// @nodoc
-class $OrdersEventCopyWith<$Res>  {
-$OrdersEventCopyWith(OrdersEvent _, $Res Function(OrdersEvent) __);
+abstract mixin class $OrdersEventCopyWith<$Res>  {
+  factory $OrdersEventCopyWith(OrdersEvent value, $Res Function(OrdersEvent) _then) = _$OrdersEventCopyWithImpl;
+@useResult
+$Res call({
+ DurationEnum duration
+});
+
+
+
+
+}
+/// @nodoc
+class _$OrdersEventCopyWithImpl<$Res>
+    implements $OrdersEventCopyWith<$Res> {
+  _$OrdersEventCopyWithImpl(this._self, this._then);
+
+  final OrdersEvent _self;
+  final $Res Function(OrdersEvent) _then;
+
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? duration = null,}) {
+  return _then(_self.copyWith(
+duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as DurationEnum,
+  ));
+}
+
 }
 
 
@@ -122,11 +153,11 @@ return refresh(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  load,TResult Function()?  refresh,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DurationEnum duration)?  load,TResult Function( DurationEnum duration)?  refresh,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Load() when load != null:
-return load();case _Refresh() when refresh != null:
-return refresh();case _:
+return load(_that.duration);case _Refresh() when refresh != null:
+return refresh(_that.duration);case _:
   return orElse();
 
 }
@@ -144,11 +175,11 @@ return refresh();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  load,required TResult Function()  refresh,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DurationEnum duration)  load,required TResult Function( DurationEnum duration)  refresh,}) {final _that = this;
 switch (_that) {
 case _Load():
-return load();case _Refresh():
-return refresh();case _:
+return load(_that.duration);case _Refresh():
+return refresh(_that.duration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +196,11 @@ return refresh();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  load,TResult? Function()?  refresh,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DurationEnum duration)?  load,TResult? Function( DurationEnum duration)?  refresh,}) {final _that = this;
 switch (_that) {
 case _Load() when load != null:
-return load();case _Refresh() when refresh != null:
-return refresh();case _:
+return load(_that.duration);case _Refresh() when refresh != null:
+return refresh(_that.duration);case _:
   return null;
 
 }
@@ -181,65 +212,133 @@ return refresh();case _:
 
 
 class _Load implements OrdersEvent {
-  const _Load();
+  const _Load({required this.duration});
   
 
+@override final  DurationEnum duration;
 
-
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadCopyWith<_Load> get copyWith => __$LoadCopyWithImpl<_Load>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Load);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Load&&(identical(other.duration, duration) || other.duration == duration));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,duration);
 
 @override
 String toString() {
-  return 'OrdersEvent.load()';
+  return 'OrdersEvent.load(duration: $duration)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$LoadCopyWith<$Res> implements $OrdersEventCopyWith<$Res> {
+  factory _$LoadCopyWith(_Load value, $Res Function(_Load) _then) = __$LoadCopyWithImpl;
+@override @useResult
+$Res call({
+ DurationEnum duration
+});
 
 
+
+
+}
+/// @nodoc
+class __$LoadCopyWithImpl<$Res>
+    implements _$LoadCopyWith<$Res> {
+  __$LoadCopyWithImpl(this._self, this._then);
+
+  final _Load _self;
+  final $Res Function(_Load) _then;
+
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? duration = null,}) {
+  return _then(_Load(
+duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as DurationEnum,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class _Refresh implements OrdersEvent {
-  const _Refresh();
+  const _Refresh({required this.duration});
   
 
+@override final  DurationEnum duration;
 
-
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RefreshCopyWith<_Refresh> get copyWith => __$RefreshCopyWithImpl<_Refresh>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Refresh);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Refresh&&(identical(other.duration, duration) || other.duration == duration));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,duration);
 
 @override
 String toString() {
-  return 'OrdersEvent.refresh()';
+  return 'OrdersEvent.refresh(duration: $duration)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$RefreshCopyWith<$Res> implements $OrdersEventCopyWith<$Res> {
+  factory _$RefreshCopyWith(_Refresh value, $Res Function(_Refresh) _then) = __$RefreshCopyWithImpl;
+@override @useResult
+$Res call({
+ DurationEnum duration
+});
 
 
+
+
+}
+/// @nodoc
+class __$RefreshCopyWithImpl<$Res>
+    implements _$RefreshCopyWith<$Res> {
+  __$RefreshCopyWithImpl(this._self, this._then);
+
+  final _Refresh _self;
+  final $Res Function(_Refresh) _then;
+
+/// Create a copy of OrdersEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? duration = null,}) {
+  return _then(_Refresh(
+duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as DurationEnum,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$OrdersState {
@@ -285,12 +384,13 @@ extension OrdersStatePatterns on OrdersState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OrdersStateLoading value)?  loading,TResult Function( OrdersStateLoaded value)?  loaded,TResult Function( OrdersStateLoadedWithNoData value)?  loadedWithNoData,TResult Function( OrdersStateError value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+case OrdersStateLoading() when loading != null:
+return loading(_that);case OrdersStateLoaded() when loaded != null:
+return loaded(_that);case OrdersStateLoadedWithNoData() when loadedWithNoData != null:
+return loadedWithNoData(_that);case OrdersStateError() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -309,12 +409,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OrdersStateLoading value)  loading,required TResult Function( OrdersStateLoaded value)  loaded,required TResult Function( OrdersStateLoadedWithNoData value)  loadedWithNoData,required TResult Function( OrdersStateError value)  error,}){
 final _that = this;
 switch (_that) {
-case _Loading():
-return loading(_that);case _Loaded():
-return loaded(_that);case _Error():
+case OrdersStateLoading():
+return loading(_that);case OrdersStateLoaded():
+return loaded(_that);case OrdersStateLoadedWithNoData():
+return loadedWithNoData(_that);case OrdersStateError():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -332,12 +433,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OrdersStateLoading value)?  loading,TResult? Function( OrdersStateLoaded value)?  loaded,TResult? Function( OrdersStateLoadedWithNoData value)?  loadedWithNoData,TResult? Function( OrdersStateError value)?  error,}){
 final _that = this;
 switch (_that) {
-case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+case OrdersStateLoading() when loading != null:
+return loading(_that);case OrdersStateLoaded() when loaded != null:
+return loaded(_that);case OrdersStateLoadedWithNoData() when loadedWithNoData != null:
+return loadedWithNoData(_that);case OrdersStateError() when error != null:
 return error(_that);case _:
   return null;
 
@@ -355,11 +457,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<OrdersSection> sections)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<OrdersSection> sections)?  loaded,TResult Function()?  loadedWithNoData,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.sections);case _Error() when error != null:
+case OrdersStateLoading() when loading != null:
+return loading();case OrdersStateLoaded() when loaded != null:
+return loaded(_that.sections);case OrdersStateLoadedWithNoData() when loadedWithNoData != null:
+return loadedWithNoData();case OrdersStateError() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -378,11 +481,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<OrdersSection> sections)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<OrdersSection> sections)  loaded,required TResult Function()  loadedWithNoData,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
-case _Loading():
-return loading();case _Loaded():
-return loaded(_that.sections);case _Error():
+case OrdersStateLoading():
+return loading();case OrdersStateLoaded():
+return loaded(_that.sections);case OrdersStateLoadedWithNoData():
+return loadedWithNoData();case OrdersStateError():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -400,11 +504,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<OrdersSection> sections)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<OrdersSection> sections)?  loaded,TResult? Function()?  loadedWithNoData,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
-case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.sections);case _Error() when error != null:
+case OrdersStateLoading() when loading != null:
+return loading();case OrdersStateLoaded() when loaded != null:
+return loaded(_that.sections);case OrdersStateLoadedWithNoData() when loadedWithNoData != null:
+return loadedWithNoData();case OrdersStateError() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -416,8 +521,8 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Loading implements OrdersState {
-  const _Loading();
+class OrdersStateLoading implements OrdersState {
+  const OrdersStateLoading();
   
 
 
@@ -427,7 +532,7 @@ class _Loading implements OrdersState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateLoading);
 }
 
 
@@ -448,8 +553,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements OrdersState {
-  const _Loaded(final  List<OrdersSection> sections): _sections = sections;
+class OrdersStateLoaded implements OrdersState {
+  const OrdersStateLoaded({required final  List<OrdersSection> sections}): _sections = sections;
   
 
  final  List<OrdersSection> _sections;
@@ -464,13 +569,13 @@ class _Loaded implements OrdersState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+$OrdersStateLoadedCopyWith<OrdersStateLoaded> get copyWith => _$OrdersStateLoadedCopyWithImpl<OrdersStateLoaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._sections, _sections));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateLoaded&&const DeepCollectionEquality().equals(other._sections, _sections));
 }
 
 
@@ -486,8 +591,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
-  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+abstract mixin class $OrdersStateLoadedCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
+  factory $OrdersStateLoadedCopyWith(OrdersStateLoaded value, $Res Function(OrdersStateLoaded) _then) = _$OrdersStateLoadedCopyWithImpl;
 @useResult
 $Res call({
  List<OrdersSection> sections
@@ -498,18 +603,18 @@ $Res call({
 
 }
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res>
-    implements _$LoadedCopyWith<$Res> {
-  __$LoadedCopyWithImpl(this._self, this._then);
+class _$OrdersStateLoadedCopyWithImpl<$Res>
+    implements $OrdersStateLoadedCopyWith<$Res> {
+  _$OrdersStateLoadedCopyWithImpl(this._self, this._then);
 
-  final _Loaded _self;
-  final $Res Function(_Loaded) _then;
+  final OrdersStateLoaded _self;
+  final $Res Function(OrdersStateLoaded) _then;
 
 /// Create a copy of OrdersState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? sections = null,}) {
-  return _then(_Loaded(
-null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
+  return _then(OrdersStateLoaded(
+sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
 as List<OrdersSection>,
   ));
 }
@@ -520,8 +625,40 @@ as List<OrdersSection>,
 /// @nodoc
 
 
-class _Error implements OrdersState {
-  const _Error(this.message);
+class OrdersStateLoadedWithNoData implements OrdersState {
+  const OrdersStateLoadedWithNoData();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateLoadedWithNoData);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'OrdersState.loadedWithNoData()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class OrdersStateError implements OrdersState {
+  const OrdersStateError(this.message);
   
 
  final  String message;
@@ -530,13 +667,13 @@ class _Error implements OrdersState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
+$OrdersStateErrorCopyWith<OrdersStateError> get copyWith => _$OrdersStateErrorCopyWithImpl<OrdersStateError>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateError&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -552,8 +689,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
+abstract mixin class $OrdersStateErrorCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
+  factory $OrdersStateErrorCopyWith(OrdersStateError value, $Res Function(OrdersStateError) _then) = _$OrdersStateErrorCopyWithImpl;
 @useResult
 $Res call({
  String message
@@ -564,17 +701,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res>
-    implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class _$OrdersStateErrorCopyWithImpl<$Res>
+    implements $OrdersStateErrorCopyWith<$Res> {
+  _$OrdersStateErrorCopyWithImpl(this._self, this._then);
 
-  final _Error _self;
-  final $Res Function(_Error) _then;
+  final OrdersStateError _self;
+  final $Res Function(OrdersStateError) _then;
 
 /// Create a copy of OrdersState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(_Error(
+  return _then(OrdersStateError(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));

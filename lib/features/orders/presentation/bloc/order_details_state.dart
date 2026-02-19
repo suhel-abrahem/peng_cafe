@@ -10,6 +10,6 @@ class OrderDetailsState with _$OrderDetailsState {
     required OrderEntity order,
     required List<OrderItemEntity> items,
   }) = _Loaded;
-
+  const factory OrderDetailsState.loadedWithNoData() = _LoadedWithNoData;
   const factory OrderDetailsState.error(String message) = _Error;
 }

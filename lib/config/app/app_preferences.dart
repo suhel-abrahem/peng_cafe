@@ -3,6 +3,7 @@ import 'package:peng_cafe/features/setting/data/models/tables_setting/tables_typ
 
 import '../../core/constant/language_constants.dart';
 import '../../core/constant/shared_preferences_keys.dart';
+import '../../core/enums/duration_enum.dart';
 import '../../core/enums/tables_enum/table_type_enum.dart';
 import '../../core/resource/user_model/user_model.dart';
 
@@ -157,5 +158,19 @@ class AppPreferences {
           SharedPreferencesKeys.PREFS_KEY_LOCALLY_USD_PRICE,
         ) ??
         150000.0;
+  }
+
+  Future<void> setDurationToDeleteOrders(DurationEnum duration) async {
+    _sharedPreferences.setInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_DURATION_TO_DELETE_ORDERS,
+      duration.index,
+    );
+  }
+
+  DurationEnum getDurationToDeleteOrders() {
+    int? durationIndex = _sharedPreferences.getInt(
+      SharedPreferencesKeys.PREFS_KEY_LOCALLY_DURATION_TO_DELETE_ORDERS,
+    );
+    return DurationEnum.values[durationIndex ?? 0];
   }
 }

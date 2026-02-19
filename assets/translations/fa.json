@@ -222,5 +222,16 @@
             "productName": "ناوی کاڵا",
             "priceAndQuantity": "نرخ و ژمارە"
         }
+    },
+    "durationEnum": {
+        "never": "هیچ‌کات",
+        "daily": "ڕۆژانە",
+        "weekly": "هەفتانە",
+        "monthly": "مانگانە",
+        "twoMonthly": "هەموو دوو مانگ",
+        "quarterly": "هەموو سێ مانگ",
+        "halfYearly": "هەموو نیو ساڵ",
+        "yearly": "ساڵانە",
+        "allTime": "هەموو کات"
     }
 }

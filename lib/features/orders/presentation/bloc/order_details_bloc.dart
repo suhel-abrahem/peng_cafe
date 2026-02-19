@@ -37,6 +37,8 @@ class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
           items: result.data!.$2,
         ),
       );
+    } else if (result is NoDataDataState) {
+      emit(const OrderDetailsState.loadedWithNoData());
     } else {
       emit(
         OrderDetailsState.error(result.error ?? 'Error loading order details'),

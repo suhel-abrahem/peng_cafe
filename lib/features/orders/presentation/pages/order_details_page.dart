@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peng_cafe/core/injection_container.dart';
+import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/orders/presentation/bloc/orders_bloc.dart';
 
@@ -99,6 +100,9 @@ class OrderDetailsPage extends StatelessWidget {
               },
               initial: () {
                 return const SizedBox();
+              },
+              loadedWithNoData: () {
+                return const NodataStateWidget();
               },
             );
           },

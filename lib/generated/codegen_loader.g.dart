@@ -239,6 +239,17 @@ class CodegenLoader extends AssetLoader{
       "productName": "اسم المنتج",
       "priceAndQuantity": "السعر والكمية"
     }
+  },
+  "durationEnum": {
+    "never": "أبدًا",
+    "daily": "يوميًا",
+    "weekly": "أسبوعيًا",
+    "monthly": "شهريًا",
+    "twoMonthly": "كل شهرين",
+    "quarterly": "ربع سنوي",
+    "halfYearly": "نصف سنوي",
+    "yearly": "سنويًا",
+    "allTime": "كل الوقت"
   }
 };
 static const Map<String,dynamic> _en = {
@@ -465,6 +476,17 @@ static const Map<String,dynamic> _en = {
       "productName": "Product Name",
       "priceAndQuantity": "Price and Quantity"
     }
+  },
+  "durationEnum": {
+    "never": "Never",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "twoMonthly": "Every Two Months",
+    "quarterly": "Quarterly",
+    "halfYearly": "Half Yearly",
+    "yearly": "Yearly",
+    "allTime": "All Time"
   }
 };
 static const Map<String,dynamic> _fa = {
@@ -691,6 +713,17 @@ static const Map<String,dynamic> _fa = {
       "productName": "ناوی کاڵا",
       "priceAndQuantity": "نرخ و ژمارە"
     }
+  },
+  "durationEnum": {
+    "never": "هیچ‌کات",
+    "daily": "ڕۆژانە",
+    "weekly": "هەفتانە",
+    "monthly": "مانگانە",
+    "twoMonthly": "هەموو دوو مانگ",
+    "quarterly": "هەموو سێ مانگ",
+    "halfYearly": "هەموو نیو ساڵ",
+    "yearly": "ساڵانە",
+    "allTime": "هەموو کات"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "fa": _fa};

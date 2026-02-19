@@ -223,5 +223,16 @@
             "productName": "اسم المنتج",
             "priceAndQuantity": "السعر والكمية"
         }
+    },
+    "durationEnum": {
+        "never": "أبدًا",
+        "daily": "يوميًا",
+        "weekly": "أسبوعيًا",
+        "monthly": "شهريًا",
+        "twoMonthly": "كل شهرين",
+        "quarterly": "ربع سنوي",
+        "halfYearly": "نصف سنوي",
+        "yearly": "سنويًا",
+        "allTime": "كل الوقت"
     }
 }
