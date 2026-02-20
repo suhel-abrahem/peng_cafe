@@ -96,11 +96,15 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         .get();
   }
 
+  Future<List<OrdersTableData>> getAllOrders() {
+    return (select(ordersTable)..where((t) => _closedOnly(t))).get();
+  }
+
   Future<int> deleteOlderOrders(DurationEnum duration) {
     int days;
     switch (duration) {
       case DurationEnum.never:
-        days = 0;
+        days = -1;
         break;
       case DurationEnum.daily:
         days = 1;
@@ -124,8 +128,11 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         days = 365;
         break;
       case DurationEnum.allTime:
-        days = 0;
+        days = -1;
         break;
+    }
+    if (days == -1) {
+      return Future.value(0);
     }
     final limit = DateTime.now().subtract(Duration(days: days));
 

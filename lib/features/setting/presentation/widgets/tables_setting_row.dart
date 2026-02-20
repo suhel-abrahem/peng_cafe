@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
+import 'package:peng_cafe/core/enums/psition_enum.dart';
 import 'package:peng_cafe/core/enums/tables_enum/table_type_enum.dart';
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 
@@ -43,14 +44,14 @@ class _TablesSettingRowState extends State<TablesSettingRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            widget.tableType.tableName.quantityLocaleKey.tr(),
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              fontFamily: FontConstants.fontFamily(context.locale),
-            ),
-          ),
-
           CustomInputField(
+            haveOuterLabel: true,
+            outerLabel: widget.tableType.tableName.quantityLocaleKey.tr(),
+            outerLabelPosition: Position.upper,
+            outerLabelPadding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+              vertical: 8.h,
+            ),
             textDirection: ui.TextDirection.ltr,
             width: 150,
             height: 60,

@@ -36,7 +36,7 @@ class _TablesSettingWidgetState extends State<TablesSettingWidget> {
           return AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             width: state.isEditing ? 600.w : 450.w,
-            height: (state.tablesTypes.tablesTypes.length * 100.h) + 100.h,
+            // height: (state.tablesTypes.tablesTypes.length * 100.h) + 100.h,
             padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
             child: Form(
               key: _formKey,

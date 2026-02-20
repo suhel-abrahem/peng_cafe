@@ -289,7 +289,7 @@ class ProductsPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 40.w),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  int crossAxisCount = (constraints.maxWidth / 300).floor();
+                  int crossAxisCount = (constraints.maxWidth / 300).ceil();
                   return BlocBuilder<GetProductsBloc, GetProductsState>(
                     builder: (context, state) {
                       return state.maybeMap(

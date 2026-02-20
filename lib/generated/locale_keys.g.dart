@@ -174,6 +174,10 @@ abstract class  LocaleKeys {
   static const settingsPage_oneHundredDollarsEqualsInIqdSetting_oneHundredDollarsEqualsInIqdMustBeGreaterThanZero = 'settingsPage.oneHundredDollarsEqualsInIqdSetting.oneHundredDollarsEqualsInIqdMustBeGreaterThanZero';
   static const settingsPage_oneHundredDollarsEqualsInIqdSetting_priceFoeOneHundredDollars = 'settingsPage.oneHundredDollarsEqualsInIqdSetting.priceFoeOneHundredDollars';
   static const settingsPage_oneHundredDollarsEqualsInIqdSetting = 'settingsPage.oneHundredDollarsEqualsInIqdSetting';
+  static const settingsPage_durationToRemoveOrdersSetting_title = 'settingsPage.durationToRemoveOrdersSetting.title';
+  static const settingsPage_durationToRemoveOrdersSetting_label = 'settingsPage.durationToRemoveOrdersSetting.label';
+  static const settingsPage_durationToRemoveOrdersSetting_durationAreRequired = 'settingsPage.durationToRemoveOrdersSetting.durationAreRequired';
+  static const settingsPage_durationToRemoveOrdersSetting = 'settingsPage.durationToRemoveOrdersSetting';
   static const settingsPage = 'settingsPage';
   static const tablePage_title = 'tablePage.title';
   static const tablePage_tableNumber = 'tablePage.tableNumber';
@@ -222,5 +226,22 @@ abstract class  LocaleKeys {
   static const durationEnum_yearly = 'durationEnum.yearly';
   static const durationEnum_allTime = 'durationEnum.allTime';
   static const durationEnum = 'durationEnum';
+  static const printing_bill_title = 'printing.bill.title';
+  static const printing_bill_tableNumber = 'printing.bill.tableNumber';
+  static const printing_bill_date = 'printing.bill.date';
+  static const printing_bill_time = 'printing.bill.time';
+  static const printing_bill_productName = 'printing.bill.productName';
+  static const printing_bill_quantity = 'printing.bill.quantity';
+  static const printing_bill_price = 'printing.bill.price';
+  static const printing_bill_totalAmount = 'printing.bill.totalAmount';
+  static const printing_bill_thankYou = 'printing.bill.thankYou';
+  static const printing_bill = 'printing.bill';
+  static const printing_lastOrders_title = 'printing.lastOrders.title';
+  static const printing_lastOrders_orderNumber = 'printing.lastOrders.orderNumber';
+  static const printing_lastOrders_tableNumber = 'printing.lastOrders.tableNumber';
+  static const printing_lastOrders_totalAmount = 'printing.lastOrders.totalAmount';
+  static const printing_lastOrders_status = 'printing.lastOrders.status';
+  static const printing_lastOrders = 'printing.lastOrders';
+  static const printing = 'printing';
 
 }

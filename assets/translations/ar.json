@@ -183,6 +183,11 @@
             "title": "كم يساوي 100 دولار بالدينار العراقي؟",
             "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "يجب أن يكون المبلغ الذي يساوي 100 دولار بالدينار العراقي أكبر من 0",
             "priceFoeOneHundredDollars": "المبلغ الذي يساوي 100 دولار بالدينار العراقي"
+        },
+        "durationToRemoveOrdersSetting": {
+            "title": "المدة الزمنية لإزالة الطلبات المكتملة",
+            "label": "المدة الزمنية",
+            "durationAreRequired": "المدة الزمنية لإزالة الطلبات المكتملة مطلوبة"
         }
     },
     "tablePage": {
@@ -234,5 +239,25 @@
         "halfYearly": "نصف سنوي",
         "yearly": "سنويًا",
         "allTime": "كل الوقت"
+    },
+    "printing": {
+        "bill": {
+            "title": "الفاتورة",
+            "tableNumber": "رقم الطاولة: {number}",
+            "date": "التاريخ: {date}",
+            "time": "الوقت: {time}",
+            "productName": "اسم المنتج",
+            "quantity": "الكمية",
+            "price": "السعر",
+            "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+            "thankYou": "شكرًا لزيارتك!"
+        },
+        "lastOrders": {
+            "title": "آخر الطلبات",
+            "orderNumber": "رقم الطلب: {number}",
+            "tableNumber": "رقم الطاولة: {number}",
+            "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+            "status": "الحالة: {status}"
+        }
     }
 }

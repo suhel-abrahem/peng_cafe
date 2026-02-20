@@ -175,7 +175,7 @@ class _CurrencyWidgetState extends State<CurrencyWidget> {
             ),
           ).asGlass(
             tintColor: Theme.of(context).scaffoldBackgroundColor,
-            clipBorderRadius: BorderRadius.circular(12.r),
+            clipBorderRadius: BorderRadius.circular(20.r),
             border: Theme.of(context).defaultBorderSide,
           ),
     );

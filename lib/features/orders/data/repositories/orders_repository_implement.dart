@@ -68,7 +68,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
         orders = await ordersDao.getLastMonthOrders();
       } else {
         print("Getting all orders");
-        orders = await ordersDao.getTodayOrders();
+        orders = await ordersDao.getAllOrders();
       }
 
       return DataSuccess(

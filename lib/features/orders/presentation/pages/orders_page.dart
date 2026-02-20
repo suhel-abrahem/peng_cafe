@@ -23,7 +23,7 @@ class OrdersPage extends StatefulWidget {
 }
 
 class _OrdersPageState extends State<OrdersPage> {
-  DurationEnum duration = DurationEnum.daily;
+  DurationEnum duration = DurationEnum.allTime;
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
@@ -37,13 +37,27 @@ class _OrdersPageState extends State<OrdersPage> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                ElevatedButton(
+                  onPressed: () {
+                    duration = DurationEnum.allTime;
+                    pageController.jumpToPage(0);
+                  },
+                  child: Center(
+                    child: Text(
+                      LocaleKeys.durationEnum_allTime.tr(),
+                      style: TextStyle(
+                        fontFamily: FontConstants.fontFamily(context.locale),
+                      ),
+                    ),
+                  ),
+                ),
                 //daily
                 ElevatedButton(
                   onPressed: () {
                     duration = DurationEnum.daily;
-                    pageController.jumpToPage(0);
+                    pageController.jumpToPage(1);
                   },
                   child: Center(
                     child: Text(
@@ -58,7 +72,7 @@ class _OrdersPageState extends State<OrdersPage> {
                 ElevatedButton(
                   onPressed: () {
                     duration = DurationEnum.weekly;
-                    pageController.jumpToPage(1);
+                    pageController.jumpToPage(2);
                   },
                   child: Center(
                     child: Text(
@@ -72,7 +86,7 @@ class _OrdersPageState extends State<OrdersPage> {
                 ElevatedButton(
                   onPressed: () {
                     duration = DurationEnum.monthly;
-                    pageController.jumpToPage(2);
+                    pageController.jumpToPage(3);
                   },
                   child: Center(
                     child: Text(
@@ -88,7 +102,7 @@ class _OrdersPageState extends State<OrdersPage> {
           ),
           Expanded(
             child: PageView.builder(
-              itemCount: 3,
+              itemCount: 4,
               controller: pageController,
 
               itemBuilder: (context, index) {

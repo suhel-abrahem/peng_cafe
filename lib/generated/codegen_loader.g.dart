@@ -199,6 +199,11 @@ class CodegenLoader extends AssetLoader{
       "title": "كم يساوي 100 دولار بالدينار العراقي؟",
       "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "يجب أن يكون المبلغ الذي يساوي 100 دولار بالدينار العراقي أكبر من 0",
       "priceFoeOneHundredDollars": "المبلغ الذي يساوي 100 دولار بالدينار العراقي"
+    },
+    "durationToRemoveOrdersSetting": {
+      "title": "المدة الزمنية لإزالة الطلبات المكتملة",
+      "label": "المدة الزمنية",
+      "durationAreRequired": "المدة الزمنية لإزالة الطلبات المكتملة مطلوبة"
     }
   },
   "tablePage": {
@@ -250,6 +255,26 @@ class CodegenLoader extends AssetLoader{
     "halfYearly": "نصف سنوي",
     "yearly": "سنويًا",
     "allTime": "كل الوقت"
+  },
+  "printing": {
+    "bill": {
+      "title": "الفاتورة",
+      "tableNumber": "رقم الطاولة: {number}",
+      "date": "التاريخ: {date}",
+      "time": "الوقت: {time}",
+      "productName": "اسم المنتج",
+      "quantity": "الكمية",
+      "price": "السعر",
+      "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+      "thankYou": "شكرًا لزيارتك!"
+    },
+    "lastOrders": {
+      "title": "آخر الطلبات",
+      "orderNumber": "رقم الطلب: {number}",
+      "tableNumber": "رقم الطاولة: {number}",
+      "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
+      "status": "الحالة: {status}"
+    }
   }
 };
 static const Map<String,dynamic> _en = {
@@ -436,6 +461,11 @@ static const Map<String,dynamic> _en = {
       "title": "How much is 100 dollars in Iraqi Dinar?",
       "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "The amount that equals 100 dollars in Iraqi Dinar must be greater than 0",
       "priceFoeOneHundredDollars": "The amount that equals 100 dollars in Iraqi Dinar"
+    },
+    "durationToRemoveOrdersSetting": {
+      "title": "Duration to Remove Completed Orders",
+      "label": "Duration",
+      "durationAreRequired": "Duration to remove completed orders is required"
     }
   },
   "tablePage": {
@@ -673,6 +703,11 @@ static const Map<String,dynamic> _fa = {
       "title": "100 دۆلار چەند دینار عێراقیە؟",
       "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "پێویستە بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی گەورەتر بێت لە 0",
       "priceFoeOneHundredDollars": "بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی"
+    },
+    "durationToRemoveOrdersSetting": {
+      "title": "ماوەی سڕینەوەی داواکاریە تەواوکراوەکان",
+      "label": "ماوە",
+      "durationAreRequired": "ماوەی سڕینەوەی داواکاریە تەواوکراوەکان پێویستە"
     }
   },
   "tablePage": {

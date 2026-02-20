@@ -182,6 +182,11 @@
             "title": "100 دۆلار چەند دینار عێراقیە؟",
             "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "پێویستە بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی گەورەتر بێت لە 0",
             "priceFoeOneHundredDollars": "بڕی پارەی کە یەکسانە بە 100 دۆلار لە دینار عێراقی"
+        },
+        "durationToRemoveOrdersSetting": {
+            "title": "ماوەی سڕینەوەی داواکاریە تەواوکراوەکان",
+            "label": "ماوە",
+            "durationAreRequired": "ماوەی سڕینەوەی داواکاریە تەواوکراوەکان پێویستە"
         }
     },
     "tablePage": {

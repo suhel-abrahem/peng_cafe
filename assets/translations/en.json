@@ -182,6 +182,11 @@
             "title": "How much is 100 dollars in Iraqi Dinar?",
             "oneHundredDollarsEqualsInIqdMustBeGreaterThanZero": "The amount that equals 100 dollars in Iraqi Dinar must be greater than 0",
             "priceFoeOneHundredDollars": "The amount that equals 100 dollars in Iraqi Dinar"
+        },
+        "durationToRemoveOrdersSetting": {
+            "title": "Duration to Remove Completed Orders",
+            "label": "Duration",
+            "durationAreRequired": "Duration to remove completed orders is required"
         }
     },
     "tablePage": {

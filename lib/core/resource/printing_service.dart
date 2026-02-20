@@ -24,7 +24,7 @@ class BillPrinter {
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.roll80,
-        textDirection: pw.TextDirection.rtl, // 🔥 مهم جدًا للعربي
+        textDirection: pw.TextDirection.rtl,
         build: (pw.Context ctx) {
           return pw.Padding(
             padding: const pw.EdgeInsets.all(16),
@@ -82,4 +82,78 @@ class BillPrinter {
 
     await Printing.layoutPdf(onLayout: (format) async => pdf.save());
   }
+
+  // static Future<void> printLastOrders({
+  //   required BuildContext context,
+  //   required List<OrderEntity> orders,
+
+  //   required double totalRevenue,
+  // }) async {
+  //   final pdf = pw.Document();
+
+  //   // ✅ Load Arabic font
+  //   final fontData = await rootBundle.load("assets/fonts/Amiri-Regular.ttf");
+  //   final ttf = pw.Font.ttf(fontData);
+
+  //   pdf.addPage(
+  //     pw.Page(
+  //       pageFormat: PdfPageFormat.a4,
+  //       textDirection: pw.TextDirection.rtl,
+  //       build: (pw.Context ctx) {
+  //         return pw.Padding(
+  //           padding: const pw.EdgeInsets.all(16),
+  //           child: pw.Column(
+  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+  //             children: [
+  //               pw.Text(
+  //                 'فاتورة الكافيه',
+  //                 style: pw.TextStyle(font: ttf, fontSize: 18),
+  //               ),
+  //               pw.SizedBox(height: 10),
+  //               pw.Text(
+  //                 'الطاولة: ${order.tableNumber}',
+  //                 style: pw.TextStyle(font: ttf),
+  //               ),
+  //               pw.Text(
+  //                 'رقم الطلب: ${order.orderNumber}',
+  //                 style: pw.TextStyle(font: ttf),
+  //               ),
+  //               pw.Divider(),
+
+  //               ...items.map(
+  //                 (e) => pw.Row(
+  //                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+  //                   children: [
+  //                     pw.Text(
+  //                       e.productName ?? '',
+  //                       style: pw.TextStyle(font: ttf),
+  //                     ),
+
+  //                     pw.Text(
+  //                       '${e.quantity} × ${e.price}',
+  //                       style: pw.TextStyle(font: ttf),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+
+  //               pw.Divider(),
+
+  //               pw.Text(
+  //                 'المجموع: ${items.fold(0.0, (s, e) => s + e.total)}',
+  //                 style: pw.TextStyle(font: ttf, fontSize: 18),
+  //               ),
+
+  //               pw.Text('المدفوع: $paidAmount', style: pw.TextStyle(font: ttf)),
+
+  //               pw.Text('الباقي: $remaining', style: pw.TextStyle(font: ttf)),
+  //             ],
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+
+  //   await Printing.layoutPdf(onLayout: (format) async => pdf.save());
+  // }
 }

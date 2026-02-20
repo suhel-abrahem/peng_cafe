@@ -18,51 +18,54 @@ class TablesTypeSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        context.read<HomeTablesBloc>().add(
-          HomeTablesEvent.selectTableType(table.tableName),
-        );
-      },
-      child:
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  table.tableName == TableTypeEnum.pool
-                      ? Text(
-                          "🎱",
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(
-                                fontFamily: FontConstants.fontFamily(
-                                  context.locale,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20.r),
+      child: InkWell(
+        onTap: () {
+          context.read<HomeTablesBloc>().add(
+            HomeTablesEvent.selectTableType(table.tableName),
+          );
+        },
+        child:
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    table.tableName == TableTypeEnum.pool
+                        ? Text(
+                            "🎱",
+                            style: Theme.of(context).textTheme.labelLarge
+                                ?.copyWith(
+                                  fontFamily: FontConstants.fontFamily(
+                                    context.locale,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 80.sp,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 80.sp,
-                              ),
-                        )
-                      : TableIcon(tableType: table.tableName, size: 80.sp),
-                  Text(
-                    table.tableName.displayName.tr(),
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontFamily: FontConstants.fontFamily(context.locale),
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 32.sp,
+                          )
+                        : TableIcon(tableType: table.tableName, size: 80.sp),
+                    Text(
+                      table.tableName.displayName.tr(),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontFamily: FontConstants.fontFamily(context.locale),
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 32.sp,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+            ).asGlass(
+              tintColor: Theme.of(context).scaffoldBackgroundColor,
+              clipBorderRadius: BorderRadius.circular(20.r),
+              frosted: true,
+              border: Theme.of(context).defaultBorderSide,
+              blurX: 10,
+              blurY: 10,
             ),
-          ).asGlass(
-            tintColor: Theme.of(context).scaffoldBackgroundColor,
-            clipBorderRadius: BorderRadius.circular(20),
-            frosted: true,
-            border: Theme.of(context).defaultBorderSide,
-            blurX: 10,
-            blurY: 10,
-          ),
+      ),
     );
   }
 }
