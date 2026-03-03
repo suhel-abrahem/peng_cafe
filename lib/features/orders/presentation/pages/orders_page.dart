@@ -5,12 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass/glass.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
+import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
 import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
 import '../../../../core/enums/duration_enum.dart';
 import '../../../../core/resource/main_page/main_page.dart';
+import '../../../../core/resource/printing_service.dart';
 import '../bloc/orders_bloc.dart';
 
 import 'order_details_page.dart';
@@ -136,24 +138,49 @@ class _OrdersPageState extends State<OrdersPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // 🔹 Section title
-                                  Text(
-                                    section.title.tr(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                          fontFamily: FontConstants.fontFamily(
-                                            context.locale,
-                                          ),
-                                        ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        section.title.tr(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          BillPrinter.printLastOrders(
+                                            context: context,
+                                            orders: sections,
+                                            totalRevenue: sections.fold(
+                                              0.0,
+                                              (s, e) => s + e.total,
+                                            ),
+                                          );
+                                        },
+                                        icon: Icon(Icons.print_outlined),
+                                      ),
+                                    ],
                                   ),
 
                                   const SizedBox(height: 8),
 
                                   // 🔹 Orders list
-                                  ...section.orders.map(
-                                    (order) => Container(
-                                      child: ListTile(
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: section.orders.length,
+                                    itemBuilder: (context, orderIndex) {
+                                      final order = section.orders[orderIndex];
+                                      return ListTile(
                                         title: Text(
                                           'Order #${order.orderNumber}',
                                           style: Theme.of(context)
@@ -166,39 +193,94 @@ class _OrdersPageState extends State<OrdersPage> {
                                                     ),
                                               ),
                                         ),
-                                        subtitle: Row(
-                                          children: [
-                                            Text(
-                                              'Table: ${order.tableNumber}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelLarge
-                                                  ?.copyWith(
-                                                    fontFamily:
-                                                        FontConstants.fontFamily(
-                                                          context.locale,
+                                        subtitle:
+                                            order.orderType ==
+                                                OrderTypeEnum.withdrawal
+                                            ? Row(
+                                                children: [
+                                                  Text(
+                                                    LocaleKeys
+                                                        .ordersPage_withdraw
+                                                        .tr(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.copyWith(
+                                                          fontFamily:
+                                                              FontConstants.fontFamily(
+                                                                context.locale,
+                                                              ),
                                                         ),
                                                   ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 8,
-                                              ),
-                                              child: Text(
-                                                '${order.createdAt.day}/${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelLarge
-                                                    ?.copyWith(
-                                                      fontFamily:
-                                                          FontConstants.fontFamily(
-                                                            context.locale,
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 8,
+                                                        ),
+                                                    child: Text(
+                                                      '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                            fontFamily:
+                                                                FontConstants.fontFamily(
+                                                                  context
+                                                                      .locale,
+                                                                ),
                                                           ),
                                                     ),
+                                                  ),
+                                                  Text(
+                                                    "-${order.total.toStringAsFixed(2)} د.ع",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.copyWith(
+                                                          fontFamily:
+                                                              FontConstants.fontFamily(
+                                                                context.locale,
+                                                              ),
+                                                          color: Colors.red,
+                                                        ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    'Table: ${order.tableNumber}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.copyWith(
+                                                          fontFamily:
+                                                              FontConstants.fontFamily(
+                                                                context.locale,
+                                                              ),
+                                                        ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 8,
+                                                        ),
+                                                    child: Text(
+                                                      '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                            fontFamily:
+                                                                FontConstants.fontFamily(
+                                                                  context
+                                                                      .locale,
+                                                                ),
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
                                         trailing: Text(
                                           order.total.toStringAsFixed(2),
                                           style: Theme.of(context)
@@ -221,8 +303,8 @@ class _OrdersPageState extends State<OrdersPage> {
                                             ),
                                           );
                                         },
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
 
                                   // 🔹 Section total

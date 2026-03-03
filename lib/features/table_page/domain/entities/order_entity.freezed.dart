@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderEntity {
 
- int get id; String get orderNumber; int get tableNumber; TableTypeEnum get tableType; OrderStatusEnum get status; double get total; DateTime get createdAt;
+ int get id; String get orderNumber; int get tableNumber; TableTypeEnum get tableType; OrderStatusEnum get status; double get total; DateTime get createdAt; OrderTypeEnum get orderType;
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OrderEntityCopyWith<OrderEntity> get copyWith => _$OrderEntityCopyWithImpl<Orde
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt,orderType);
 
 @override
 String toString() {
-  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt)';
+  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt, orderType: $orderType)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OrderEntityCopyWith<$Res>  {
   factory $OrderEntityCopyWith(OrderEntity value, $Res Function(OrderEntity) _then) = _$OrderEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt
+ int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt, OrderTypeEnum orderType
 });
 
 
@@ -65,7 +65,7 @@ class _$OrderEntityCopyWithImpl<$Res>
 
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,Object? orderType = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cas
 as TableTypeEnum,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as double,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,orderType: null == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
+as OrderTypeEnum,
   ));
 }
 
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderEntity() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)  $default,) {final _that = this;
 switch (_that) {
 case _OrderEntity():
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderEntity() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 @JsonSerializable()
 
 class _OrderEntity implements OrderEntity {
-  const _OrderEntity({this.id = 0, this.orderNumber = '', this.tableNumber = 0, required this.tableType, this.status = OrderStatusEnum.inProgress, this.total = 0.0, required this.createdAt});
+  const _OrderEntity({this.id = 0, this.orderNumber = '', this.tableNumber = 0, required this.tableType, this.status = OrderStatusEnum.inProgress, this.total = 0.0, required this.createdAt, required this.orderType});
   factory _OrderEntity.fromJson(Map<String, dynamic> json) => _$OrderEntityFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -225,6 +226,7 @@ class _OrderEntity implements OrderEntity {
 @override@JsonKey() final  OrderStatusEnum status;
 @override@JsonKey() final  double total;
 @override final  DateTime createdAt;
+@override final  OrderTypeEnum orderType;
 
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt,orderType);
 
 @override
 String toString() {
-  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt)';
+  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt, orderType: $orderType)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$OrderEntityCopyWith<$Res> implements $OrderEntityCopyWith
   factory _$OrderEntityCopyWith(_OrderEntity value, $Res Function(_OrderEntity) _then) = __$OrderEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt
+ int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt, OrderTypeEnum orderType
 });
 
 
@@ -276,7 +278,7 @@ class __$OrderEntityCopyWithImpl<$Res>
 
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,Object? orderType = null,}) {
   return _then(_OrderEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -285,7 +287,8 @@ as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cas
 as TableTypeEnum,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as double,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,orderType: null == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
+as OrderTypeEnum,
   ));
 }
 

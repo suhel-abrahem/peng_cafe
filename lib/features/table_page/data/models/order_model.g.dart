@@ -10,6 +10,9 @@ _OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => _OrderModel(
   tableNumber: (json['tableNumber'] as num).toInt(),
   tableType: $enumDecode(_$TableTypeEnumEnumMap, json['tableType']),
   userId: (json['userId'] as num).toInt(),
+  orderType:
+      $enumDecodeNullable(_$OrderTypeEnumEnumMap, json['orderType']) ??
+      OrderTypeEnum.dineIn,
 );
 
 Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
@@ -17,6 +20,7 @@ Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
       'tableNumber': instance.tableNumber,
       'tableType': _$TableTypeEnumEnumMap[instance.tableType]!,
       'userId': instance.userId,
+      'orderType': _$OrderTypeEnumEnumMap[instance.orderType],
     };
 
 const _$TableTypeEnumEnumMap = {
@@ -26,4 +30,10 @@ const _$TableTypeEnumEnumMap = {
   TableTypeEnum.fisha: 'fisha',
   TableTypeEnum.tableBall: 'tableBall',
   TableTypeEnum.takeAway: 'takeAway',
+};
+
+const _$OrderTypeEnumEnumMap = {
+  OrderTypeEnum.dineIn: 'dineIn',
+  OrderTypeEnum.takeAway: 'takeAway',
+  OrderTypeEnum.withdrawal: 'withdrawal',
 };

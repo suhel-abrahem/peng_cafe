@@ -103,7 +103,8 @@
         "orderNumber": "ژمارەی داواکاری: {number}",
         "customerName": "ناوی کڕیار: {name}",
         "totalAmount": "کۆی گشتی: {amount} د.ع",
-        "status": "بارودۆخ: {status}"
+        "status": "بارودۆخ: {status}",
+        "withdraw": "وەرگرتن"
     },
     "productsPage": {
         "title": "پەڕەی کاڵاکان",

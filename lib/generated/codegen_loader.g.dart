@@ -119,7 +119,8 @@ class CodegenLoader extends AssetLoader{
     "orderNumber": "رقم الطلب: {number}",
     "customerName": "اسم العميل: {name}",
     "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
-    "status": "الحالة: {status}"
+    "status": "الحالة: {status}",
+    "withdraw": "سحب"
   },
   "productsPage": {
     "title": "صفحة المنتجات",
@@ -382,7 +383,8 @@ static const Map<String,dynamic> _en = {
     "orderNumber": "Order Number: {number}",
     "customerName": "Customer Name: {name}",
     "totalAmount": "Total Amount: {amount} IQD",
-    "status": "Status: {status}"
+    "status": "Status: {status}",
+    "withdraw": "Withdraw"
   },
   "productsPage": {
     "title": "Products Page",
@@ -624,7 +626,8 @@ static const Map<String,dynamic> _fa = {
     "orderNumber": "ژمارەی داواکاری: {number}",
     "customerName": "ناوی کڕیار: {name}",
     "totalAmount": "کۆی گشتی: {amount} د.ع",
-    "status": "بارودۆخ: {status}"
+    "status": "بارودۆخ: {status}",
+    "withdraw": "وەرگرتن"
   },
   "productsPage": {
     "title": "پەڕەی کاڵاکان",

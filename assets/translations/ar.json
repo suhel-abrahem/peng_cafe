@@ -103,7 +103,8 @@
         "orderNumber": "رقم الطلب: {number}",
         "customerName": "اسم العميل: {name}",
         "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
-        "status": "الحالة: {status}"
+        "status": "الحالة: {status}",
+        "withdraw": "سحب"
     },
     "productsPage": {
         "title": "صفحة المنتجات",

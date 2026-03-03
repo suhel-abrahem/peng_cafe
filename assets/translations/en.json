@@ -103,7 +103,8 @@
         "orderNumber": "Order Number: {number}",
         "customerName": "Customer Name: {name}",
         "totalAmount": "Total Amount: {amount} IQD",
-        "status": "Status: {status}"
+        "status": "Status: {status}",
+        "withdraw": "Withdraw"
     },
     "productsPage": {
         "title": "Products Page",

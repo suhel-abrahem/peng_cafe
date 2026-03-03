@@ -5,13 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass/glass.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
+import 'package:peng_cafe/core/injection_container.dart';
+import 'package:peng_cafe/core/resource/custom_widget/snake_bar_widget/snake_bar_widget.dart';
 
 import 'package:peng_cafe/core/resource/main_page/main_page.dart';
 import 'package:peng_cafe/features/home_page/presentation/widgets/tables_type_selection_widget.dart';
+import 'package:peng_cafe/features/home_page/presentation/widgets/withdraw_widget.dart';
 
 import 'package:peng_cafe/features/setting/presentation/bloc/tables_types_bloc.dart';
+import 'package:peng_cafe/features/table_page/presentation/bloc/table_page_bloc.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
+import '../../../../core/enums/order_type_enum/order_type_enum.dart';
 import '../../../../core/enums/tables_enum/table_type_enum.dart';
 
 import '../bloc/home_tables_bloc.dart';
@@ -53,22 +58,81 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(color: Colors.transparent),
                     child: BlocBuilder<TablesTypesBloc, TablesTypesState>(
                       builder: (context, state) {
-                        return GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: constraints.maxWidth < 800
-                                    ? 1
-                                    : 3,
-                                mainAxisSpacing: 20.h,
-                                crossAxisSpacing: 20.w,
+                        return ListView(
+                          children: [
+                            GridView.builder(
+                              shrinkWrap: true,
+
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: constraints.maxWidth < 800
+                                        ? 1
+                                        : 3,
+                                    mainAxisSpacing: 20.h,
+                                    crossAxisSpacing: 20.w,
+                                  ),
+                              itemBuilder: (context, index) {
+                                return TablesTypeSelectionWidget(
+                                  table: state.tablesTypes.tablesTypes[index],
+                                );
+                              },
+                              itemCount: state.tablesTypes.tablesTypes.length,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 50.h,
+                                horizontal: 20.w,
                               ),
-                          itemBuilder: (context, index) {
-                            return TablesTypeSelectionWidget(
-                              table: state.tablesTypes.tablesTypes[index],
-                            );
-                          },
-                          itemCount: state.tablesTypes.tablesTypes.length,
+                              child: InkWell(
+                                onTap: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) => WithdrawWidget(),
+                                  );
+                                },
+                                child:
+                                    Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 400.w,
+                                        minWidth: 200.w,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 20.h,
+                                        horizontal: 20.w,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          LocaleKeys.ordersPage_withdraw.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium
+                                              ?.copyWith(
+                                                fontFamily:
+                                                    FontConstants.fontFamily(
+                                                      context.locale,
+                                                    ),
+                                                fontSize: 28.sp,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                        ),
+                                      ),
+                                    ).asGlass(
+                                      tintColor: Theme.of(
+                                        context,
+                                      ).scaffoldBackgroundColor,
+                                      blurX: 10,
+                                      blurY: 10,
+                                      border: Theme.of(
+                                        context,
+                                      ).defaultBorderSide,
+                                      clipBorderRadius: BorderRadius.circular(
+                                        20.r,
+                                      ),
+                                    ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ),

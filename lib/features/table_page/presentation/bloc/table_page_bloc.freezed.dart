@@ -134,10 +134,10 @@ return checkout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)?  loadTable,TResult Function( OrderItemModel item)?  addProduct,TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult Function( int itemId,  String locale)?  deleteItem,TResult Function( String? locale)?  refreshItems,TResult Function( double paidAmount,  double remaining)?  checkout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale,  OrderTypeEnum? orderType)?  loadTable,TResult Function( OrderItemModel item)?  addProduct,TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult Function( int itemId,  String locale)?  deleteItem,TResult Function( String? locale)?  refreshItems,TResult Function( double paidAmount,  double remaining)?  checkout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoadTable() when loadTable != null:
-return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct() when addProduct != null:
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale,_that.orderType);case _AddProduct() when addProduct != null:
 return addProduct(_that.item);case _SetItemQuantity() when setItemQuantity != null:
 return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem() when deleteItem != null:
 return deleteItem(_that.itemId,_that.locale);case _RefreshItems() when refreshItems != null:
@@ -160,10 +160,10 @@ return checkout(_that.paidAmount,_that.remaining);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)  loadTable,required TResult Function( OrderItemModel item)  addProduct,required TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)  setItemQuantity,required TResult Function( int itemId,  String locale)  deleteItem,required TResult Function( String? locale)  refreshItems,required TResult Function( double paidAmount,  double remaining)  checkout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale,  OrderTypeEnum? orderType)  loadTable,required TResult Function( OrderItemModel item)  addProduct,required TResult Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)  setItemQuantity,required TResult Function( int itemId,  String locale)  deleteItem,required TResult Function( String? locale)  refreshItems,required TResult Function( double paidAmount,  double remaining)  checkout,}) {final _that = this;
 switch (_that) {
 case _LoadTable():
-return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct():
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale,_that.orderType);case _AddProduct():
 return addProduct(_that.item);case _SetItemQuantity():
 return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem():
 return deleteItem(_that.itemId,_that.locale);case _RefreshItems():
@@ -185,10 +185,10 @@ return checkout(_that.paidAmount,_that.remaining);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale)?  loadTable,TResult? Function( OrderItemModel item)?  addProduct,TResult? Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult? Function( int itemId,  String locale)?  deleteItem,TResult? Function( String? locale)?  refreshItems,TResult? Function( double paidAmount,  double remaining)?  checkout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int tableNumber,  TableTypeEnum tableType,  int userId,  String locale,  OrderTypeEnum? orderType)?  loadTable,TResult? Function( OrderItemModel item)?  addProduct,TResult? Function( int itemId,  double quantity,  TableTypeEnum tableType,  String locale)?  setItemQuantity,TResult? Function( int itemId,  String locale)?  deleteItem,TResult? Function( String? locale)?  refreshItems,TResult? Function( double paidAmount,  double remaining)?  checkout,}) {final _that = this;
 switch (_that) {
 case _LoadTable() when loadTable != null:
-return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale);case _AddProduct() when addProduct != null:
+return loadTable(_that.tableNumber,_that.tableType,_that.userId,_that.locale,_that.orderType);case _AddProduct() when addProduct != null:
 return addProduct(_that.item);case _SetItemQuantity() when setItemQuantity != null:
 return setItemQuantity(_that.itemId,_that.quantity,_that.tableType,_that.locale);case _DeleteItem() when deleteItem != null:
 return deleteItem(_that.itemId,_that.locale);case _RefreshItems() when refreshItems != null:
@@ -205,13 +205,14 @@ return checkout(_that.paidAmount,_that.remaining);case _:
 
 
 class _LoadTable implements TablePageEvent {
-  const _LoadTable({required this.tableNumber, required this.tableType, required this.userId, required this.locale});
+  const _LoadTable({required this.tableNumber, required this.tableType, required this.userId, required this.locale, this.orderType});
   
 
  final  int tableNumber;
  final  TableTypeEnum tableType;
  final  int userId;
  final  String locale;
+ final  OrderTypeEnum? orderType;
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +224,16 @@ _$LoadTableCopyWith<_LoadTable> get copyWith => __$LoadTableCopyWithImpl<_LoadTa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadTable&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.locale, locale) || other.locale == locale));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadTable&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId,locale);
+int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId,locale,orderType);
 
 @override
 String toString() {
-  return 'TablePageEvent.loadTable(tableNumber: $tableNumber, tableType: $tableType, userId: $userId, locale: $locale)';
+  return 'TablePageEvent.loadTable(tableNumber: $tableNumber, tableType: $tableType, userId: $userId, locale: $locale, orderType: $orderType)';
 }
 
 
@@ -243,7 +244,7 @@ abstract mixin class _$LoadTableCopyWith<$Res> implements $TablePageEventCopyWit
   factory _$LoadTableCopyWith(_LoadTable value, $Res Function(_LoadTable) _then) = __$LoadTableCopyWithImpl;
 @useResult
 $Res call({
- int tableNumber, TableTypeEnum tableType, int userId, String locale
+ int tableNumber, TableTypeEnum tableType, int userId, String locale, OrderTypeEnum? orderType
 });
 
 
@@ -260,13 +261,14 @@ class __$LoadTableCopyWithImpl<$Res>
 
 /// Create a copy of TablePageEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,Object? locale = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,Object? locale = null,Object? orderType = freezed,}) {
   return _then(_LoadTable(
 tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // ignore: cast_nullable_to_non_nullable
 as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
-as String,
+as String,orderType: freezed == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
+as OrderTypeEnum?,
   ));
 }
 

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
 import 'package:peng_cafe/core/usecase/usecase.dart';
 import 'package:peng_cafe/features/table_page/domain/usecases/add_item_usecase.dart';
 import 'package:peng_cafe/features/table_page/domain/usecases/update_item_usecase.dart';
@@ -59,6 +60,7 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
         tableNumber: event.tableNumber,
         userId: event.userId,
         tableType: event.tableType,
+        orderType: event.orderType,
       ),
     );
 

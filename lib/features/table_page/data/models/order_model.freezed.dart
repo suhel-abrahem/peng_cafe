@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderModel {
 
- int get tableNumber; TableTypeEnum get tableType; int get userId;
+ int get tableNumber; TableTypeEnum get tableType; int get userId; OrderTypeEnum? get orderType;
 /// Create a copy of OrderModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OrderModelCopyWith<OrderModel> get copyWith => _$OrderModelCopyWithImpl<OrderMo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderModel&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderModel&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId);
+int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId,orderType);
 
 @override
 String toString() {
-  return 'OrderModel(tableNumber: $tableNumber, tableType: $tableType, userId: $userId)';
+  return 'OrderModel(tableNumber: $tableNumber, tableType: $tableType, userId: $userId, orderType: $orderType)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OrderModelCopyWith<$Res>  {
   factory $OrderModelCopyWith(OrderModel value, $Res Function(OrderModel) _then) = _$OrderModelCopyWithImpl;
 @useResult
 $Res call({
- int tableNumber, TableTypeEnum tableType, int userId
+ int tableNumber, TableTypeEnum tableType, int userId, OrderTypeEnum? orderType
 });
 
 
@@ -65,12 +65,13 @@ class _$OrderModelCopyWithImpl<$Res>
 
 /// Create a copy of OrderModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,Object? orderType = freezed,}) {
   return _then(_self.copyWith(
 tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // ignore: cast_nullable_to_non_nullable
 as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as int,
+as int,orderType: freezed == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
+as OrderTypeEnum?,
   ));
 }
 
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  OrderTypeEnum? orderType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderModel() when $default != null:
-return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
+return $default(_that.tableNumber,_that.tableType,_that.userId,_that.orderType);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int tableNumber,  TableTypeEnum tableType,  int userId,  OrderTypeEnum? orderType)  $default,) {final _that = this;
 switch (_that) {
 case _OrderModel():
-return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
+return $default(_that.tableNumber,_that.tableType,_that.userId,_that.orderType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int tableNumber,  TableTypeEnum tableType,  int userId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int tableNumber,  TableTypeEnum tableType,  int userId,  OrderTypeEnum? orderType)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderModel() when $default != null:
-return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
+return $default(_that.tableNumber,_that.tableType,_that.userId,_that.orderType);case _:
   return null;
 
 }
@@ -211,12 +212,13 @@ return $default(_that.tableNumber,_that.tableType,_that.userId);case _:
 @JsonSerializable()
 
 class _OrderModel implements OrderModel {
-  const _OrderModel({required this.tableNumber, required this.tableType, required this.userId});
+  const _OrderModel({required this.tableNumber, required this.tableType, required this.userId, this.orderType = OrderTypeEnum.dineIn});
   factory _OrderModel.fromJson(Map<String, dynamic> json) => _$OrderModelFromJson(json);
 
 @override final  int tableNumber;
 @override final  TableTypeEnum tableType;
 @override final  int userId;
+@override@JsonKey() final  OrderTypeEnum? orderType;
 
 /// Create a copy of OrderModel
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderModel&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderModel&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId);
+int get hashCode => Object.hash(runtimeType,tableNumber,tableType,userId,orderType);
 
 @override
 String toString() {
-  return 'OrderModel(tableNumber: $tableNumber, tableType: $tableType, userId: $userId)';
+  return 'OrderModel(tableNumber: $tableNumber, tableType: $tableType, userId: $userId, orderType: $orderType)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$OrderModelCopyWith<$Res> implements $OrderModelCopyWith<$
   factory _$OrderModelCopyWith(_OrderModel value, $Res Function(_OrderModel) _then) = __$OrderModelCopyWithImpl;
 @override @useResult
 $Res call({
- int tableNumber, TableTypeEnum tableType, int userId
+ int tableNumber, TableTypeEnum tableType, int userId, OrderTypeEnum? orderType
 });
 
 
@@ -268,12 +270,13 @@ class __$OrderModelCopyWithImpl<$Res>
 
 /// Create a copy of OrderModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? tableNumber = null,Object? tableType = null,Object? userId = null,Object? orderType = freezed,}) {
   return _then(_OrderModel(
 tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // ignore: cast_nullable_to_non_nullable
 as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as int,
+as int,orderType: freezed == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
+as OrderTypeEnum?,
   ));
 }
 

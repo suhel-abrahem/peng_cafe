@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
 
 import '../../../../core/enums/order_status_enum/order_status_enum.dart';
 import '../../../../core/enums/tables_enum/table_type_enum.dart';
@@ -15,6 +16,7 @@ abstract class OrderEntity with _$OrderEntity {
     @Default(OrderStatusEnum.inProgress) OrderStatusEnum status,
     @Default(0.0) double total,
     required DateTime createdAt,
+    required OrderTypeEnum orderType,
   }) = _OrderEntity;
   factory OrderEntity.fromJson(Map<String, Object?> json) =>
       _$OrderEntityFromJson(json);

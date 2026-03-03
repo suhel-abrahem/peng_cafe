@@ -16,6 +16,7 @@ _OrderEntity _$OrderEntityFromJson(Map<String, dynamic> json) => _OrderEntity(
       OrderStatusEnum.inProgress,
   total: (json['total'] as num?)?.toDouble() ?? 0.0,
   createdAt: DateTime.parse(json['createdAt'] as String),
+  orderType: $enumDecode(_$OrderTypeEnumEnumMap, json['orderType']),
 );
 
 Map<String, dynamic> _$OrderEntityToJson(_OrderEntity instance) =>
@@ -27,6 +28,7 @@ Map<String, dynamic> _$OrderEntityToJson(_OrderEntity instance) =>
       'status': _$OrderStatusEnumEnumMap[instance.status]!,
       'total': instance.total,
       'createdAt': instance.createdAt.toIso8601String(),
+      'orderType': _$OrderTypeEnumEnumMap[instance.orderType]!,
     };
 
 const _$TableTypeEnumEnumMap = {
@@ -42,4 +44,10 @@ const _$OrderStatusEnumEnumMap = {
   OrderStatusEnum.inProgress: 'inProgress',
   OrderStatusEnum.completed: 'completed',
   OrderStatusEnum.cancelled: 'cancelled',
+};
+
+const _$OrderTypeEnumEnumMap = {
+  OrderTypeEnum.dineIn: 'dineIn',
+  OrderTypeEnum.takeAway: 'takeAway',
+  OrderTypeEnum.withdrawal: 'withdrawal',
 };

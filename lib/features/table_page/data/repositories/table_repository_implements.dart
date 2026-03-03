@@ -10,6 +10,8 @@ import 'package:peng_cafe/features/table_page/domain/entities/order_item_entity.
 import '../../../../core/DB/app_database.dart';
 import '../../../../core/DB/mappers/order_item_mapper.dart';
 import '../../../../core/DB/mappers/orders_mapper.dart';
+import '../../../../core/enums/order_status_enum/order_status_enum.dart';
+import '../../../../core/enums/order_type_enum/order_type_enum.dart';
 import '../../domain/repositories/table_repository.dart';
 
 class TableRepositoryImplements implements TableRepository {
@@ -32,10 +34,16 @@ class TableRepositoryImplements implements TableRepository {
         tableType: orderModel.tableType,
       );
 
-      if (existing != null) {
+      if (existing != null &&
+          orderModel.orderType != OrderTypeEnum.withdrawal) {
+        print(
+          'Found existing active order ${existing.id} for table ${orderModel.tableNumber} and type ${orderModel.orderType}',
+        );
         return DataSuccess(data: orderFromRow(existing));
       }
-
+      print(
+        'No active order found, creating new one for table ${orderModel.tableNumber} and type ${orderModel.tableType}',
+      );
       final orderNumber = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
 
       await ordersDao.createOrder(
@@ -46,6 +54,7 @@ class TableRepositoryImplements implements TableRepository {
           price: const Value(0),
           total: const Value(0),
           userId: Value(orderModel.userId),
+          orderType: Value(orderModel.orderType ?? OrderTypeEnum.dineIn),
         ),
       );
 
@@ -212,13 +221,19 @@ class TableRepositoryImplements implements TableRepository {
     required double remaining,
   }) async {
     try {
+      print(
+        'Closing order $orderId with paidAmount=$paidAmount and remaining=$remaining',
+      );
       final ordersDao = _database.ordersDao;
       final itemsDao = _database.orderItemsDao;
 
       // 1️⃣ get all items
       final items = await itemsDao.getItemsByOrder(orderId);
-
-      if (items.isEmpty) {
+      OrderTypeEnum? orderType;
+      await ordersDao.getOrderById(orderId).then((onValue) {
+        orderType = onValue?.orderType;
+      });
+      if (items.isEmpty && orderType != OrderTypeEnum.withdrawal) {
         return const DataFailed(error: 'Order has no items');
       }
 

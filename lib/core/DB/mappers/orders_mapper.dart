@@ -1,5 +1,6 @@
 import '../../../features/table_page/domain/entities/order_entity.dart';
 import '../../enums/order_status_enum/order_status_enum.dart';
+import '../../enums/order_type_enum/order_type_enum.dart';
 import '../../enums/tables_enum/table_type_enum.dart';
 import '../app_database.dart';
 
@@ -12,5 +13,6 @@ OrderEntity orderFromRow(OrdersTableData row) {
     total: row.total,
     createdAt: row.createdAt,
     tableType: TableTypeEnum.values[row.tableType.index],
+    orderType: OrderTypeEnum.values[row.orderType.index],
   );
 }

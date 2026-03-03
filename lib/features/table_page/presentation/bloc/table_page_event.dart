@@ -7,6 +7,7 @@ class TablePageEvent with _$TablePageEvent {
     required TableTypeEnum tableType,
     required int userId,
     required String locale,
+    OrderTypeEnum? orderType,
   }) = _LoadTable;
 
   const factory TablePageEvent.addProduct({required OrderItemModel item}) =
