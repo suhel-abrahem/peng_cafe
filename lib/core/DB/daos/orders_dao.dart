@@ -49,11 +49,18 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
   }
 
   //  Close order
-  Future<int> closeOrder(int orderId) {
+  Future<int> closeOrder(
+    int orderId, {
+    OrderTypeEnum? orderType,
+    double? withdrawalAmount,
+  }) {
     return (update(ordersTable)..where((t) => t.id.equals(orderId))).write(
       OrdersTableCompanion(
         orderStatus: Value(OrderStatusEnum.completed),
         endAt: Value(DateTime.now()),
+        total: orderType == OrderTypeEnum.withdrawal
+            ? Value(-withdrawalAmount!)
+            : Value.absent(),
       ),
     );
   }
