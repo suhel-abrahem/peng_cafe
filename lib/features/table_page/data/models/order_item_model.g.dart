@@ -9,7 +9,7 @@ part of 'order_item_model.dart';
 _OrderItemModel _$OrderItemModelFromJson(Map<String, dynamic> json) =>
     _OrderItemModel(
       locale: json['locale'] as String? ?? "ar",
-      id: (json['id'] as num?)?.toInt() ?? 0,
+      id: (json['id'] as num?)?.toInt(),
       orderId: (json['orderId'] as num?)?.toInt() ?? 0,
       productId: (json['productId'] as num?)?.toInt() ?? 0,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,

@@ -188,9 +188,13 @@ class TableRepositoryImplements implements TableRepository {
       }
 
       final total = orderModel.quantity * orderModel.price;
-
+      if (orderModel.id == null) {
+        return const DataFailed(
+          error: 'Item ID is required for quantity update',
+        );
+      }
       await dao.updateQuantity(
-        id: orderModel.id,
+        id: orderModel.id ?? 0,
         quantity: orderModel.quantity,
         total: total,
       );

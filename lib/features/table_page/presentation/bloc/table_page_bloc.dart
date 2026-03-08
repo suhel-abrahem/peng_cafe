@@ -93,8 +93,13 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     _AddProduct event,
     Emitter<TablePageState> emit,
   ) async {
-    if (_currentOrder == null) return;
-
+    // print(
+    //   'pef ADD PRODUCT → productId=${event.item.productId} quantity=${event.item.quantity}',
+    // );
+    // if (_currentOrder == null) return;
+    // print(
+    //   "Adding product: ${event.item.productId} to order: ${_currentOrder!.id}",
+    // );
     await _addItem.call(
       params: event.item.copyWith(
         orderId: _currentOrder!.id,

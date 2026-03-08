@@ -18,11 +18,13 @@ class TablePageEvent with _$TablePageEvent {
     required double quantity,
     required TableTypeEnum tableType,
     required String locale,
+    int? orderId,
   }) = _SetItemQuantity;
 
   const factory TablePageEvent.deleteItem({
     required int itemId,
     required String locale,
+    int? orderId,
   }) = _DeleteItem;
 
   const factory TablePageEvent.refreshItems({required String? locale}) =

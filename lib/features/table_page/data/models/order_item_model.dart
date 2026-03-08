@@ -9,7 +9,7 @@ part 'order_item_model.g.dart';
 abstract class OrderItemModel with _$OrderItemModel {
   const factory OrderItemModel({
     @Default("ar") String locale,
-    @Default(0) int id,
+    int? id,
     @Default(0) int orderId,
     @Default(0) int productId,
     @Default(0.0) double price,
