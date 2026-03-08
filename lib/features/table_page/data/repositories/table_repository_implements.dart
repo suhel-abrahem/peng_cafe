@@ -240,10 +240,13 @@ class TableRepositoryImplements implements TableRepository {
       // 2️⃣ calculate totals
       double price = 0;
       double discount = 0;
-
-      for (final item in items) {
-        price += item.total;
-        discount += item.discount ?? 0;
+      if (orderType == OrderTypeEnum.withdrawal) {
+        price = paidAmount;
+      } else {
+        for (final item in items) {
+          price += item.total;
+          discount += item.discount ?? 0;
+        }
       }
 
       final total = price - discount;
