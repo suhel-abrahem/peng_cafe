@@ -11,7 +11,9 @@ abstract class OrderModel with _$OrderModel {
     required int tableNumber,
     required TableTypeEnum tableType,
     required int userId,
+    @Default(false) bool? isEditing,
     @Default(OrderTypeEnum.dineIn) OrderTypeEnum? orderType,
+    int? orderId,
   }) = _OrderModel;
   factory OrderModel.fromJson(Map<String, Object?> json) =>
       _$OrderModelFromJson(json);

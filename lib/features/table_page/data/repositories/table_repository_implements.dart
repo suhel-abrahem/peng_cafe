@@ -29,11 +29,15 @@ class TableRepositoryImplements implements TableRepository {
     try {
       final ordersDao = _database.ordersDao;
 
-      final existing = await ordersDao.getActiveOrderByTable(
-        tableNumber: orderModel.tableNumber,
-        tableType: orderModel.tableType,
-      );
-
+      OrdersTableData? existing;
+      if (orderModel.isEditing == true) {
+        existing = await ordersDao.getOrderById(orderModel.orderId ?? 0);
+      } else {
+        existing = await ordersDao.getActiveOrderByTable(
+          tableNumber: orderModel.tableNumber,
+          tableType: orderModel.tableType,
+        );
+      }
       if (existing != null &&
           orderModel.orderType != OrderTypeEnum.withdrawal) {
         print(
@@ -183,7 +187,10 @@ class TableRepositoryImplements implements TableRepository {
       final dao = _database.orderItemsDao;
 
       if (orderModel.quantity <= 0) {
-        await dao.deleteItem(orderModel.id);
+        if (orderModel.id == null) {
+          return const DataFailed(error: 'Item ID is required for deletion');
+        }
+        await dao.deleteItem(orderModel.id ?? 0);
         return const DataSuccess(data: null);
       }
 

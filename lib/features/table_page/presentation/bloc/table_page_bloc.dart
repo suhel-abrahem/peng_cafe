@@ -61,19 +61,22 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
         userId: event.userId,
         tableType: event.tableType,
         orderType: event.orderType,
+        isEditing: event.isEditing,
       ),
     );
-
+    print('Get or create order result: $result');
     if (result is DataSuccess && result.data != null) {
       _currentOrder = result.data;
 
       final itemsResult = await _getOrderItems.call(
         params: GetOrderItemsParams(
-          orderId: _currentOrder!.id,
+          orderId: event.isEditing == true
+              ? (event.orderId ?? 0)
+              : _currentOrder!.id,
           locale: event.locale,
         ),
       );
-
+      print('Get order items result: ${itemsResult.data?.firstOrNull}');
       emit(
         TablePageState.loaded(
           order: _currentOrder!,
@@ -96,16 +99,16 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     // print(
     //   'pef ADD PRODUCT → productId=${event.item.productId} quantity=${event.item.quantity}',
     // );
-    // if (_currentOrder == null) return;
+    if (_currentOrder == null) return;
     // print(
     //   "Adding product: ${event.item.productId} to order: ${_currentOrder!.id}",
     // );
     await _addItem.call(
       params: event.item.copyWith(
-        orderId: _currentOrder!.id,
+        orderId: _currentOrder?.id ?? event.item.orderId,
         quantity: 1,
-        tableType: _currentOrder!.tableType,
-        tableNumber: _currentOrder!.tableNumber,
+        tableType: _currentOrder?.tableType ?? event.item.tableType,
+        tableNumber: _currentOrder?.tableNumber ?? event.item.tableNumber,
       ),
     );
 
@@ -118,11 +121,11 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     _SetItemQuantity event,
     Emitter<TablePageState> emit,
   ) async {
-    if (_currentOrder == null) return;
-
     final state = this.state;
     if (state is! _Loaded) return;
-
+    print(
+      ' bloc SET ITEM QUANTITY → itemId=${event.itemId} quantity=${event.quantity} orderId=${event.orderId} tableNumber=${event.tableNumber} tableType=${event.tableType}',
+    );
     final item = state.items.firstWhere((e) => e.id == event.itemId);
 
     if (event.quantity <= 0) {
@@ -131,12 +134,12 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
       await _updateItemQuantity.call(
         params: OrderItemModel(
           id: item.id,
-          orderId: _currentOrder!.id,
+          orderId: _currentOrder?.id ?? (event.orderId ?? 0),
           productId: item.productId,
           price: item.price,
           quantity: event.quantity,
-          tableType: _currentOrder!.tableType,
-          tableNumber: _currentOrder!.tableNumber,
+          tableType: _currentOrder?.tableType ?? event.tableType,
+          tableNumber: _currentOrder?.tableNumber ?? (event.tableNumber ?? 0),
           productType: item.productType,
         ),
       );

@@ -8,6 +8,8 @@ class TablePageEvent with _$TablePageEvent {
     required int userId,
     required String locale,
     OrderTypeEnum? orderType,
+    int? orderId,
+    bool? isEditing,
   }) = _LoadTable;
 
   const factory TablePageEvent.addProduct({required OrderItemModel item}) =
@@ -17,6 +19,7 @@ class TablePageEvent with _$TablePageEvent {
     required int itemId,
     required double quantity,
     required TableTypeEnum tableType,
+    int? tableNumber,
     required String locale,
     int? orderId,
   }) = _SetItemQuantity;

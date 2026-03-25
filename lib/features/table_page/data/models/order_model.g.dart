@@ -10,9 +10,11 @@ _OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => _OrderModel(
   tableNumber: (json['tableNumber'] as num).toInt(),
   tableType: $enumDecode(_$TableTypeEnumEnumMap, json['tableType']),
   userId: (json['userId'] as num).toInt(),
+  isEditing: json['isEditing'] as bool? ?? false,
   orderType:
       $enumDecodeNullable(_$OrderTypeEnumEnumMap, json['orderType']) ??
       OrderTypeEnum.dineIn,
+  orderId: (json['orderId'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
@@ -20,7 +22,9 @@ Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
       'tableNumber': instance.tableNumber,
       'tableType': _$TableTypeEnumEnumMap[instance.tableType]!,
       'userId': instance.userId,
+      'isEditing': instance.isEditing,
       'orderType': _$OrderTypeEnumEnumMap[instance.orderType],
+      'orderId': instance.orderId,
     };
 
 const _$TableTypeEnumEnumMap = {
