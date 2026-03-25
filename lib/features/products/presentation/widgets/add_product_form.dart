@@ -195,7 +195,7 @@ class _AddProductFormState extends State<AddProductForm> {
                           if (value != null &&
                               value.toString().trim().isNotEmpty) {
                             if ((double.tryParse(value.toString()) == null) ||
-                                (double.tryParse(value.toString()) ?? 0) >= 0) {
+                                (double.tryParse(value.toString()) ?? 0) <= 0) {
                               return LocaleKeys.validation_price.tr();
                             }
                           }
