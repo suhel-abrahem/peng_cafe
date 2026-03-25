@@ -10,17 +10,40 @@ import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 
+import '../../../../core/resource/printing_service.dart';
 import '../../domain/entities/order_entity.dart';
 import '../../domain/entities/order_item_entity.dart';
 import '../bloc/table_page_bloc.dart';
 
-class OrderArea extends StatelessWidget {
+class OrderArea extends StatefulWidget {
   final TableTypeEnum tableType;
-  const OrderArea({super.key, required this.tableType});
+  final bool? isOrderDetails;
+  final bool? editingMode;
+  final ValueChanged<bool>? onEditModeChanged;
+  const OrderArea({
+    super.key,
+    required this.tableType,
+    this.isOrderDetails = false,
+    this.onEditModeChanged,
+    this.editingMode,
+  });
+
+  @override
+  State<OrderArea> createState() => _OrderAreaState();
+}
+
+class _OrderAreaState extends State<OrderArea> {
+  bool isEditing = false;
+  @override
+  void initState() {
+    isEditing = widget.editingMode ?? false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final String? locale = Helper.getCountryCode(context);
+
     return BlocBuilder<TablePageBloc, TablePageState>(
       builder: (context, state) {
         return state.when(
@@ -36,16 +59,66 @@ class OrderArea extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Order #${order.orderNumber}",
-                          style: Theme.of(context).textTheme.headlineLarge
-                              ?.copyWith(
-                                fontFamily: FontConstants.fontFamily(
-                                  context.locale,
-                                ),
-                                fontSize: 32.sp,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Order #${order.orderNumber}",
+                              style: Theme.of(context).textTheme.headlineLarge
+                                  ?.copyWith(
+                                    fontFamily: FontConstants.fontFamily(
+                                      context.locale,
+                                    ),
+                                    fontSize: 32.sp,
+                                  ),
+                            ),
+                            Visibility(
+                              visible: widget.isOrderDetails == true,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        isEditing = !isEditing;
+                                      });
+                                      if (widget.onEditModeChanged != null) {
+                                        widget.onEditModeChanged!(isEditing);
+                                      }
+                                    },
+                                    icon: AnimatedRotation(
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
+                                      turns: isEditing ? 0.5 : 0,
+                                      child: Icon(
+                                        isEditing ? Icons.close : Icons.edit,
+                                        size: 30.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.only(
+                                      start: 8.w,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () async {
+                                        await BillPrinter.printBill(
+                                          context: context,
+                                          order: order,
+                                          items: items,
+                                          paidAmount: 0,
+                                          remaining: 0,
+                                        );
+                                      },
+                                      icon: Icon(Icons.print, size: 30.sp),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                          ],
                         ),
+
                         SizedBox(height: 20.h),
                         Expanded(
                           child: ListView.builder(
@@ -105,7 +178,8 @@ class OrderArea extends StatelessWidget {
                                                       itemId: item.id,
                                                       quantity:
                                                           item.quantity + 1,
-                                                      tableType: tableType,
+                                                      tableType:
+                                                          widget.tableType,
                                                     ),
                                                   );
                                                 },
@@ -128,7 +202,8 @@ class OrderArea extends StatelessWidget {
                                                       locale: locale ?? "ar",
                                                       quantity:
                                                           item.quantity - 1,
-                                                      tableType: tableType,
+                                                      tableType:
+                                                          widget.tableType,
                                                     ),
                                                   );
                                                 },
@@ -155,7 +230,7 @@ class OrderArea extends StatelessWidget {
                                           TablePageEvent.setItemQuantity(
                                             itemId: item.id,
                                             quantity: qty,
-                                            tableType: tableType,
+                                            tableType: widget.tableType,
                                             locale: locale ?? "ar",
                                           ),
                                         );
@@ -183,7 +258,7 @@ class OrderArea extends StatelessWidget {
                                         context.read<TablePageBloc>().add(
                                           TablePageEvent.setItemQuantity(
                                             locale: locale ?? "ar",
-                                            tableType: tableType,
+                                            tableType: widget.tableType,
                                             itemId: item.id,
                                             quantity: 0,
                                           ),

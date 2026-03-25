@@ -75,6 +75,14 @@ class BillPrinter {
                 pw.Text('المدفوع: $paidAmount', style: pw.TextStyle(font: ttf)),
 
                 pw.Text('الباقي: $remaining', style: pw.TextStyle(font: ttf)),
+                pw.Text(
+                  'شكراً لزيارتكم!',
+                  style: pw.TextStyle(font: ttf, fontSize: 16),
+                ),
+                pw.Text(
+                  'تاريخ: ${DateFormat('yyyy/MM/dd - HH:mm').format(order.createdAt)}',
+                  style: pw.TextStyle(font: ttf, fontSize: 10),
+                ),
               ],
             ),
           );

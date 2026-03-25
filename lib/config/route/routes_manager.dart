@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:peng_cafe/config/app/app_preferences.dart';
 
 import 'package:peng_cafe/config/route/route_tracker.dart';
+import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
 import 'package:peng_cafe/core/injection_container.dart';
 
 import 'package:peng_cafe/features/setting/presentation/pages/setting_page.dart';
@@ -14,6 +15,7 @@ import '../../core/enums/tables_enum/table_type_enum.dart';
 import '../../core/resource/main_page/app_side_bar.dart';
 import '../../features/home_page/presentation/pages/home_page.dart';
 import '../../features/login/presentations/pages/login_page.dart';
+import '../../features/orders/presentation/pages/order_details_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/products/presentation/pages/products_page.dart';
 import '../../features/table_page/presentation/pages/table_page.dart';
@@ -29,6 +31,7 @@ class RoutesName {
   static String settingPage = "settingPage";
   static String ordersPage = "ordersPage";
   static String tablePage = "tablePage";
+  static String orderDetailsPage = "orderDetailsPage";
 }
 
 class RoutesPath {
@@ -40,6 +43,8 @@ class RoutesPath {
   static String settingPage = '/setting';
   static String ordersPage = '/orders';
   static String tablePage = '/table/:tableNumber/:tableType';
+  static String orderDetailsPage =
+      '/order_details/:orderId/:tableType/:tableNumber/:orderType';
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -127,6 +132,23 @@ GoRouter goRouter = GoRouter(
               name: RoutesName.ordersPage,
               pageBuilder: (context, state) => _customTransitionPage(
                 child: const OrdersPage(),
+                state: state,
+              ),
+            ),
+            GoRoute(
+              path: RoutesPath.orderDetailsPage,
+              name: RoutesName.orderDetailsPage,
+              pageBuilder: (context, state) => _customTransitionPage(
+                child: OrderDetailsPage(
+                  orderId: int.parse(state.pathParameters['orderId']!),
+                  tableType: TableTypeEnum.values.firstWhere(
+                    (e) => e.name == state.pathParameters['tableType']!,
+                  ),
+                  tableNumber: int.parse(state.pathParameters['tableNumber']!),
+                  orderType: OrderTypeEnum.values.firstWhere(
+                    (e) => e.name == state.pathParameters['orderType']!,
+                  ),
+                ),
                 state: state,
               ),
             ),

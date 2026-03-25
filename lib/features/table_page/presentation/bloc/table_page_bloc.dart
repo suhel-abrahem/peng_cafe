@@ -57,6 +57,7 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
 
     final result = await _getOrCreateOrder.call(
       params: OrderModel(
+        orderId: event.orderId,
         tableNumber: event.tableNumber,
         userId: event.userId,
         tableType: event.tableType,

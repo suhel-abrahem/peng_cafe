@@ -32,6 +32,13 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         .getSingleOrNull();
   }
 
+  //get table type from order id
+  Future<int?> getTableTypeByOrderId(int orderId) {
+    return (select(ordersTable)..where((t) => t.id.equals(orderId)))
+        .map((row) => row.tableType.index)
+        .getSingleOrNull();
+  }
+
   //  Update totals
   Future<int> updateOrderTotals({
     required int orderId,
@@ -63,6 +70,23 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
             : Value.absent(),
       ),
     );
+  }
+
+  // reopen order
+  Future<int> reopenOrder(int orderId) {
+    return (update(ordersTable)..where((t) => t.id.equals(orderId))).write(
+      OrdersTableCompanion(
+        orderStatus: Value(OrderStatusEnum.inProgress),
+        endAt: const Value(null),
+      ),
+    );
+  }
+
+  // get table number from order id
+  Future<int?> getTableNumberByOrderId(int orderId) {
+    return (select(ordersTable)..where((t) => t.id.equals(orderId)))
+        .map((row) => row.tableNumber)
+        .getSingleOrNull();
   }
 
   Future<OrdersTableData?> getOrderByOrderNumber(String orderNumber) {

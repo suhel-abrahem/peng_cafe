@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass/glass.dart';
+import 'package:go_router/go_router.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
 import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
@@ -10,6 +11,7 @@ import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
+import '../../../../config/route/routes_manager.dart';
 import '../../../../core/enums/duration_enum.dart';
 import '../../../../core/resource/main_page/main_page.dart';
 import '../../../../core/resource/printing_service.dart';
@@ -25,7 +27,7 @@ class OrdersPage extends StatefulWidget {
 }
 
 class _OrdersPageState extends State<OrdersPage> {
-  DurationEnum duration = DurationEnum.allTime;
+  DurationEnum duration = DurationEnum.daily;
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
@@ -43,8 +45,22 @@ class _OrdersPageState extends State<OrdersPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    duration = DurationEnum.allTime;
+                    duration = DurationEnum.daily;
                     pageController.jumpToPage(0);
+                  },
+                  child: Center(
+                    child: Text(
+                      LocaleKeys.durationEnum_daily.tr(),
+                      style: TextStyle(
+                        fontFamily: FontConstants.fontFamily(context.locale),
+                      ),
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    duration = DurationEnum.allTime;
+                    pageController.jumpToPage(1);
                   },
                   child: Center(
                     child: Text(
@@ -56,20 +72,7 @@ class _OrdersPageState extends State<OrdersPage> {
                   ),
                 ),
                 //daily
-                ElevatedButton(
-                  onPressed: () {
-                    duration = DurationEnum.daily;
-                    pageController.jumpToPage(1);
-                  },
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.durationEnum_daily.tr(),
-                      style: TextStyle(
-                        fontFamily: FontConstants.fontFamily(context.locale),
-                      ),
-                    ),
-                  ),
-                ),
+
                 //weekly
                 ElevatedButton(
                   onPressed: () {
@@ -294,13 +297,15 @@ class _OrdersPageState extends State<OrdersPage> {
                                               ),
                                         ),
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => OrderDetailsPage(
-                                                orderId: order.id,
-                                              ),
-                                            ),
+                                          context.pushNamed(
+                                            RoutesName.orderDetailsPage,
+                                            pathParameters: {
+                                              'orderId': order.id.toString(),
+                                              'tableType': order.tableType.name,
+                                              'tableNumber': order.tableNumber
+                                                  .toString(),
+                                              'orderType': order.orderType.name,
+                                            },
                                           );
                                         },
                                       );

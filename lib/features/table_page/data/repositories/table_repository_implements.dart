@@ -12,6 +12,7 @@ import '../../../../core/DB/mappers/order_item_mapper.dart';
 import '../../../../core/DB/mappers/orders_mapper.dart';
 import '../../../../core/enums/order_status_enum/order_status_enum.dart';
 import '../../../../core/enums/order_type_enum/order_type_enum.dart';
+import '../../../../core/enums/tables_enum/table_type_enum.dart';
 import '../../domain/repositories/table_repository.dart';
 
 class TableRepositoryImplements implements TableRepository {
@@ -31,11 +32,22 @@ class TableRepositoryImplements implements TableRepository {
 
       OrdersTableData? existing;
       if (orderModel.isEditing == true) {
+        print(
+          'Editing mode: trying to reopen order ${orderModel.orderId} for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
+        );
+
         existing = await ordersDao.getOrderById(orderModel.orderId ?? 0);
+        print("checking existing order after reopen: ${existing}");
       } else {
+        print(
+          'Non-editing mode: checking for existing active order for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
+        );
         existing = await ordersDao.getActiveOrderByTable(
           tableNumber: orderModel.tableNumber,
           tableType: orderModel.tableType,
+        );
+        print(
+          'Non-editing mode: found existing order ${existing?.id} for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
         );
       }
       if (existing != null &&
@@ -70,6 +82,7 @@ class TableRepositoryImplements implements TableRepository {
 
       return DataSuccess(data: orderFromRow(created));
     } catch (e) {
+      print('Error in getOrCreateOrder: $e');
       return DataFailed(error: e.toString());
     }
   }
