@@ -120,7 +120,9 @@ class CodegenLoader extends AssetLoader{
     "customerName": "اسم العميل: {name}",
     "totalAmount": "المبلغ الإجمالي: {amount} د.ع",
     "status": "الحالة: {status}",
-    "withdraw": "سحب"
+    "withdraw": "سحب",
+    "areYouSure": "هل انت متاكد؟",
+    "areYouSureToDeleteThisOrder": "هل انت متاكد من حذف هذا الطلب؟ هذا الفعل دائم ولا يمكن التراجع عنه"
   },
   "productsPage": {
     "title": "صفحة المنتجات",
@@ -384,7 +386,9 @@ static const Map<String,dynamic> _en = {
     "customerName": "Customer Name: {name}",
     "totalAmount": "Total Amount: {amount} IQD",
     "status": "Status: {status}",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "areYouSure": "Are you Sure?",
+    "areYouSureToDeleteThisOrder": "Are you sure to delete this order? this action is Permanent"
   },
   "productsPage": {
     "title": "Products Page",
@@ -627,7 +631,9 @@ static const Map<String,dynamic> _fa = {
     "customerName": "ناوی کڕیار: {name}",
     "totalAmount": "کۆی گشتی: {amount} د.ع",
     "status": "بارودۆخ: {status}",
-    "withdraw": "وەرگرتن"
+    "withdraw": "وەرگرتن",
+    "areYouSure": "Are you Sure?",
+    "areYouSureToDeleteThisOrder": "Are you sure to delete this order? this action is Permanent"
   },
   "productsPage": {
     "title": "پەڕەی کاڵاکان",
@@ -761,7 +767,9 @@ static const Map<String,dynamic> _fa = {
     "quarterly": "هەموو سێ مانگ",
     "halfYearly": "هەموو نیو ساڵ",
     "yearly": "ساڵانە",
-    "allTime": "هەموو کات"
+    "allTime": "هەموو کات",
+    "areYouSure": "Are you Sure?",
+    "areYouSureToDeleteThisOrder": "Are you sure to delete this order? this action is Permanent"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "fa": _fa};

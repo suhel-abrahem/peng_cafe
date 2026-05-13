@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:native_splash_screen/native_splash_screen.dart' as nss;
 
 import '../../core/constant/language_constants.dart';
 import '../../core/injection_container.dart';
@@ -14,8 +15,21 @@ import 'app_preferences.dart';
 
 String? lastPath;
 
-class PengCafe extends StatelessWidget {
+class PengCafe extends StatefulWidget {
   const PengCafe({super.key});
+
+  @override
+  State<PengCafe> createState() => _PengCafeState();
+}
+
+class _PengCafeState extends State<PengCafe> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      nss.close(animation: nss.CloseAnimation.fade);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

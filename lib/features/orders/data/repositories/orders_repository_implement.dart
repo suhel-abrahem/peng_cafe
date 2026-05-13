@@ -84,4 +84,17 @@ class OrdersRepositoryImpl implements OrdersRepository {
       return DataFailed(error: e.toString());
     }
   }
+
+  @override
+  Future<DataState<void>> deleteOrderById(int orderId) async {
+    try {
+      if (orderId.isNaN) {
+        return DataFailed(error: "id cant be nan");
+      }
+      await ordersDao.deleteOrderById(orderId);
+      return DataSuccess();
+    } catch (e) {
+      return DataFailed(error: e.toString());
+    }
+  }
 }

@@ -13,4 +13,5 @@ abstract class OrdersRepository {
   Future<DataState<List<OrdersSection>>> getOrdersSummary({
     required DurationEnum duration,
   });
+  Future<DataState<void>> deleteOrderById(int orderId);
 }

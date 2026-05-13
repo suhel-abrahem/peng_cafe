@@ -131,6 +131,10 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     return (select(ordersTable)..where((t) => _closedOnly(t))).get();
   }
 
+  Future<int> deleteOrderById(int id) {
+    return (delete(ordersTable)..where((t) => t.id.equals(id))).go();
+  }
+
   Future<int> deleteOlderOrders(DurationEnum duration) {
     int days;
     switch (duration) {

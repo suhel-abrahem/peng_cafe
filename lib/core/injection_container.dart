@@ -2,7 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:peng_cafe/core/DB/app_database.dart';
 import 'package:peng_cafe/features/login/data/model/login_model.dart';
 import 'package:peng_cafe/features/login/data/repositories/login_repository_implement.dart';
+import 'package:peng_cafe/features/orders/domain/usecases/delete_order_by_id_usecase.dart';
 import 'package:peng_cafe/features/orders/domain/usecases/get_order_details_usecase.dart';
+import 'package:peng_cafe/features/orders/presentation/bloc/delete_order_by_id_bloc.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_all_product_usecase.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_produtc_usecase.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
@@ -166,11 +168,19 @@ Future<void> initializeDependencies() async {
   getItInstance.registerSingleton<GetOrderDetailsUsecase>(
     GetOrderDetailsUsecase(getItInstance<OrdersRepository>()),
   );
+  getItInstance.registerLazySingleton<DeleteOrderByIdUsecase>(
+    () => DeleteOrderByIdUsecase(
+      ordersRepository: getItInstance<OrdersRepository>(),
+    ),
+  );
   //bloc
   getItInstance.registerFactory(
     () => OrdersBloc(getItInstance<GetOrdersSummaryUsecase>()),
   );
   getItInstance.registerFactory(
     () => OrderDetailsBloc(getItInstance<GetOrderDetailsUsecase>()),
+  );
+  getItInstance.registerFactory<DeleteOrderByIdBloc>(
+    () => DeleteOrderByIdBloc(getItInstance<DeleteOrderByIdUsecase>()),
   );
 }

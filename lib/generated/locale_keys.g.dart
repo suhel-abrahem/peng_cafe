@@ -100,6 +100,8 @@ abstract class  LocaleKeys {
   static const ordersPage_totalAmount = 'ordersPage.totalAmount';
   static const ordersPage_status = 'ordersPage.status';
   static const ordersPage_withdraw = 'ordersPage.withdraw';
+  static const ordersPage_areYouSure = 'ordersPage.areYouSure';
+  static const ordersPage_areYouSureToDeleteThisOrder = 'ordersPage.areYouSureToDeleteThisOrder';
   static const ordersPage = 'ordersPage';
   static const productsPage_title = 'productsPage.title';
   static const productsPage_noProducts = 'productsPage.noProducts';
