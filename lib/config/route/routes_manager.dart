@@ -8,6 +8,7 @@ import 'package:peng_cafe/config/app/app_preferences.dart';
 import 'package:peng_cafe/config/route/route_tracker.dart';
 import 'package:peng_cafe/core/enums/order_type_enum/order_type_enum.dart';
 import 'package:peng_cafe/core/injection_container.dart';
+import 'package:peng_cafe/features/products/presentation/pages/product_details_page.dart';
 
 import 'package:peng_cafe/features/setting/presentation/pages/setting_page.dart';
 
@@ -32,6 +33,7 @@ class RoutesName {
   static String ordersPage = "ordersPage";
   static String tablePage = "tablePage";
   static String orderDetailsPage = "orderDetailsPage";
+  static String productDetailsPage = "productDetailsPage";
 }
 
 class RoutesPath {
@@ -45,6 +47,7 @@ class RoutesPath {
   static String tablePage = '/table/:tableNumber/:tableType';
   static String orderDetailsPage =
       '/order_details/:orderId/:tableType/:tableNumber/:orderType';
+  static String productDetailsPage = "/productDetailsPage/:productId";
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -102,7 +105,7 @@ GoRouter goRouter = GoRouter(
                   return RoutesPath.homeRoute;
                 }
 
-                return null; // ✅ كل شيء تمام
+                return null;
               },
               pageBuilder: (context, state) {
                 final tableNumber = int.parse(
@@ -162,6 +165,15 @@ GoRouter goRouter = GoRouter(
               pageBuilder: (context, state) => _customTransitionPage(
                 child: const ProductsPage(),
                 state: state,
+              ),
+            ),
+            GoRoute(
+              path: RoutesPath.productDetailsPage,
+              name: RoutesName.productDetailsPage,
+              pageBuilder: (context, state) => _customTransitionPage(
+                child: ProductDetailsPage(
+                  productId: int.parse(state.pathParameters["productId"] ?? ""),
+                ),
               ),
             ),
           ],

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass/glass.dart';
+import 'package:go_router/go_router.dart';
+import 'package:peng_cafe/config/route/routes_manager.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/extensions/selection_state_extension.dart';
 import 'package:peng_cafe/core/injection_container.dart';
@@ -343,6 +345,17 @@ class ProductsPage extends StatelessWidget {
                                         "product id: //${value.products[index]}",
                                       );
                                       return ProductWidget(
+                                        onTaped: () {
+                                          context.pushNamed(
+                                            RoutesName.productDetailsPage,
+                                            pathParameters: {
+                                              "productId": value
+                                                  .products[index]
+                                                  .id
+                                                  .toString(),
+                                            },
+                                          );
+                                        },
                                         canSelect:
                                             selectionState.isSelectMode ||
                                             selectionState.isSelectAll,

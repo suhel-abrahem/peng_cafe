@@ -127,29 +127,29 @@ platforms:
 # Release configuration
 release:
   linux:
-    window_width: 450
-    window_height: 225
+    window_width: 1254
+    window_height: 1254
     window_title: "HallMate"
     window_color: "rgba(0,0,0,1)"
 
     # background will be ignored cause alpha == 0.
     background_color: "rgba(0,0,0,0)"
-    background_width: 450
-    background_height: 225
-    background_border_radius: 7.0
+    background_width: 1254
+    background_height: 1254
+    background_border_radius: 30.0
 
     image_path: "assets/icons/logo.png"
-    image_width: 400
-    image_height: 200
+    image_width: 1254
+    image_height: 1254
     image_scaling: true
-    image_border_radius: 0.0
+    image_border_radius: 30.0
 
     blur_radius: 0.0
     with_animation: true
 
   windows:
-    window_width: 500
-    window_height: 250
+    window_width: 1254
+    window_height: 1254
     window_title: "HallMate"
     background_color: "rgba(0,0,0,0)"
     image_path: "assets/icons/logo.png"
@@ -177,8 +177,8 @@ debug:
     background_color: "rgba(128,0,0,0.5)"
     image_path: "assets/icons/logo.png"
   windows:
-    window_width: 300
-    window_height: 150
+    window_width: 1254
+    window_height: 1254
     window_title: "HallMate"
     background_color: "#C80000C8"
     image_path: "assets/icons/logo.png"
@@ -192,14 +192,14 @@ debug:
 # Profile configuration
 profile:
   linux:
-    window_width: 400
-    window_height: 200
+    window_width: 1254
+    window_height: 1254
     window_title: "HallMate"
     background_color: "rgba(0,0,0,0)"
     image_path: "assets/icons/logo.png"
   windows:
-    window_width: 400
-    window_height: 200
+    window_width: 1254
+    window_height: 1254
     window_title: "HallMate"
     background_color: "rgba(0,0,0,0)"
     image_path: "assets/icons/logo.png"
@@ -220,8 +220,8 @@ flavors:
       background_color: "rgba(0,0,0,0)"
       image_path: "assets/icons/logo.png"
     windows:
-      window_width: 400
-      window_height: 225
+      window_width: 1254
+      window_height: 1254
       window_title: "HallMate"
       background_color: "rgba(0,0,0,0)"
       image_path: "assets/icons/logo.png"

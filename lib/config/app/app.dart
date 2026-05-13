@@ -38,6 +38,7 @@ class _PengCafeState extends State<PengCafe> {
       minTextAdapt: true,
       splitScreenMode: false,
       ensureScreenSize: true,
+
       builder: (context, child) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.landscapeLeft,

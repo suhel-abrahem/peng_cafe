@@ -30,8 +30,8 @@ class AppSideBar extends StatefulWidget {
 }
 
 class _AppSideBarState extends State<AppSideBar> {
-  final double containerWidthCollapsed = 100.w;
-  final double containerWidthExpanded = 220.w;
+  double containerWidthCollapsed = 100.w;
+  double containerWidthExpanded = 220.w;
 
   bool isExpanded = false;
   bool isDarkTheme = getItInstance<AppPreferences>().getThemeBool();
@@ -70,7 +70,7 @@ class _AppSideBarState extends State<AppSideBar> {
                           children: [
                             Icon(
                               icon,
-                              size: 40.sp,
+                              size: isExpanded ? 40.sp : 28.sp,
                               color:
                                   index == widget.navigationShell.currentIndex
                                   ? Theme.of(context).primaryColor
@@ -135,6 +135,8 @@ class _AppSideBarState extends State<AppSideBar> {
 
   @override
   Widget build(BuildContext context) {
+    containerWidthCollapsed = 100.w;
+    containerWidthExpanded = 220.w;
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 20.h),
@@ -185,11 +187,12 @@ class _AppSideBarState extends State<AppSideBar> {
                     child: Center(
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 400),
-                        child: ImageWidget(
-                          key: ValueKey(isExpanded),
-                          imageUrl: isExpanded
+                        child: Image.asset(
+                          isExpanded
                               ? "${iconPath}${IconsName.byteXLogo}"
                               : "${iconPath}${IconsName.bytexLogoSmall}",
+                          key: ValueKey(isExpanded),
+
                           width: isExpanded ? 150.w : 50.w,
                         ),
                       ),

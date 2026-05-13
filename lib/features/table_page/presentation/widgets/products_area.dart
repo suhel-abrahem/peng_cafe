@@ -115,6 +115,7 @@ class _ProductsAreaState extends State<ProductsArea> {
                                   );
                                 },
                                 child: ProductWidget(
+                                  onTaped: null,
                                   isSelected: false,
                                   canSelect: false,
                                   productEntity: products[index],

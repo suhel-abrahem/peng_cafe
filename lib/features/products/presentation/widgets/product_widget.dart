@@ -16,18 +16,20 @@ class ProductWidget extends StatelessWidget {
   final bool? canSelect;
   final ValueChanged<void>? onSelect;
   final bool isSelected;
-
+  final VoidCallback? onTaped;
   const ProductWidget({
     super.key,
     this.productEntity,
     this.canSelect = false,
     this.onSelect,
     required this.isSelected,
+    this.onTaped,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTaped,
       child:
           Container(
             decoration: BoxDecoration(color: Colors.transparent),
@@ -47,10 +49,14 @@ class ProductWidget extends StatelessWidget {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.r),
-                            child: ImageWidget(
-                              width: double.infinity,
-                              imageUrl: productEntity?.imagePath ?? "",
-                              boxFit: BoxFit.contain,
+                            child: Hero(
+                              tag: productEntity?.id ?? 0,
+                              child: ImageWidget(
+                                isLocal: true,
+                                width: double.infinity,
+                                imageUrl: productEntity?.imagePath ?? "",
+                                boxFit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),
