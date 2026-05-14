@@ -14,6 +14,7 @@ import 'package:peng_cafe/core/resource/custom_widget/snake_bar_widget/snake_bar
 import 'package:peng_cafe/core/resource/main_page/main_page.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/products/data/models/product_model.dart';
+import 'package:peng_cafe/features/products/domain/entities/product_entity.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
 import '../../../../core/constant/font_constants.dart';
@@ -22,6 +23,7 @@ import '../bloc/delete_product_bloc.dart';
 import '../bloc/get_products_bloc.dart';
 import '../widgets/add_product_form.dart';
 import '../widgets/product_widget.dart';
+import '../widgets/update_product_form.dart';
 
 class ProductsPage extends StatelessWidget {
   const ProductsPage({super.key});
@@ -31,6 +33,7 @@ class ProductsPage extends StatelessWidget {
     ProductModel productModel = ProductModel(
       locale: Helper.getCountryCode(context),
     );
+    ProductEntity? productEntity;
     return MainPage(
       body: MultiBlocProvider(
         providers: [
@@ -177,7 +180,56 @@ class ProductsPage extends StatelessWidget {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed:
+                                      state.isSelectMode &&
+                                          state.selectedIds.length == 1
+                                      ? () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) => Center(
+                                              child: SizedBox(
+                                                height: 800.h,
+                                                child: AlertDialog(
+                                                  backgroundColor:
+                                                      Theme.of(dialogContext)
+                                                          .scaffoldBackgroundColor
+                                                          .withValues(
+                                                            alpha: 0.66,
+                                                          ),
+                                                  title: Text(
+                                                    LocaleKeys.common_edit.tr(),
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          FontConstants.fontFamily(
+                                                            dialogContext
+                                                                .locale,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  content: Center(
+                                                    child: UpdateProductForm(
+                                                      productEntity:
+                                                          productEntity,
+                                                      onUpdated: (value) {
+                                                        context
+                                                            .read<
+                                                              GetProductsBloc
+                                                            >()
+                                                            .add(
+                                                              GetProductsEvent.getProducts(
+                                                                productsModel:
+                                                                    productModel,
+                                                              ),
+                                                            );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      : null,
                                   icon: Icon(Icons.edit_rounded),
                                   tooltip: LocaleKeys.productsPage_edit.tr(),
                                 ),
@@ -359,12 +411,15 @@ class ProductsPage extends StatelessWidget {
                                         canSelect:
                                             selectionState.isSelectMode ||
                                             selectionState.isSelectAll,
-                                        onSelect: (_) =>
-                                            context.read<SelectionBloc>().add(
-                                              SelectionEvent.toggleProduct(
-                                                value.products[index].id ?? 0,
-                                              ),
+                                        onSelect: (_) {
+                                          context.read<SelectionBloc>().add(
+                                            SelectionEvent.toggleProduct(
+                                              value.products[index].id ?? 0,
                                             ),
+                                          );
+                                          productEntity = value.products[index];
+                                        },
+
                                         isSelected: selectionState.isSelected(
                                           value.products[index].id ?? 0,
                                         ),

@@ -7,14 +7,18 @@ import 'package:go_router/go_router.dart';
 import 'package:peng_cafe/config/route/routes_manager.dart';
 import 'package:peng_cafe/config/theme/app_theme.dart';
 import 'package:peng_cafe/core/constant/font_constants.dart';
+import 'package:peng_cafe/core/enums/product_type_enum/product_type_enum.dart';
 import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/resource/common_state_widget/error_state_widget.dart';
 import 'package:peng_cafe/core/resource/common_state_widget/no_data_state_widget.dart';
 import 'package:peng_cafe/core/resource/image_widget.dart';
+import 'package:peng_cafe/core/resource/main_page/main_page.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/products/data/models/product_model.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
+import 'package:peng_cafe/features/products/presentation/bloc/update_product_bloc.dart';
 import 'package:peng_cafe/features/products/presentation/widgets/product_widget.dart';
+import 'package:peng_cafe/features/products/presentation/widgets/update_product_form.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -27,77 +31,39 @@ class ProductDetailsPage extends StatelessWidget {
       locale: Helper.getCountryCode(context),
       id: productId,
     );
-    return BlocProvider(
-      create: (context) =>
-          getItInstance<GetProductsBloc>()
-            ..add(GetProductsEvent.getProduct(productModel: productModel)),
-      child: BlocBuilder<GetProductsBloc, GetProductsState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => Center(child: CircularProgressIndicator()),
-            loading: () => Center(child: CircularProgressIndicator()),
-            loaded: (data) => ListView(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 20.h,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Hero(
-                        tag: productId,
-                        child:
-                            Container(
-                              constraints: BoxConstraints(
-                                maxHeight: 700.h,
-                                maxWidth: 700.w,
-                              ),
-
-                              child: ImageWidget(
-                                height: 700.h,
-                                boxFit: BoxFit.contain,
-                                imageUrl: data.first.imagePath ?? "",
-                              ),
-                            ).asGlass(
-                              border: Theme.of(context).defaultBorderSide,
-                              clipBorderRadius: BorderRadiusGeometry.circular(
-                                20.r,
-                              ),
-                            ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.only(start: 20.w),
+    return MainPage(
+      body: BlocProvider(
+        create: (context) =>
+            getItInstance<GetProductsBloc>()
+              ..add(GetProductsEvent.getProduct(productModel: productModel)),
+        child: BlocBuilder<GetProductsBloc, GetProductsState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => Center(child: CircularProgressIndicator()),
+              loading: () => Center(child: CircularProgressIndicator()),
+              loaded: (data) => ListView(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 20.h,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Hero(
+                          tag: productId,
                           child:
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 20.h,
-                                  horizontal: 20.w,
+                                constraints: BoxConstraints(
+                                  maxHeight: 700.h,
+                                  maxWidth: 700.w,
                                 ),
-                                child: Text(
-                                  LocaleKeys.productsPage_description.tr(
-                                    namedArgs: {
-                                      "description":
-                                          (data.first.description != null &&
-                                              data
-                                                      .first
-                                                      .description
-                                                      ?.isNotEmpty ==
-                                                  true)
-                                          ? data.first.description ?? ""
-                                          : LocaleKeys.common_noThingToShow
-                                                .tr(),
-                                    },
-                                  ),
-                                  style: Theme.of(context).textTheme.labelLarge
-                                      ?.copyWith(
-                                        fontSize: 32.sp,
-                                        fontFamily: FontConstants.fontFamily(
-                                          context.locale,
-                                        ),
-                                      ),
+
+                                child: ImageWidget(
+                                  height: 700.h,
+                                  boxFit: BoxFit.contain,
+                                  imageUrl: data.first.imagePath ?? "",
                                 ),
                               ).asGlass(
                                 border: Theme.of(context).defaultBorderSide,
@@ -106,79 +72,242 @@ class ProductDetailsPage extends StatelessWidget {
                                 ),
                               ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 20.h,
-                  ),
-                  child:
-                      Container(
-                        height: 100.h,
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                LocaleKeys.productsPage_productName.tr(
-                                  namedArgs: {"name": data.first.name ?? ""},
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.only(start: 20.w),
+                            child:
+                                Container(
+                                  height: 700.h,
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 20.h,
+                                    horizontal: 20.w,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                        tooltip: "edit",
+                                        onPressed: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) => Center(
+                                              child: SizedBox(
+                                                height: 800.h,
+                                                child: AlertDialog(
+                                                  backgroundColor:
+                                                      Theme.of(dialogContext)
+                                                          .scaffoldBackgroundColor
+                                                          .withValues(
+                                                            alpha: 0.66,
+                                                          ),
+                                                  title: Text(
+                                                    LocaleKeys.common_edit.tr(),
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          FontConstants.fontFamily(
+                                                            dialogContext
+                                                                .locale,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  content: Center(
+                                                    child: UpdateProductForm(
+                                                      productEntity: data.first,
+                                                      onUpdated: (value) {
+                                                        context
+                                                            .read<
+                                                              GetProductsBloc
+                                                            >()
+                                                            .add(
+                                                              GetProductsEvent.getProduct(
+                                                                productModel:
+                                                                    productModel,
+                                                              ),
+                                                            );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        icon: Icon(Icons.edit_outlined),
+                                      ),
+                                      Text(
+                                        LocaleKeys.productsPage_description.tr(
+                                          namedArgs: {
+                                            "description":
+                                                (data.first.description !=
+                                                        null &&
+                                                    data
+                                                            .first
+                                                            .description
+                                                            ?.isNotEmpty ==
+                                                        true)
+                                                ? data.first.description ?? ""
+                                                : LocaleKeys
+                                                      .common_noThingToShow
+                                                      .tr(),
+                                          },
+                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: 32.sp,
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ).asGlass(
+                                  border: Theme.of(context).defaultBorderSide,
+                                  clipBorderRadius:
+                                      BorderRadiusGeometry.circular(20.r),
                                 ),
-                                style: Theme.of(context).textTheme.labelLarge
-                                    ?.copyWith(
-                                      fontSize: 28.sp,
-                                      fontFamily: FontConstants.fontFamily(
-                                        context.locale,
-                                      ),
-                                    ),
-                              ),
-                              Text(
-                                "${LocaleKeys.productsPage_addProductForm_costPrice.tr()}: ${data.first.costPrice}",
-                                style: Theme.of(context).textTheme.labelLarge
-                                    ?.copyWith(
-                                      fontSize: 28.sp,
-                                      fontFamily: FontConstants.fontFamily(
-                                        context.locale,
-                                      ),
-                                    ),
-                              ),
-                              Text(
-                                "${LocaleKeys.productsPage_addProductForm_price.tr()}: ${data.first.price}",
-                                style: Theme.of(context).textTheme.labelLarge
-                                    ?.copyWith(
-                                      fontSize: 28.sp,
-                                      fontFamily: FontConstants.fontFamily(
-                                        context.locale,
-                                      ),
-                                    ),
-                              ),
-                              Text(
-                                "${LocaleKeys.productsPage_addProductForm_quantity.tr()}: ${data.first.quantity}",
-                                style: Theme.of(context).textTheme.labelLarge
-                                    ?.copyWith(
-                                      fontSize: 28.sp,
-                                      fontFamily: FontConstants.fontFamily(
-                                        context.locale,
-                                      ),
-                                    ),
-                              ),
-                            ],
                           ),
                         ),
-                      ).asGlass(
-                        border: Theme.of(context).defaultBorderSide,
-                        clipBorderRadius: BorderRadiusGeometry.circular(20.r),
-                      ),
-                ),
-              ],
-            ),
-            noData: () => NodataStateWidget(),
-            error: (e) => ErrorStateWidget(),
-          );
-        },
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 20.h,
+                    ),
+                    child:
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                            vertical: 20.h,
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      LocaleKeys.productsPage_productName.tr(
+                                        namedArgs: {
+                                          "name": data.first.name ?? "",
+                                        },
+                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                            fontSize: 28.sp,
+                                            fontFamily:
+                                                FontConstants.fontFamily(
+                                                  context.locale,
+                                                ),
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "${LocaleKeys.productsPage_addProductForm_costPrice.tr()}: ${data.first.costPrice}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                            fontSize: 28.sp,
+                                            fontFamily:
+                                                FontConstants.fontFamily(
+                                                  context.locale,
+                                                ),
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "${LocaleKeys.productsPage_addProductForm_price.tr()}: ${data.first.price}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                            fontSize: 28.sp,
+                                            fontFamily:
+                                                FontConstants.fontFamily(
+                                                  context.locale,
+                                                ),
+                                          ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 20.h),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${LocaleKeys.productsPage_addProductForm_quantity.tr()}: ${data.first.quantity}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: 28.sp,
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        "${LocaleKeys.productsPage_addProductForm_type.tr()}: ${data.first.productType?.displayName}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: 28.sp,
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        "${LocaleKeys.productsPage_addProductForm_discount.tr()}: ${data.first.discount}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: 28.sp,
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ).asGlass(
+                          border: Theme.of(context).defaultBorderSide,
+                          clipBorderRadius: BorderRadiusGeometry.circular(20.r),
+                        ),
+                  ),
+                ],
+              ),
+              noData: () => NodataStateWidget(),
+              error: (e) => ErrorStateWidget(),
+            );
+          },
+        ),
       ),
     );
   }

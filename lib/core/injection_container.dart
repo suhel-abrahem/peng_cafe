@@ -8,6 +8,7 @@ import 'package:peng_cafe/features/orders/presentation/bloc/delete_order_by_id_b
 import 'package:peng_cafe/features/products/domain/usecases/get_all_product_usecase.dart';
 import 'package:peng_cafe/features/products/domain/usecases/get_produtc_usecase.dart';
 import 'package:peng_cafe/features/products/presentation/bloc/get_products_bloc.dart';
+import 'package:peng_cafe/features/products/presentation/bloc/update_product_bloc.dart';
 import 'package:peng_cafe/features/table_page/domain/usecases/get_or_create_order_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -173,6 +174,7 @@ Future<void> initializeDependencies() async {
       ordersRepository: getItInstance<OrdersRepository>(),
     ),
   );
+
   //bloc
   getItInstance.registerFactory(
     () => OrdersBloc(getItInstance<GetOrdersSummaryUsecase>()),
@@ -182,5 +184,8 @@ Future<void> initializeDependencies() async {
   );
   getItInstance.registerFactory<DeleteOrderByIdBloc>(
     () => DeleteOrderByIdBloc(getItInstance<DeleteOrderByIdUsecase>()),
+  );
+  getItInstance.registerFactory<UpdateProductBloc>(
+    () => UpdateProductBloc(getItInstance<UpdateProductUsecase>()),
   );
 }

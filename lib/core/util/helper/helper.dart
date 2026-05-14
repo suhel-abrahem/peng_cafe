@@ -67,8 +67,6 @@ class Helper {
   }
 
   static String? getCountryCode(BuildContext context) {
-    print("Helper.getCountryCode: ${context.locale.countryCode}");
-
     return context.locale == LanguageConstant.faLocale
         ? "ku"
         : context.locale.languageCode;
