@@ -140,7 +140,7 @@ class Helper {
     }
   }
 
-  static String formatPrice(int? price) {
+  static String formatPrice(double? price) {
     if (price == null) return "0";
     return price
         .toStringAsFixed(0)

@@ -9,6 +9,7 @@ import 'package:peng_cafe/features/products/domain/entities/product_entity.dart'
 
 import '../../../../core/constant/font_constants.dart';
 
+import '../../../../core/util/helper/helper.dart';
 import '../../../../generated/locale_keys.g.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -109,7 +110,9 @@ class ProductWidget extends StatelessWidget {
                           child: Text(
                             LocaleKeys.productsPage_price.tr(
                               namedArgs: {
-                                "price": productEntity?.price.toString() ?? "",
+                                "price": Helper.formatPrice(
+                                  productEntity?.price ?? 0,
+                                ),
                               },
                             ),
                             style: Theme.of(context).textTheme.labelLarge
