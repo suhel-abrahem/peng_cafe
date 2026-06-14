@@ -13,11 +13,13 @@ _OrderItemModel _$OrderItemModelFromJson(Map<String, dynamic> json) =>
       orderId: (json['orderId'] as num?)?.toInt() ?? 0,
       productId: (json['productId'] as num?)?.toInt() ?? 0,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      costPrice: (json['costPrice'] as num?)?.toDouble() ?? 0.0,
       quantity: (json['quantity'] as num?)?.toDouble() ?? 0.0,
       discount: (json['discount'] as num?)?.toDouble(),
       tableType: $enumDecode(_$TableTypeEnumEnumMap, json['tableType']),
       tableNumber: (json['tableNumber'] as num?)?.toInt() ?? 0,
       productType: $enumDecode(_$ProductTypeEnumEnumMap, json['productType']),
+      orderType: $enumDecodeNullable(_$OrderTypeEnumEnumMap, json['orderType']),
     );
 
 Map<String, dynamic> _$OrderItemModelToJson(_OrderItemModel instance) =>
@@ -27,11 +29,13 @@ Map<String, dynamic> _$OrderItemModelToJson(_OrderItemModel instance) =>
       'orderId': instance.orderId,
       'productId': instance.productId,
       'price': instance.price,
+      'costPrice': instance.costPrice,
       'quantity': instance.quantity,
       'discount': instance.discount,
       'tableType': _$TableTypeEnumEnumMap[instance.tableType]!,
       'tableNumber': instance.tableNumber,
       'productType': _$ProductTypeEnumEnumMap[instance.productType]!,
+      'orderType': _$OrderTypeEnumEnumMap[instance.orderType],
     };
 
 const _$TableTypeEnumEnumMap = {
@@ -46,4 +50,10 @@ const _$TableTypeEnumEnumMap = {
 const _$ProductTypeEnumEnumMap = {
   ProductTypeEnum.foodAndBeverage: 'foodAndBeverage',
   ProductTypeEnum.games: 'games',
+};
+
+const _$OrderTypeEnumEnumMap = {
+  OrderTypeEnum.dineIn: 'dineIn',
+  OrderTypeEnum.takeAway: 'takeAway',
+  OrderTypeEnum.withdrawal: 'withdrawal',
 };

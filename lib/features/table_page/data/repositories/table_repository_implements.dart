@@ -97,7 +97,6 @@ class TableRepositoryImplements implements TableRepository {
     try {
       final dao = _database.orderItemsDao;
 
-      // ✅ prevent duplicates (order + product + tableType)
       final existing = await dao.getItemByOrderAndProduct(
         orderId: orderModel.orderId,
         productId: orderModel.productId,
@@ -106,15 +105,11 @@ class TableRepositoryImplements implements TableRepository {
 
       if (existing != null) {
         final newQty = existing.quantity + 1;
-        final newTotal = newQty * existing.price;
 
-        await dao.updateQuantity(
-          id: existing.id,
-          quantity: newQty,
-          total: newTotal,
-        );
+        await dao.updateQuantity(id: existing.id, quantity: newQty);
 
-        // ✅ return updated with product name (JOIN)
+        await _database.ordersDao.recalculateOrderTotals(orderModel.orderId);
+
         final rows = await dao.getItemsWithProduct(orderModel.orderId);
         final updated = rows.firstWhere((r) => r.$1.id == existing.id);
 
@@ -127,21 +122,36 @@ class TableRepositoryImplements implements TableRepository {
         );
       }
 
-      // ✅ insert new item with quantity=1 always
+      final costPrice = orderModel.costPrice ?? 0;
+      final quantity = 1.0;
+      final discount = orderModel.discount ?? 0;
+
+      final total = orderModel.price * quantity;
+      final totalAfterDiscount = total - (total * discount);
+      final cost = costPrice * quantity;
+      final profit = totalAfterDiscount - cost;
+      final losses = profit < 0 ? profit.abs() : 0.0;
+
       await dao.addItem(
         OrderItemsTableCompanion(
           orderId: Value(orderModel.orderId),
           productId: Value(orderModel.productId),
           quantity: const Value(1),
           price: Value(orderModel.price),
-          total: Value(orderModel.price),
+          discount: Value(discount),
+          total: Value(total),
+          losses: Value(losses),
+          profit: Value(profit),
+          totalWithLosses: Value(totalAfterDiscount),
           tableType: Value(orderModel.tableType),
           tableNumber: Value(orderModel.tableNumber),
           productType: Value(orderModel.productType),
+          orderType: Value(orderModel.orderType ?? OrderTypeEnum.dineIn),
         ),
       );
 
-      // ✅ fetch created with product name (JOIN)
+      await _database.ordersDao.recalculateOrderTotals(orderModel.orderId);
+
       final rows = await dao.getItemsWithProduct(orderModel.orderId);
       final created = rows.firstWhere(
         (r) =>
@@ -190,7 +200,7 @@ class TableRepositoryImplements implements TableRepository {
   }
 
   // =========================
-  // 4) UPDATE ITEM QUANTITY (MANUAL INPUT)
+  // 4) UPDATE ITEM QUANTITY
   // =========================
   @override
   Future<DataState<void>> updateItemQuantity({
@@ -199,25 +209,24 @@ class TableRepositoryImplements implements TableRepository {
     try {
       final dao = _database.orderItemsDao;
 
-      if (orderModel.quantity <= 0) {
-        if (orderModel.id == null) {
-          return const DataFailed(error: 'Item ID is required for deletion');
-        }
-        await dao.deleteItem(orderModel.id ?? 0);
-        return const DataSuccess(data: null);
-      }
-
-      final total = orderModel.quantity * orderModel.price;
       if (orderModel.id == null) {
         return const DataFailed(
           error: 'Item ID is required for quantity update',
         );
       }
+
+      if (orderModel.quantity <= 0) {
+        await dao.deleteItem(orderModel.id!);
+        await _database.ordersDao.recalculateOrderTotals(orderModel.orderId);
+        return const DataSuccess(data: null);
+      }
+
       await dao.updateQuantity(
-        id: orderModel.id ?? 0,
+        id: orderModel.id!,
         quantity: orderModel.quantity,
-        total: total,
       );
+
+      await _database.ordersDao.recalculateOrderTotals(orderModel.orderId);
 
       return const DataSuccess(data: null);
     } catch (e) {
@@ -229,9 +238,16 @@ class TableRepositoryImplements implements TableRepository {
   // 5) DELETE ORDER ITEM
   // =========================
   @override
-  Future<DataState<void>> deleteOrderItem({required int itemId}) async {
+  Future<DataState<void>> deleteOrderItem({
+    required int? itemId,
+    required int? orderId,
+  }) async {
     try {
-      await _database.orderItemsDao.deleteItem(itemId);
+      if (itemId == null) DataFailed(error: "item id is null");
+      if (orderId == null) DataFailed(error: "order id is null");
+      await _database.orderItemsDao.deleteItem(itemId ?? 0);
+      await _database.ordersDao.recalculateOrderTotals(orderId ?? 0);
+
       return const DataSuccess(data: null);
     } catch (e) {
       return DataFailed(error: e.toString());
@@ -243,60 +259,69 @@ class TableRepositoryImplements implements TableRepository {
     required int orderId,
     required double paidAmount,
     required double remaining,
+    String? customerName,
   }) async {
     try {
       print(
         'Closing order $orderId with paidAmount=$paidAmount and remaining=$remaining',
       );
+
       final ordersDao = _database.ordersDao;
       final itemsDao = _database.orderItemsDao;
 
-      // 1️⃣ get all items
+      final order = await ordersDao.getOrderById(orderId);
+
+      if (order == null) {
+        return const DataFailed(error: 'Order not found');
+      }
+
+      final orderType = order.orderType;
       final items = await itemsDao.getItemsByOrder(orderId);
-      OrderTypeEnum? orderType;
-      await ordersDao.getOrderById(orderId).then((onValue) {
-        orderType = onValue?.orderType;
-      });
+
       if (items.isEmpty && orderType != OrderTypeEnum.withdrawal) {
         return const DataFailed(error: 'Order has no items');
       }
 
-      // 2️⃣ calculate totals
-      double price = 0;
-      double discount = 0;
       if (orderType == OrderTypeEnum.withdrawal) {
-        price = paidAmount;
-      } else {
-        for (final item in items) {
-          price += item.total;
-          discount += item.discount ?? 0;
-        }
+        await ordersDao.updateOrderTotals(
+          orderId: orderId,
+          price: paidAmount,
+          discount: 0,
+          total: -paidAmount,
+          losses: 0,
+          profit: 0,
+          totalWithLosses: -paidAmount,
+        );
+
+        await ordersDao.closeOrder(
+          orderId,
+          orderType: orderType,
+          withdrawalAmount: paidAmount,
+          customerName: customerName,
+        );
+
+        return const DataSuccess(data: null);
       }
 
-      final total = price - discount;
+      // Important: recalculate before closing
+      await ordersDao.recalculateOrderTotals(orderId);
 
-      // 3️⃣ update order totals
-      await ordersDao.updateOrderTotals(
-        orderId: orderId,
-        price: price,
-        discount: discount,
-        total: total,
+      await ordersDao.closeOrder(
+        orderId,
+        orderType: orderType,
+        customerName: customerName,
       );
-      await ordersDao.closeOrder(orderId);
-      // 4️⃣ 🔥 decrease product quantities
+
       for (final item in items) {
         print(
           'Decreasing product ${item.productId} by quantity ${item.quantity}',
         );
+
         await _database.productsDao.decreaseProductQuantity(
           productId: item.productId,
           quantity: item.quantity,
         );
       }
-      // 4️⃣ close order
-
-      // ⛔️ optional (later):
-      // save payment log (paidAmount / remaining)
 
       return const DataSuccess(data: null);
     } catch (e) {

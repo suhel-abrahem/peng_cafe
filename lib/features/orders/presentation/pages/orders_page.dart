@@ -341,9 +341,7 @@ class _OrdersPageState extends State<OrdersPage> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    order.total.toStringAsFixed(
-                                                      2,
-                                                    ),
+                                                    "Total: ${order.total.toStringAsFixed(2)}",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .labelLarge
@@ -353,6 +351,56 @@ class _OrdersPageState extends State<OrdersPage> {
                                                                 context.locale,
                                                               ),
                                                         ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 12.w,
+                                                        ),
+                                                    child: Text(
+                                                      "Net Total: ${order.netTotal.toStringAsFixed(2)}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                            fontFamily:
+                                                                FontConstants.fontFamily(
+                                                                  context
+                                                                      .locale,
+                                                                ),
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "Losses: ${order.losses.toStringAsFixed(2)}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.copyWith(
+                                                          fontFamily:
+                                                              FontConstants.fontFamily(
+                                                                context.locale,
+                                                              ),
+                                                        ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 12.w,
+                                                        ),
+                                                    child: Text(
+                                                      "Profit: ${order.profit.toStringAsFixed(2)}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                            fontFamily:
+                                                                FontConstants.fontFamily(
+                                                                  context
+                                                                      .locale,
+                                                                ),
+                                                          ),
+                                                    ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -445,18 +493,63 @@ class _OrdersPageState extends State<OrdersPage> {
                                         padding: const EdgeInsets.symmetric(
                                           vertical: 8,
                                         ),
-                                        child: Text(
-                                          'Total: ${section.total.toStringAsFixed(2)}',
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Total: ${section.total.toStringAsFixed(2)}',
 
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge
-                                              ?.copyWith(
-                                                fontFamily:
-                                                    FontConstants.fontFamily(
-                                                      context.locale,
-                                                    ),
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                    fontFamily:
+                                                        FontConstants.fontFamily(
+                                                          context.locale,
+                                                        ),
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Net Total: ${section.netTotal.toStringAsFixed(2)}',
+
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                    fontFamily:
+                                                        FontConstants.fontFamily(
+                                                          context.locale,
+                                                        ),
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Loss: ${section.loss.toStringAsFixed(2)}',
+
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                    fontFamily:
+                                                        FontConstants.fontFamily(
+                                                          context.locale,
+                                                        ),
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Profit: ${section.profit.toStringAsFixed(2)}',
+
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                    fontFamily:
+                                                        FontConstants.fontFamily(
+                                                          context.locale,
+                                                        ),
+                                                  ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

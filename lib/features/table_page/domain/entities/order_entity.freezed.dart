@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OrderEntity {
 
- int get id; String get orderNumber; int get tableNumber; TableTypeEnum get tableType; OrderStatusEnum get status; double get total; DateTime get createdAt; OrderTypeEnum get orderType;
+ int get id; String get orderNumber; int get tableNumber; TableTypeEnum get tableType; OrderStatusEnum get status; double get total; double get netTotal; double get profit; double get losses; double get discount; String? get customerName; DateTime get createdAt; OrderTypeEnum get orderType;
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OrderEntityCopyWith<OrderEntity> get copyWith => _$OrderEntityCopyWithImpl<Orde
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.netTotal, netTotal) || other.netTotal == netTotal)&&(identical(other.profit, profit) || other.profit == profit)&&(identical(other.losses, losses) || other.losses == losses)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt,orderType);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,netTotal,profit,losses,discount,customerName,createdAt,orderType);
 
 @override
 String toString() {
-  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt, orderType: $orderType)';
+  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, netTotal: $netTotal, profit: $profit, losses: $losses, discount: $discount, customerName: $customerName, createdAt: $createdAt, orderType: $orderType)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OrderEntityCopyWith<$Res>  {
   factory $OrderEntityCopyWith(OrderEntity value, $Res Function(OrderEntity) _then) = _$OrderEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt, OrderTypeEnum orderType
+ int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, double netTotal, double profit, double losses, double discount, String? customerName, DateTime createdAt, OrderTypeEnum orderType
 });
 
 
@@ -65,7 +65,7 @@ class _$OrderEntityCopyWithImpl<$Res>
 
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,Object? orderType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? netTotal = null,Object? profit = null,Object? losses = null,Object? discount = null,Object? customerName = freezed,Object? createdAt = null,Object? orderType = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,12 @@ as String,tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // 
 as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as double,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as double,netTotal: null == netTotal ? _self.netTotal : netTotal // ignore: cast_nullable_to_non_nullable
+as double,profit: null == profit ? _self.profit : profit // ignore: cast_nullable_to_non_nullable
+as double,losses: null == losses ? _self.losses : losses // ignore: cast_nullable_to_non_nullable
+as double,discount: null == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as double,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,orderType: null == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
 as OrderTypeEnum,
   ));
@@ -160,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  double netTotal,  double profit,  double losses,  double discount,  String? customerName,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OrderEntity() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.netTotal,_that.profit,_that.losses,_that.discount,_that.customerName,_that.createdAt,_that.orderType);case _:
   return orElse();
 
 }
@@ -181,10 +186,10 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  double netTotal,  double profit,  double losses,  double discount,  String? customerName,  DateTime createdAt,  OrderTypeEnum orderType)  $default,) {final _that = this;
 switch (_that) {
 case _OrderEntity():
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.netTotal,_that.profit,_that.losses,_that.discount,_that.customerName,_that.createdAt,_that.orderType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +206,10 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String orderNumber,  int tableNumber,  TableTypeEnum tableType,  OrderStatusEnum status,  double total,  double netTotal,  double profit,  double losses,  double discount,  String? customerName,  DateTime createdAt,  OrderTypeEnum orderType)?  $default,) {final _that = this;
 switch (_that) {
 case _OrderEntity() when $default != null:
-return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.createdAt,_that.orderType);case _:
+return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_that.status,_that.total,_that.netTotal,_that.profit,_that.losses,_that.discount,_that.customerName,_that.createdAt,_that.orderType);case _:
   return null;
 
 }
@@ -216,7 +221,7 @@ return $default(_that.id,_that.orderNumber,_that.tableNumber,_that.tableType,_th
 @JsonSerializable()
 
 class _OrderEntity implements OrderEntity {
-  const _OrderEntity({this.id = 0, this.orderNumber = '', this.tableNumber = 0, required this.tableType, this.status = OrderStatusEnum.inProgress, this.total = 0.0, required this.createdAt, required this.orderType});
+  const _OrderEntity({this.id = 0, this.orderNumber = '', this.tableNumber = 0, required this.tableType, this.status = OrderStatusEnum.inProgress, this.total = 0.0, this.netTotal = 0.0, this.profit = 0.0, this.losses = 0.0, this.discount = 0.0, this.customerName, required this.createdAt, required this.orderType});
   factory _OrderEntity.fromJson(Map<String, dynamic> json) => _$OrderEntityFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -225,6 +230,11 @@ class _OrderEntity implements OrderEntity {
 @override final  TableTypeEnum tableType;
 @override@JsonKey() final  OrderStatusEnum status;
 @override@JsonKey() final  double total;
+@override@JsonKey() final  double netTotal;
+@override@JsonKey() final  double profit;
+@override@JsonKey() final  double losses;
+@override@JsonKey() final  double discount;
+@override final  String? customerName;
 @override final  DateTime createdAt;
 @override final  OrderTypeEnum orderType;
 
@@ -241,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.orderNumber, orderNumber) || other.orderNumber == orderNumber)&&(identical(other.tableNumber, tableNumber) || other.tableNumber == tableNumber)&&(identical(other.tableType, tableType) || other.tableType == tableType)&&(identical(other.status, status) || other.status == status)&&(identical(other.total, total) || other.total == total)&&(identical(other.netTotal, netTotal) || other.netTotal == netTotal)&&(identical(other.profit, profit) || other.profit == profit)&&(identical(other.losses, losses) || other.losses == losses)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.orderType, orderType) || other.orderType == orderType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,createdAt,orderType);
+int get hashCode => Object.hash(runtimeType,id,orderNumber,tableNumber,tableType,status,total,netTotal,profit,losses,discount,customerName,createdAt,orderType);
 
 @override
 String toString() {
-  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, createdAt: $createdAt, orderType: $orderType)';
+  return 'OrderEntity(id: $id, orderNumber: $orderNumber, tableNumber: $tableNumber, tableType: $tableType, status: $status, total: $total, netTotal: $netTotal, profit: $profit, losses: $losses, discount: $discount, customerName: $customerName, createdAt: $createdAt, orderType: $orderType)';
 }
 
 
@@ -261,7 +271,7 @@ abstract mixin class _$OrderEntityCopyWith<$Res> implements $OrderEntityCopyWith
   factory _$OrderEntityCopyWith(_OrderEntity value, $Res Function(_OrderEntity) _then) = __$OrderEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, DateTime createdAt, OrderTypeEnum orderType
+ int id, String orderNumber, int tableNumber, TableTypeEnum tableType, OrderStatusEnum status, double total, double netTotal, double profit, double losses, double discount, String? customerName, DateTime createdAt, OrderTypeEnum orderType
 });
 
 
@@ -278,7 +288,7 @@ class __$OrderEntityCopyWithImpl<$Res>
 
 /// Create a copy of OrderEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? createdAt = null,Object? orderType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? orderNumber = null,Object? tableNumber = null,Object? tableType = null,Object? status = null,Object? total = null,Object? netTotal = null,Object? profit = null,Object? losses = null,Object? discount = null,Object? customerName = freezed,Object? createdAt = null,Object? orderType = null,}) {
   return _then(_OrderEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,orderNumber: null == orderNumber ? _self.orderNumber : orderNumber // ignore: cast_nullable_to_non_nullable
@@ -286,7 +296,12 @@ as String,tableNumber: null == tableNumber ? _self.tableNumber : tableNumber // 
 as int,tableType: null == tableType ? _self.tableType : tableType // ignore: cast_nullable_to_non_nullable
 as TableTypeEnum,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as double,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as double,netTotal: null == netTotal ? _self.netTotal : netTotal // ignore: cast_nullable_to_non_nullable
+as double,profit: null == profit ? _self.profit : profit // ignore: cast_nullable_to_non_nullable
+as double,losses: null == losses ? _self.losses : losses // ignore: cast_nullable_to_non_nullable
+as double,discount: null == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as double,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,orderType: null == orderType ? _self.orderType : orderType // ignore: cast_nullable_to_non_nullable
 as OrderTypeEnum,
   ));

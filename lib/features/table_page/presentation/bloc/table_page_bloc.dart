@@ -130,7 +130,12 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
     final item = state.items.firstWhere((e) => e.id == event.itemId);
 
     if (event.quantity <= 0) {
-      await _deleteOrderItem.call(params: event.itemId);
+      await _deleteOrderItem.call(
+        params: DeleteOrderItemParams(
+          itemId: event.itemId,
+          orderId: event.orderId ?? 0,
+        ),
+      );
     } else {
       await _updateItemQuantity.call(
         params: OrderItemModel(

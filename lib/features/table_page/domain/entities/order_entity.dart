@@ -15,6 +15,11 @@ abstract class OrderEntity with _$OrderEntity {
     required TableTypeEnum tableType,
     @Default(OrderStatusEnum.inProgress) OrderStatusEnum status,
     @Default(0.0) double total,
+    @Default(0.0) double netTotal,
+    @Default(0.0) double profit,
+    @Default(0.0) double losses,
+    @Default(0.0) double discount,
+    String? customerName,
     required DateTime createdAt,
     required OrderTypeEnum orderType,
   }) = _OrderEntity;

@@ -77,6 +77,9 @@ class OrdersRepositoryImpl implements OrdersRepository {
             title: duration.displayName,
             orders: orders.map(orderFromRow).toList(),
             total: ordersDao.calculateTotal(orders),
+            profit: ordersDao.calculateProfitTotal(orders),
+            loss: ordersDao.calculateLossesTotal(orders),
+            netTotal: ordersDao.calculateTotalWithLosses(orders),
           ),
         ],
       );

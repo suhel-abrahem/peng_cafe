@@ -19,10 +19,14 @@ abstract class TableRepository {
   Future<DataState<void>> updateItemQuantity({
     required OrderItemModel orderModel,
   });
-  Future<DataState<void>> deleteOrderItem({required int itemId});
+  Future<DataState<void>> deleteOrderItem({
+    required int? itemId,
+    required int? orderId,
+  });
   Future<DataState<void>> closeOrder({
     required int orderId,
     required double paidAmount,
     required double remaining,
+    String? customerName,
   });
 }
