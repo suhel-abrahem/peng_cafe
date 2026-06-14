@@ -28,7 +28,25 @@ part 'app_database.g.dart';
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) async {
+      await m.createAll();
+    },
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.addColumn(ordersTable, ordersTable.losses);
+        await m.addColumn(ordersTable, ordersTable.totalWithLosses);
+        await m.addColumn(ordersTable, ordersTable.profit);
+
+        await m.addColumn(orderItemsTable, orderItemsTable.losses);
+        await m.addColumn(orderItemsTable, orderItemsTable.totalWithLosses);
+        await m.addColumn(orderItemsTable, orderItemsTable.profit);
+        await m.addColumn(ordersTable, ordersTable.customerName);
+      }
+    },
+  );
 }
 
 LazyDatabase _openConnection() {

@@ -43,14 +43,91 @@ class OrderItemsDao extends DatabaseAccessor<AppDatabase>
         .getSingleOrNull();
   }
 
+  double calculateTotal({required double price, required double quantity}) {
+    return price * quantity;
+  }
+
+  double calculateDiscountAmount({
+    required double total,
+    required double discount,
+  }) {
+    return total * discount;
+  }
+
+  double calculateTotalAfterDiscount({
+    required double total,
+    required double discount,
+  }) {
+    return total - calculateDiscountAmount(total: total, discount: discount);
+  }
+
+  double calculateProfit({
+    required double price,
+    required double costPrice,
+    required double quantity,
+    required double discount,
+  }) {
+    final total = calculateTotal(price: price, quantity: quantity);
+
+    final totalAfterDiscount = calculateTotalAfterDiscount(
+      total: total,
+      discount: discount,
+    );
+
+    final cost = costPrice * quantity;
+
+    return totalAfterDiscount - cost;
+  }
+
+  double calculateLosses({required double profit}) {
+    if (profit >= 0) return 0;
+    return profit.abs();
+  }
+
   // 🔹 Update quantity & total
   Future<int> updateQuantity({
     required int id,
     required double quantity,
-    required double total,
-  }) {
+  }) async {
+    final item = await (select(
+      orderItemsTable,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+
+    if (item == null) return 0;
+
+    final product = await (select(
+      productsTable,
+    )..where((t) => t.id.equals(item.productId))).getSingleOrNull();
+
+    if (product == null) return 0;
+
+    final discount = item.discount ?? 0;
+    final costPrice = product.costPrice ?? 0;
+
+    final total = calculateTotal(price: product.price, quantity: quantity);
+
+    final totalAfterDiscount = calculateTotalAfterDiscount(
+      total: total,
+      discount: discount,
+    );
+
+    final profit = calculateProfit(
+      price: product.price,
+      costPrice: costPrice,
+      quantity: quantity,
+      discount: discount,
+    );
+
+    final losses = calculateLosses(profit: profit);
+
     return (update(orderItemsTable)..where((t) => t.id.equals(id))).write(
-      OrderItemsTableCompanion(quantity: Value(quantity), total: Value(total)),
+      OrderItemsTableCompanion(
+        quantity: Value(quantity),
+        total: Value(total),
+        losses: Value(losses),
+        profit: Value(profit),
+        totalWithLosses: Value(totalAfterDiscount),
+      ),
     );
   }
 
