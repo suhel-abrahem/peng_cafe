@@ -69,6 +69,7 @@ class WithdrawWidget extends StatelessWidget {
                                 loaded: (order, items) {
                                   context.read<TablePageBloc>().add(
                                     TablePageEvent.checkout(
+                                      clientName: "admin",
                                       paidAmount: double.parse(amount),
                                       remaining: 0,
                                     ),

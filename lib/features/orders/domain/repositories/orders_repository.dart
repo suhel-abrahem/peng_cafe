@@ -10,7 +10,7 @@ abstract class OrdersRepository {
     required int orderId,
     required String locale,
   });
-  Future<DataState<List<OrdersSection>>> getOrdersSummary({
+  Future<DataState<OrdersSection>> getOrdersSummary({
     required DurationEnum duration,
   });
   Future<DataState<void>> deleteOrderById(int orderId);

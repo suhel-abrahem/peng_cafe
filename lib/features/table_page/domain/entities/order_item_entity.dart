@@ -14,6 +14,7 @@ abstract class OrderItemEntity with _$OrderItemEntity {
     required double quantity,
     required double price,
     required double total,
+    double? totalAfterDiscount,
     String? productName,
     double? discount,
     required TableTypeEnum tableType,

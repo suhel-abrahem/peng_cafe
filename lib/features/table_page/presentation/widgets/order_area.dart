@@ -134,6 +134,7 @@ class _OrderAreaState extends State<OrderArea> {
                                 child: Row(
                                   children: [
                                     Expanded(
+                                      flex: 5,
                                       child: Text(
                                         item.productName ?? "Product",
                                         style: Theme.of(context)
@@ -149,121 +150,167 @@ class _OrderAreaState extends State<OrderArea> {
                                     ),
 
                                     /// Editable Quantity
-                                    CustomInputField(
-                                      key: ValueKey(
-                                        "quantity_${item.quantity}",
-                                      ),
-                                      width: 120.w,
-                                      height: 60.h,
-                                      prefixPadding: EdgeInsetsDirectional.only(
-                                        top: 0,
-                                        start: 8.w,
-                                        end: 8.w,
-                                      ),
-                                      prefix: SizedBox(
-                                        width: 30.w,
-                                        height: 50.h,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              width: 30.w,
-                                              height: 20.h,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  context.read<TablePageBloc>().add(
-                                                    TablePageEvent.setItemQuantity(
-                                                      locale: locale ?? "ar",
-                                                      itemId: item.id,
-                                                      quantity:
-                                                          item.quantity + 1,
-                                                      tableType:
-                                                          widget.tableType,
+                                    Expanded(
+                                      flex: 2,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 12.w,
+                                        ),
+                                        child: CustomInputField(
+                                          key: ValueKey(
+                                            "quantity_${item.quantity}",
+                                          ),
+                                          width: 140.w,
+                                          height: 60.h,
+                                          prefixPadding:
+                                              EdgeInsetsDirectional.only(
+                                                top: 0,
+                                                start: 8.w,
+                                                end: 8.w,
+                                              ),
+                                          prefix: SizedBox(
+                                            width: 30.w,
+                                            height: 50.h,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 30.w,
+                                                  height: 20.h,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      context
+                                                          .read<TablePageBloc>()
+                                                          .add(
+                                                            TablePageEvent.setItemQuantity(
+                                                              locale:
+                                                                  locale ??
+                                                                  "ar",
+                                                              itemId: item.id,
+                                                              quantity:
+                                                                  item.quantity +
+                                                                  1,
+                                                              tableType: widget
+                                                                  .tableType,
+                                                            ),
+                                                          );
+                                                    },
+                                                    child: Center(
+                                                      child: Icon(
+                                                        size: 30.sp,
+                                                        Icons.arrow_drop_up,
+                                                      ),
                                                     ),
-                                                  );
-                                                },
-                                                child: Center(
-                                                  child: Icon(
-                                                    size: 30.sp,
-                                                    Icons.arrow_drop_up,
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 30.w,
-                                              height: 20.h,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  context.read<TablePageBloc>().add(
-                                                    TablePageEvent.setItemQuantity(
-                                                      itemId: item.id,
-                                                      locale: locale ?? "ar",
-                                                      quantity:
-                                                          item.quantity - 1,
-                                                      tableType:
-                                                          widget.tableType,
+                                                SizedBox(
+                                                  width: 30.w,
+                                                  height: 20.h,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      context
+                                                          .read<TablePageBloc>()
+                                                          .add(
+                                                            TablePageEvent.setItemQuantity(
+                                                              itemId: item.id,
+                                                              locale:
+                                                                  locale ??
+                                                                  "ar",
+                                                              quantity:
+                                                                  item.quantity -
+                                                                  1,
+                                                              tableType: widget
+                                                                  .tableType,
+                                                            ),
+                                                          );
+                                                    },
+                                                    child: Center(
+                                                      child: Icon(
+                                                        size: 30.sp,
+                                                        Icons.arrow_drop_down,
+                                                      ),
                                                     ),
-                                                  );
-                                                },
-                                                child: Center(
-                                                  child: Icon(
-                                                    size: 30.sp,
-                                                    Icons.arrow_drop_down,
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
+                                          initialValue: item.quantity
+                                              .toString(),
+                                          textInputType:
+                                              TextInputType.numberWithOptions(
+                                                decimal: true,
+                                              ),
+                                          onSubmitted: (value) {
+                                            final qty =
+                                                double.tryParse(value) ?? 1;
+
+                                            context.read<TablePageBloc>().add(
+                                              TablePageEvent.setItemQuantity(
+                                                itemId: item.id,
+                                                quantity: qty,
+                                                tableType: widget.tableType,
+                                                locale: locale ?? "ar",
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
-                                      initialValue: item.quantity.toString(),
-                                      textInputType:
-                                          TextInputType.numberWithOptions(
-                                            decimal: true,
-                                          ),
-                                      onSubmitted: (value) {
-                                        final qty = double.tryParse(value) ?? 1;
-
-                                        context.read<TablePageBloc>().add(
-                                          TablePageEvent.setItemQuantity(
-                                            itemId: item.id,
-                                            quantity: qty,
-                                            tableType: widget.tableType,
-                                            locale: locale ?? "ar",
-                                          ),
-                                        );
-                                      },
                                     ),
 
-                                    SizedBox(width: 20.w),
-
-                                    Text(
-                                      "${item.total.toStringAsFixed(2)}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge
-                                          ?.copyWith(
-                                            fontFamily:
-                                                FontConstants.fontFamily(
-                                                  context.locale,
-                                                ),
-                                          ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        "total ${Helper.formatPrice(item.total)}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontFamily:
+                                                  FontConstants.fontFamily(
+                                                    context.locale,
+                                                  ),
+                                            ),
+                                      ),
                                     ),
-
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () {
-                                        context.read<TablePageBloc>().add(
-                                          TablePageEvent.setItemQuantity(
-                                            locale: locale ?? "ar",
-                                            tableType: widget.tableType,
-                                            itemId: item.id,
-                                            quantity: 0,
-                                          ),
-                                        );
-                                      },
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 12.w,
+                                        ),
+                                        child: Text(
+                                          "net total ${Helper.formatPrice(item.totalAfterDiscount)}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                                fontFamily:
+                                                    FontConstants.fontFamily(
+                                                      context.locale,
+                                                    ),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                        start: 12.w,
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        onPressed: () {
+                                          context.read<TablePageBloc>().add(
+                                            TablePageEvent.setItemQuantity(
+                                              locale: locale ?? "ar",
+                                              tableType: widget.tableType,
+                                              itemId: item.id,
+                                              quantity: 0,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),

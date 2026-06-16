@@ -50,7 +50,6 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         .getSingleOrNull();
   }
 
-
   // Update totals
   Future<int> updateOrderTotals({
     required int orderId,
@@ -349,7 +348,11 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
 
   // Calculate profit from list of orders
   double calculateProfitTotal(List<OrdersTableData> orders) {
-    return orders.fold<double>(0, (sum, order) => sum + order.profit);
+    double profit = 0.0;
+    for (OrdersTableData order in orders) {
+      profit += order.profit;
+    }
+    return profit;
   }
 
   // Calculate losses from list of orders

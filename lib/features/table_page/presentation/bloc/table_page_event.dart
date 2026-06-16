@@ -35,5 +35,6 @@ class TablePageEvent with _$TablePageEvent {
   const factory TablePageEvent.checkout({
     required double paidAmount,
     required double remaining,
+    required String? clientName,
   }) = _Checkout;
 }

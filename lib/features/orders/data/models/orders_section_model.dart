@@ -9,6 +9,7 @@ class OrdersSection {
   final double profit;
   final double loss;
   final double netTotal;
+  final 
 
   OrdersSection({
     required this.title,

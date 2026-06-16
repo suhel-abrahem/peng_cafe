@@ -110,6 +110,9 @@ class _ProductsAreaState extends State<ProductsArea> {
                                             ProductTypeEnum.foodAndBeverage,
                                         price: product.price,
                                         tableType: widget.tableType,
+                                        costPrice: product.costPrice ?? 0.0,
+                                        quantity: 1.0,
+                                        discount: product.discount,
                                       ),
                                     ),
                                   );
@@ -187,29 +190,50 @@ class _ProductsAreaState extends State<ProductsArea> {
                   loaded: (order, items) {
                     final total = items.fold<double>(
                       0,
-                      (sum, e) => sum + (e.quantity * e.price),
+                      (sum, item) => sum + item.total,
+                    );
+
+                    final netTotal = items.fold<double>(
+                      0,
+                      (sum, item) => sum + (item.totalAfterDiscount ?? 0),
                     );
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Total: ${total.toStringAsFixed(2)}",
-                          style: Theme.of(context).textTheme.headlineLarge
-                              ?.copyWith(
-                                fontFamily: FontConstants.fontFamily(
-                                  context.locale,
-                                ),
-                                fontSize: 28.sp,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Total: ${Helper.formatPrice(total)} IQD",
+                              style: Theme.of(context).textTheme.headlineLarge
+                                  ?.copyWith(
+                                    fontFamily: FontConstants.fontFamily(
+                                      context.locale,
+                                    ),
+                                    fontSize: 28.sp,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                            ),
+                            Text(
+                              "net Total: ${Helper.formatPrice(netTotal)} IQD",
+                              style: Theme.of(context).textTheme.headlineLarge
+                                  ?.copyWith(
+                                    fontFamily: FontConstants.fontFamily(
+                                      context.locale,
+                                    ),
+                                    fontSize: 28.sp,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: 10.h),
                         Builder(
                           builder: (context) {
                             return ElevatedButton(
-                              onPressed: total > 0
+                              onPressed: netTotal > 0
                                   ? () async {
                                       final tableBloc = context
                                           .read<TablePageBloc>();
@@ -217,12 +241,13 @@ class _ProductsAreaState extends State<ProductsArea> {
                                         context: context,
                                         builder: (context) => Center(
                                           child: CheckoutWidget(
-                                            totalAmount: total,
+                                            totalAmount: netTotal,
                                             onCheckout: (value) {
                                               tableBloc.add(
                                                 TablePageEvent.checkout(
                                                   paidAmount: value.paidAmount,
                                                   remaining: value.remaining,
+                                                  clientName: value.clientName
                                                 ),
                                               );
                                             },

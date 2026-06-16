@@ -120,13 +120,14 @@ class OrderItemsDao extends DatabaseAccessor<AppDatabase>
 
     final losses = calculateLosses(profit: profit);
 
-    return (update(orderItemsTable)..where((t) => t.id.equals(id))).write(
+    return await (update(orderItemsTable)..where((t) => t.id.equals(id))).write(
       OrderItemsTableCompanion(
         quantity: Value(quantity),
         total: Value(total),
         losses: Value(losses),
         profit: Value(profit),
         totalWithLosses: Value(totalAfterDiscount),
+        totalAfterDiscount: Value(totalAfterDiscount),
       ),
     );
   }

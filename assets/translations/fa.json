@@ -229,7 +229,8 @@
       "addButton": "زیادکردن",
       "productName": "ناوی کاڵا",
       "priceAndQuantity": "نرخ و ژمارە"
-    }
+    },
+    "clientName": "اسم الزبون"
   },
   "durationEnum": {
     "never": "هیچ‌کات",

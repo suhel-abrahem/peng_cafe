@@ -6,13 +6,13 @@ import '../../../../core/usecase/usecase.dart';
 import '../../data/models/orders_section_model.dart';
 
 class GetOrdersSummaryUsecase
-    implements UseCase<DataState<List<OrdersSection>>, DurationEnum> {
+    implements UseCase<DataState<OrdersSection>, DurationEnum> {
   final OrdersRepository repo;
 
   GetOrdersSummaryUsecase(this.repo);
 
   @override
-  Future<DataState<List<OrdersSection>>> call({required DurationEnum params}) {
+  Future<DataState<OrdersSection>> call({required DurationEnum params}) {
     return repo.getOrdersSummary(duration: params);
   }
 }

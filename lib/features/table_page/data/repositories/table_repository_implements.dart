@@ -10,9 +10,9 @@ import 'package:peng_cafe/features/table_page/domain/entities/order_item_entity.
 import '../../../../core/DB/app_database.dart';
 import '../../../../core/DB/mappers/order_item_mapper.dart';
 import '../../../../core/DB/mappers/orders_mapper.dart';
-import '../../../../core/enums/order_status_enum/order_status_enum.dart';
+
 import '../../../../core/enums/order_type_enum/order_type_enum.dart';
-import '../../../../core/enums/tables_enum/table_type_enum.dart';
+
 import '../../domain/repositories/table_repository.dart';
 
 class TableRepositoryImplements implements TableRepository {
@@ -32,41 +32,28 @@ class TableRepositoryImplements implements TableRepository {
 
       OrdersTableData? existing;
       if (orderModel.isEditing == true) {
-        print(
-          'Editing mode: trying to reopen order ${orderModel.orderId} for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
-        );
-
+        if (orderModel.orderId == null) {
+          return DataFailed(error: "order id is null");
+        }
         existing = await ordersDao.getOrderById(orderModel.orderId ?? 0);
-        print("checking existing order after reopen: ${existing}");
       } else {
-        print(
-          'Non-editing mode: checking for existing active order for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
-        );
         existing = await ordersDao.getActiveOrderByTable(
           tableNumber: orderModel.tableNumber,
           tableType: orderModel.tableType,
         );
-        print(
-          'Non-editing mode: found existing order ${existing?.id} for table ${orderModel.tableNumber} and type ${orderModel.orderType} ',
-        );
       }
       if (existing != null &&
           orderModel.orderType != OrderTypeEnum.withdrawal) {
-        print(
-          'Found existing active order ${existing.id} for table ${orderModel.tableNumber} and type ${orderModel.orderType}',
-        );
         return DataSuccess(data: orderFromRow(existing));
       }
-      print(
-        'No active order found, creating new one for table ${orderModel.tableNumber} and type ${orderModel.tableType}',
-      );
+
       final orderNumber = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
 
       await ordersDao.createOrder(
         OrdersTableCompanion(
           orderNumber: Value(orderNumber),
           tableNumber: Value(orderModel.tableNumber),
-          tableType: Value(orderModel.tableType), // ✅ important
+          tableType: Value(orderModel.tableType),
           price: const Value(0),
           total: const Value(0),
           userId: Value(orderModel.userId),
@@ -122,7 +109,7 @@ class TableRepositoryImplements implements TableRepository {
         );
       }
 
-      final costPrice = orderModel.costPrice ?? 0;
+      final costPrice = orderModel.costPrice;
       final quantity = 1.0;
       final discount = orderModel.discount ?? 0;
 
@@ -131,7 +118,9 @@ class TableRepositoryImplements implements TableRepository {
       final cost = costPrice * quantity;
       final profit = totalAfterDiscount - cost;
       final losses = profit < 0 ? profit.abs() : 0.0;
-
+      print(
+        "im repo add product to order - dis: ${orderModel.discount}, totWithDis:${totalAfterDiscount}",
+      );
       await dao.addItem(
         OrderItemsTableCompanion(
           orderId: Value(orderModel.orderId),
@@ -147,6 +136,7 @@ class TableRepositoryImplements implements TableRepository {
           tableNumber: Value(orderModel.tableNumber),
           productType: Value(orderModel.productType),
           orderType: Value(orderModel.orderType ?? OrderTypeEnum.dineIn),
+          totalAfterDiscount: Value(totalAfterDiscount),
         ),
       );
 

@@ -47,7 +47,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
   }
 
   @override
-  Future<DataState<List<OrdersSection>>> getOrdersSummary({
+  Future<DataState<OrdersSection>> getOrdersSummary({
     required DurationEnum duration,
   }) async {
     try {
@@ -72,7 +72,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
       }
 
       return DataSuccess(
-        data: [
+        data:
           OrdersSection(
             title: duration.displayName,
             orders: orders.map(orderFromRow).toList(),
@@ -80,8 +80,9 @@ class OrdersRepositoryImpl implements OrdersRepository {
             profit: ordersDao.calculateProfitTotal(orders),
             loss: ordersDao.calculateLossesTotal(orders),
             netTotal: ordersDao.calculateTotalWithLosses(orders),
+            
           ),
-        ],
+        
       );
     } catch (e) {
       return DataFailed(error: e.toString());

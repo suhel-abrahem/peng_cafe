@@ -9,6 +9,7 @@ import 'package:peng_cafe/core/enums/currency_enum.dart';
 import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/resource/custom_widget/custom_input_field/custom_input_field.dart';
 import 'package:peng_cafe/core/resource/custom_widget/dropdown/drop_down_with_label.dart';
+import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/generated/locale_keys.g.dart';
 
 import '../../../../config/app/app_preferences.dart';
@@ -30,6 +31,7 @@ class CheckoutWidget extends StatefulWidget {
 
 class _CheckoutWidgetState extends State<CheckoutWidget> {
   double? amountPaid;
+  String clientName = "";
   CurrencyEnum? selectedCurrency = CurrencyEnum.iqd;
   double usdToIqdRate = 1450;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -39,7 +41,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
         ? (amountPaid ?? 0) * usdToIqdRate
         : (amountPaid ?? 0);
     double remaining = paidInIqd - widget.totalAmount;
-    return remaining > 0 ? remaining.toStringAsFixed(2) : "0.00";
+    return remaining > 0 ? Helper.formatPrice(remaining) : "0.00";
   }
 
   @override
@@ -68,7 +70,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                     Text(
                       LocaleKeys.tablePage_totalAmount.tr(
                         namedArgs: {
-                          'amount': widget.totalAmount.toStringAsFixed(2),
+                          'amount': Helper.formatPrice(widget.totalAmount),
                         },
                       ),
                       style: Theme.of(context).textTheme.headlineMedium
@@ -144,6 +146,19 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               value: selectedCurrency,
                             ),
                           ),
+                          CustomInputField(
+                            errorStyle: TextStyle(fontSize: 14.sp),
+                            label: LocaleKeys.tablePage_clientName.tr(),
+                            width: 200.w,
+                            height: 60.h,
+                            isRequired: false,
+                            initialValue: clientName,
+                            onChanged: (value) {},
+                            onSubmitted: (value) {},
+                            validator: (value) {
+                              return null;
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -181,7 +196,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                   duration: Duration(milliseconds: 400),
                                   child: Text(
                                     key: ValueKey(amountPaid),
-                                    "${LocaleKeys.tablePage_givenPrice.tr()}: ${((amountPaid ?? 0) * usdToIqdRate).toStringAsFixed(2)} IQD",
+                                    "${LocaleKeys.tablePage_givenPrice.tr()}: ${Helper.formatPrice(((amountPaid) ?? 0) * usdToIqdRate)} IQD",
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelLarge
@@ -224,7 +239,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                     widget.onCheckout(
                                       CheckoutResult(
                                         paidAmount: paid,
-
+                                        clientName: clientName,
                                         paidInIqd: paidInIqd,
                                         remaining: remaining,
                                       ),

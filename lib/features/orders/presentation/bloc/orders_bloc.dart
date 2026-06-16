@@ -26,11 +26,9 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     try {
       final sections = await getOrdersSummary.call(params: event.duration);
       if (sections is DataSuccess && sections.data != null) {
-        if (sections.data!.isEmpty) {
-          emit(const OrdersState.loadedWithNoData());
-        } else {
+       
           emit(OrdersState.loaded(sections: sections.data!));
-        }
+        
       } else if (sections is NoDataDataState) {
         emit(const OrdersState.loadedWithNoData());
       } else {

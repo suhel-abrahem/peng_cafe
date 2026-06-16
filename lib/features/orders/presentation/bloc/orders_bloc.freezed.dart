@@ -457,7 +457,7 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<OrdersSection> sections)?  loaded,TResult Function()?  loadedWithNoData,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( OrdersSection sections)?  loaded,TResult Function()?  loadedWithNoData,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OrdersStateLoading() when loading != null:
 return loading();case OrdersStateLoaded() when loaded != null:
@@ -481,7 +481,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<OrdersSection> sections)  loaded,required TResult Function()  loadedWithNoData,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( OrdersSection sections)  loaded,required TResult Function()  loadedWithNoData,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case OrdersStateLoading():
 return loading();case OrdersStateLoaded():
@@ -504,7 +504,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<OrdersSection> sections)?  loaded,TResult? Function()?  loadedWithNoData,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( OrdersSection sections)?  loaded,TResult? Function()?  loadedWithNoData,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case OrdersStateLoading() when loading != null:
 return loading();case OrdersStateLoaded() when loaded != null:
@@ -554,16 +554,10 @@ String toString() {
 
 
 class OrdersStateLoaded implements OrdersState {
-  const OrdersStateLoaded({required final  List<OrdersSection> sections}): _sections = sections;
+  const OrdersStateLoaded({required this.sections});
   
 
- final  List<OrdersSection> _sections;
- List<OrdersSection> get sections {
-  if (_sections is EqualUnmodifiableListView) return _sections;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_sections);
-}
-
+ final  OrdersSection sections;
 
 /// Create a copy of OrdersState
 /// with the given fields replaced by the non-null parameter values.
@@ -575,12 +569,12 @@ $OrdersStateLoadedCopyWith<OrdersStateLoaded> get copyWith => _$OrdersStateLoade
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateLoaded&&const DeepCollectionEquality().equals(other._sections, _sections));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersStateLoaded&&(identical(other.sections, sections) || other.sections == sections));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections));
+int get hashCode => Object.hash(runtimeType,sections);
 
 @override
 String toString() {
@@ -595,7 +589,7 @@ abstract mixin class $OrdersStateLoadedCopyWith<$Res> implements $OrdersStateCop
   factory $OrdersStateLoadedCopyWith(OrdersStateLoaded value, $Res Function(OrdersStateLoaded) _then) = _$OrdersStateLoadedCopyWithImpl;
 @useResult
 $Res call({
- List<OrdersSection> sections
+ OrdersSection sections
 });
 
 
@@ -614,8 +608,8 @@ class _$OrdersStateLoadedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? sections = null,}) {
   return _then(OrdersStateLoaded(
-sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
-as List<OrdersSection>,
+sections: null == sections ? _self.sections : sections // ignore: cast_nullable_to_non_nullable
+as OrdersSection,
   ));
 }
 

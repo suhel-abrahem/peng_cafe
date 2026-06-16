@@ -28,7 +28,7 @@ part 'app_database.g.dart';
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (m) async {
@@ -44,6 +44,9 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(orderItemsTable, orderItemsTable.totalWithLosses);
         await m.addColumn(orderItemsTable, orderItemsTable.profit);
         await m.addColumn(ordersTable, ordersTable.customerName);
+      }
+      if(from <3){
+        await m.addColumn(orderItemsTable, orderItemsTable.totalAfterDiscount);
       }
     },
   );

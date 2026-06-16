@@ -23,7 +23,11 @@ import '../../data/models/product_model.dart';
 class UpdateProductForm extends StatefulWidget {
   final ProductEntity? productEntity;
   final ValueChanged<bool> onUpdated;
-  const UpdateProductForm({super.key, required this.productEntity, required this.onUpdated});
+  const UpdateProductForm({
+    super.key,
+    required this.productEntity,
+    required this.onUpdated,
+  });
 
   @override
   State<UpdateProductForm> createState() => _UpdateProductFormState();
@@ -251,7 +255,8 @@ class _UpdateProductFormState extends State<UpdateProductForm> {
                           if (value != null &&
                               value.toString().trim().isNotEmpty) {
                             if ((double.tryParse(value.toString()) == null) ||
-                                (double.tryParse(value.toString()) ?? 0) >= 0) {
+                                (double.tryParse(value.toString()) ?? 0.0) <
+                                    0.0) {
                               return LocaleKeys.validation_price.tr();
                             }
                           }

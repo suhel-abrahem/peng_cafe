@@ -1209,7 +1209,7 @@ class $OrderItemsTableTable extends OrderItemsTable
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    $customConstraints: 'REFERENCES products(id)',
+    $customConstraints: 'NOT NULL REFERENCES products(id)',
   );
   static const VerificationMeta _quantityMeta = const VerificationMeta(
     'quantity',
@@ -1283,6 +1283,18 @@ class $OrderItemsTableTable extends OrderItemsTable
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
+  static const VerificationMeta _totalAfterDiscountMeta =
+      const VerificationMeta('totalAfterDiscount');
+  @override
+  late final GeneratedColumn<double> totalAfterDiscount =
+      GeneratedColumn<double>(
+        'total_after_discount',
+        aliasedName,
+        false,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(0),
+      );
   static const VerificationMeta _totalWithLossesMeta = const VerificationMeta(
     'totalWithLosses',
   );
@@ -1349,6 +1361,7 @@ class $OrderItemsTableTable extends OrderItemsTable
     discount,
     total,
     losses,
+    totalAfterDiscount,
     totalWithLosses,
     profit,
     orderType,
@@ -1431,6 +1444,15 @@ class $OrderItemsTableTable extends OrderItemsTable
         losses.isAcceptableOrUnknown(data['losses']!, _lossesMeta),
       );
     }
+    if (data.containsKey('total_after_discount')) {
+      context.handle(
+        _totalAfterDiscountMeta,
+        totalAfterDiscount.isAcceptableOrUnknown(
+          data['total_after_discount']!,
+          _totalAfterDiscountMeta,
+        ),
+      );
+    }
     if (data.containsKey('total_with_losses')) {
       context.handle(
         _totalWithLossesMeta,
@@ -1503,6 +1525,10 @@ class $OrderItemsTableTable extends OrderItemsTable
         DriftSqlType.double,
         data['${effectivePrefix}losses'],
       )!,
+      totalAfterDiscount: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}total_after_discount'],
+      )!,
       totalWithLosses: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}total_with_losses'],
@@ -1555,6 +1581,7 @@ class OrderItemsTableData extends DataClass
   final double? discount;
   final double total;
   final double losses;
+  final double totalAfterDiscount;
   final double totalWithLosses;
   final double profit;
   final OrderTypeEnum orderType;
@@ -1571,6 +1598,7 @@ class OrderItemsTableData extends DataClass
     this.discount,
     required this.total,
     required this.losses,
+    required this.totalAfterDiscount,
     required this.totalWithLosses,
     required this.profit,
     required this.orderType,
@@ -1596,6 +1624,7 @@ class OrderItemsTableData extends DataClass
     }
     map['total'] = Variable<double>(total);
     map['losses'] = Variable<double>(losses);
+    map['total_after_discount'] = Variable<double>(totalAfterDiscount);
     map['total_with_losses'] = Variable<double>(totalWithLosses);
     map['profit'] = Variable<double>(profit);
     {
@@ -1626,6 +1655,7 @@ class OrderItemsTableData extends DataClass
           : Value(discount),
       total: Value(total),
       losses: Value(losses),
+      totalAfterDiscount: Value(totalAfterDiscount),
       totalWithLosses: Value(totalWithLosses),
       profit: Value(profit),
       orderType: Value(orderType),
@@ -1652,6 +1682,9 @@ class OrderItemsTableData extends DataClass
       discount: serializer.fromJson<double?>(json['discount']),
       total: serializer.fromJson<double>(json['total']),
       losses: serializer.fromJson<double>(json['losses']),
+      totalAfterDiscount: serializer.fromJson<double>(
+        json['totalAfterDiscount'],
+      ),
       totalWithLosses: serializer.fromJson<double>(json['totalWithLosses']),
       profit: serializer.fromJson<double>(json['profit']),
       orderType: $OrderItemsTableTable.$converterorderType.fromJson(
@@ -1679,6 +1712,7 @@ class OrderItemsTableData extends DataClass
       'discount': serializer.toJson<double?>(discount),
       'total': serializer.toJson<double>(total),
       'losses': serializer.toJson<double>(losses),
+      'totalAfterDiscount': serializer.toJson<double>(totalAfterDiscount),
       'totalWithLosses': serializer.toJson<double>(totalWithLosses),
       'profit': serializer.toJson<double>(profit),
       'orderType': serializer.toJson<int>(
@@ -1702,6 +1736,7 @@ class OrderItemsTableData extends DataClass
     Value<double?> discount = const Value.absent(),
     double? total,
     double? losses,
+    double? totalAfterDiscount,
     double? totalWithLosses,
     double? profit,
     OrderTypeEnum? orderType,
@@ -1718,6 +1753,7 @@ class OrderItemsTableData extends DataClass
     discount: discount.present ? discount.value : this.discount,
     total: total ?? this.total,
     losses: losses ?? this.losses,
+    totalAfterDiscount: totalAfterDiscount ?? this.totalAfterDiscount,
     totalWithLosses: totalWithLosses ?? this.totalWithLosses,
     profit: profit ?? this.profit,
     orderType: orderType ?? this.orderType,
@@ -1738,6 +1774,9 @@ class OrderItemsTableData extends DataClass
       discount: data.discount.present ? data.discount.value : this.discount,
       total: data.total.present ? data.total.value : this.total,
       losses: data.losses.present ? data.losses.value : this.losses,
+      totalAfterDiscount: data.totalAfterDiscount.present
+          ? data.totalAfterDiscount.value
+          : this.totalAfterDiscount,
       totalWithLosses: data.totalWithLosses.present
           ? data.totalWithLosses.value
           : this.totalWithLosses,
@@ -1763,6 +1802,7 @@ class OrderItemsTableData extends DataClass
           ..write('discount: $discount, ')
           ..write('total: $total, ')
           ..write('losses: $losses, ')
+          ..write('totalAfterDiscount: $totalAfterDiscount, ')
           ..write('totalWithLosses: $totalWithLosses, ')
           ..write('profit: $profit, ')
           ..write('orderType: $orderType, ')
@@ -1784,6 +1824,7 @@ class OrderItemsTableData extends DataClass
     discount,
     total,
     losses,
+    totalAfterDiscount,
     totalWithLosses,
     profit,
     orderType,
@@ -1804,6 +1845,7 @@ class OrderItemsTableData extends DataClass
           other.discount == this.discount &&
           other.total == this.total &&
           other.losses == this.losses &&
+          other.totalAfterDiscount == this.totalAfterDiscount &&
           other.totalWithLosses == this.totalWithLosses &&
           other.profit == this.profit &&
           other.orderType == this.orderType &&
@@ -1822,6 +1864,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
   final Value<double?> discount;
   final Value<double> total;
   final Value<double> losses;
+  final Value<double> totalAfterDiscount;
   final Value<double> totalWithLosses;
   final Value<double> profit;
   final Value<OrderTypeEnum> orderType;
@@ -1838,6 +1881,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     this.discount = const Value.absent(),
     this.total = const Value.absent(),
     this.losses = const Value.absent(),
+    this.totalAfterDiscount = const Value.absent(),
     this.totalWithLosses = const Value.absent(),
     this.profit = const Value.absent(),
     this.orderType = const Value.absent(),
@@ -1855,6 +1899,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     this.discount = const Value.absent(),
     required double total,
     this.losses = const Value.absent(),
+    this.totalAfterDiscount = const Value.absent(),
     this.totalWithLosses = const Value.absent(),
     this.profit = const Value.absent(),
     this.orderType = const Value.absent(),
@@ -1876,6 +1921,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     Expression<double>? discount,
     Expression<double>? total,
     Expression<double>? losses,
+    Expression<double>? totalAfterDiscount,
     Expression<double>? totalWithLosses,
     Expression<double>? profit,
     Expression<int>? orderType,
@@ -1893,6 +1939,8 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
       if (discount != null) 'discount': discount,
       if (total != null) 'total': total,
       if (losses != null) 'losses': losses,
+      if (totalAfterDiscount != null)
+        'total_after_discount': totalAfterDiscount,
       if (totalWithLosses != null) 'total_with_losses': totalWithLosses,
       if (profit != null) 'profit': profit,
       if (orderType != null) 'order_type': orderType,
@@ -1912,6 +1960,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     Value<double?>? discount,
     Value<double>? total,
     Value<double>? losses,
+    Value<double>? totalAfterDiscount,
     Value<double>? totalWithLosses,
     Value<double>? profit,
     Value<OrderTypeEnum>? orderType,
@@ -1929,6 +1978,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
       discount: discount ?? this.discount,
       total: total ?? this.total,
       losses: losses ?? this.losses,
+      totalAfterDiscount: totalAfterDiscount ?? this.totalAfterDiscount,
       totalWithLosses: totalWithLosses ?? this.totalWithLosses,
       profit: profit ?? this.profit,
       orderType: orderType ?? this.orderType,
@@ -1972,6 +2022,9 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
     if (losses.present) {
       map['losses'] = Variable<double>(losses.value);
     }
+    if (totalAfterDiscount.present) {
+      map['total_after_discount'] = Variable<double>(totalAfterDiscount.value);
+    }
     if (totalWithLosses.present) {
       map['total_with_losses'] = Variable<double>(totalWithLosses.value);
     }
@@ -2007,6 +2060,7 @@ class OrderItemsTableCompanion extends UpdateCompanion<OrderItemsTableData> {
           ..write('discount: $discount, ')
           ..write('total: $total, ')
           ..write('losses: $losses, ')
+          ..write('totalAfterDiscount: $totalAfterDiscount, ')
           ..write('totalWithLosses: $totalWithLosses, ')
           ..write('profit: $profit, ')
           ..write('orderType: $orderType, ')
@@ -3534,6 +3588,7 @@ typedef $$OrderItemsTableTableCreateCompanionBuilder =
       Value<double?> discount,
       required double total,
       Value<double> losses,
+      Value<double> totalAfterDiscount,
       Value<double> totalWithLosses,
       Value<double> profit,
       Value<OrderTypeEnum> orderType,
@@ -3552,6 +3607,7 @@ typedef $$OrderItemsTableTableUpdateCompanionBuilder =
       Value<double?> discount,
       Value<double> total,
       Value<double> losses,
+      Value<double> totalAfterDiscount,
       Value<double> totalWithLosses,
       Value<double> profit,
       Value<OrderTypeEnum> orderType,
@@ -3616,6 +3672,11 @@ class $$OrderItemsTableTableFilterComposer
 
   ColumnFilters<double> get losses => $composableBuilder(
     column: $table.losses,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3706,6 +3767,11 @@ class $$OrderItemsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<double> get totalWithLosses => $composableBuilder(
     column: $table.totalWithLosses,
     builder: (column) => ColumnOrderings(column),
@@ -3772,6 +3838,11 @@ class $$OrderItemsTableTableAnnotationComposer
 
   GeneratedColumn<double> get losses =>
       $composableBuilder(column: $table.losses, builder: (column) => column);
+
+  GeneratedColumn<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<double> get totalWithLosses => $composableBuilder(
     column: $table.totalWithLosses,
@@ -3841,6 +3912,7 @@ class $$OrderItemsTableTableTableManager
                 Value<double?> discount = const Value.absent(),
                 Value<double> total = const Value.absent(),
                 Value<double> losses = const Value.absent(),
+                Value<double> totalAfterDiscount = const Value.absent(),
                 Value<double> totalWithLosses = const Value.absent(),
                 Value<double> profit = const Value.absent(),
                 Value<OrderTypeEnum> orderType = const Value.absent(),
@@ -3857,6 +3929,7 @@ class $$OrderItemsTableTableTableManager
                 discount: discount,
                 total: total,
                 losses: losses,
+                totalAfterDiscount: totalAfterDiscount,
                 totalWithLosses: totalWithLosses,
                 profit: profit,
                 orderType: orderType,
@@ -3875,6 +3948,7 @@ class $$OrderItemsTableTableTableManager
                 Value<double?> discount = const Value.absent(),
                 required double total,
                 Value<double> losses = const Value.absent(),
+                Value<double> totalAfterDiscount = const Value.absent(),
                 Value<double> totalWithLosses = const Value.absent(),
                 Value<double> profit = const Value.absent(),
                 Value<OrderTypeEnum> orderType = const Value.absent(),
@@ -3891,6 +3965,7 @@ class $$OrderItemsTableTableTableManager
                 discount: discount,
                 total: total,
                 losses: losses,
+                totalAfterDiscount: totalAfterDiscount,
                 totalWithLosses: totalWithLosses,
                 profit: profit,
                 orderType: orderType,

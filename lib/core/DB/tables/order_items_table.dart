@@ -10,7 +10,7 @@ class OrderItemsTable extends Table {
       integer().customConstraint('NOT NULL REFERENCES orders(id)')();
 
   IntColumn get productId =>
-      integer().customConstraint('REFERENCES products(id)')();
+      integer().customConstraint('NOT NULL REFERENCES products(id)')();
   RealColumn get quantity => real().withDefault(const Constant(1))();
   IntColumn get tableType => intEnum<TableTypeEnum>().withDefault(
     Constant(TableTypeEnum.cafe.index),
@@ -20,6 +20,7 @@ class OrderItemsTable extends Table {
   RealColumn get discount => real().nullable()();
   RealColumn get total => real()();
   RealColumn get losses => real().withDefault(const Constant(0))();
+  RealColumn get totalAfterDiscount => real().withDefault(const Constant(0))();
   RealColumn get totalWithLosses => real().withDefault(const Constant(0))();
   RealColumn get profit => real().withDefault(const Constant(0))();
 

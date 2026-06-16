@@ -17,7 +17,8 @@ OrderItemEntity orderItemFromJoin(
     quantity: item.quantity,
     price: item.price,
     total: item.total,
-    productName: product.localizedName(locale), // ✅ FIXED
+    totalAfterDiscount: item.totalAfterDiscount,
+    productName: product.localizedName(locale),
     discount: item.discount,
     tableType: TableTypeEnum.values[item.tableType.index],
     tableNumber: item.tableNumber,

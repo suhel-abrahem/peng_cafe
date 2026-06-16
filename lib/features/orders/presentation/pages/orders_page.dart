@@ -18,6 +18,7 @@ import '../../../../config/route/routes_manager.dart';
 import '../../../../core/enums/duration_enum.dart';
 import '../../../../core/resource/main_page/main_page.dart';
 import '../../../../core/resource/printing_service.dart';
+import '../../../../core/util/helper/helper.dart';
 import '../bloc/orders_bloc.dart';
 
 import 'order_details_page.dart';
@@ -226,261 +227,289 @@ class _OrdersPageState extends State<OrdersPage> {
                                               },
                                             );
                                           },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Text(
-                                                    'Order #${order.orderNumber}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium
-                                                        ?.copyWith(
-                                                          fontFamily:
-                                                              FontConstants.fontFamily(
-                                                                context.locale,
-                                                              ),
-                                                        ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: 8.h,
+                                            ),
+                                            child:
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    vertical: 12.h,
+                                                    horizontal: 12.w,
                                                   ),
-                                                  order.orderType ==
-                                                          OrderTypeEnum
-                                                              .withdrawal
-                                                      ? Row(
-                                                          children: [
-                                                            Text(
-                                                              LocaleKeys
-                                                                  .ordersPage_withdraw
-                                                                  .tr(),
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .labelLarge
-                                                                  ?.copyWith(
-                                                                    fontFamily:
-                                                                        FontConstants.fontFamily(
-                                                                          context
-                                                                              .locale,
-                                                                        ),
-                                                                  ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsets.symmetric(
-                                                                    horizontal:
-                                                                        8,
-                                                                  ),
-                                                              child: Text(
-                                                                '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
-                                                                style: Theme.of(context)
-                                                                    .textTheme
-                                                                    .labelLarge
-                                                                    ?.copyWith(
-                                                                      fontFamily:
-                                                                          FontConstants.fontFamily(
-                                                                            context.locale,
-                                                                          ),
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              "-${order.total.toStringAsFixed(2)} د.ع",
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .labelLarge
-                                                                  ?.copyWith(
-                                                                    fontFamily:
-                                                                        FontConstants.fontFamily(
-                                                                          context
-                                                                              .locale,
-                                                                        ),
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              'Table: ${order.tableNumber}',
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .labelLarge
-                                                                  ?.copyWith(
-                                                                    fontFamily:
-                                                                        FontConstants.fontFamily(
-                                                                          context
-                                                                              .locale,
-                                                                        ),
-                                                                  ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsets.symmetric(
-                                                                    horizontal:
-                                                                        8,
-                                                                  ),
-                                                              child: Text(
-                                                                '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
-                                                                style: Theme.of(context)
-                                                                    .textTheme
-                                                                    .labelLarge
-                                                                    ?.copyWith(
-                                                                      fontFamily:
-                                                                          FontConstants.fontFamily(
-                                                                            context.locale,
-                                                                          ),
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    "Total: ${order.total.toStringAsFixed(2)}",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge
-                                                        ?.copyWith(
-                                                          fontFamily:
-                                                              FontConstants.fontFamily(
-                                                                context.locale,
-                                                              ),
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                          horizontal: 12.w,
-                                                        ),
-                                                    child: Text(
-                                                      "Net Total: ${order.netTotal.toStringAsFixed(2)}",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelLarge
-                                                          ?.copyWith(
-                                                            fontFamily:
-                                                                FontConstants.fontFamily(
-                                                                  context
-                                                                      .locale,
-                                                                ),
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Losses: ${order.losses.toStringAsFixed(2)}",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge
-                                                        ?.copyWith(
-                                                          fontFamily:
-                                                              FontConstants.fontFamily(
-                                                                context.locale,
-                                                              ),
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                          horizontal: 12.w,
-                                                        ),
-                                                    child: Text(
-                                                      "Profit: ${order.profit.toStringAsFixed(2)}",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelLarge
-                                                          ?.copyWith(
-                                                            fontFamily:
-                                                                FontConstants.fontFamily(
-                                                                  context
-                                                                      .locale,
-                                                                ),
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional.only(
-                                                          start: 12.w,
-                                                        ),
-                                                    child: Builder(
-                                                      builder: (context) => SizedBox(
-                                                        width: 50.w,
-                                                        height: 50.h,
-                                                        child: IconButton(
-                                                          onPressed: () async {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (
-                                                                    deleteDialogContext,
-                                                                  ) => AlertDialog(
-                                                                    backgroundColor:
-                                                                        Theme.of(
-                                                                          context,
-                                                                        ).scaffoldBackgroundColor,
-                                                                    title: AnimatedEmoji(
-                                                                      AnimatedEmojis
-                                                                          .question,
-                                                                    ),
-                                                                    content: Text(
-                                                                      LocaleKeys
-                                                                          .ordersPage_areYouSureToDeleteThisOrder
-                                                                          .tr(),
-                                                                      style: Theme.of(
-                                                                        context,
-                                                                      ).textTheme.labelLarge,
-                                                                    ),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed: () {
-                                                                          context
-                                                                              .read<
-                                                                                DeleteOrderByIdBloc
-                                                                              >()
-                                                                              .add(
-                                                                                DeleteOrderByIdEvent.delete(
-                                                                                  order.id,
-                                                                                ),
-                                                                              );
-                                                                          Navigator.pop(
-                                                                            deleteDialogContext,
-                                                                          );
-                                                                        },
-                                                                        child: Text(
-                                                                          LocaleKeys
-                                                                              .common_delete
-                                                                              .tr(),
-                                                                          style:
-                                                                              Theme.of(
-                                                                                context,
-                                                                              ).textTheme.labelLarge?.copyWith(
-                                                                                fontSize: 24.sp,
-                                                                                color: Theme.of(
-                                                                                  context,
-                                                                                ).colorScheme.error,
-                                                                              ),
-                                                                        ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'Order #${order.orderNumber}',
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .titleMedium
+                                                                ?.copyWith(
+                                                                  fontFamily:
+                                                                      FontConstants.fontFamily(
+                                                                        context
+                                                                            .locale,
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                            );
-                                                          },
-                                                          icon: Icon(
-                                                            Icons
-                                                                .delete_outline,
+                                                                ),
                                                           ),
-                                                        ),
+                                                          Text(
+                                                            '${LocaleKeys.tablePage_clientName.tr()}: ${order.customerName ?? "user"}',
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .titleMedium
+                                                                ?.copyWith(
+                                                                  fontFamily:
+                                                                      FontConstants.fontFamily(
+                                                                        context
+                                                                            .locale,
+                                                                      ),
+                                                                ),
+                                                          ),
+                                                          order.orderType ==
+                                                                  OrderTypeEnum
+                                                                      .withdrawal
+                                                              ? Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      LocaleKeys
+                                                                          .ordersPage_withdraw
+                                                                          .tr(),
+                                                                      style: Theme.of(context)
+                                                                          .textTheme
+                                                                          .labelLarge
+                                                                          ?.copyWith(
+                                                                            fontFamily: FontConstants.fontFamily(
+                                                                              context.locale,
+                                                                            ),
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            8,
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
+                                                                        style:
+                                                                            Theme.of(
+                                                                              context,
+                                                                            ).textTheme.labelLarge?.copyWith(
+                                                                              fontFamily: FontConstants.fontFamily(
+                                                                                context.locale,
+                                                                              ),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      "-${order.total.toStringAsFixed(2)} د.ع",
+                                                                      style: Theme.of(context)
+                                                                          .textTheme
+                                                                          .labelLarge
+                                                                          ?.copyWith(
+                                                                            fontFamily: FontConstants.fontFamily(
+                                                                              context.locale,
+                                                                            ),
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      'Table: ${order.tableNumber}',
+                                                                      style: Theme.of(context)
+                                                                          .textTheme
+                                                                          .labelLarge
+                                                                          ?.copyWith(
+                                                                            fontFamily: FontConstants.fontFamily(
+                                                                              context.locale,
+                                                                            ),
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            8,
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${order.createdAt.year}/${order.createdAt.month}/${order.createdAt.day}- ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}',
+                                                                        style:
+                                                                            Theme.of(
+                                                                              context,
+                                                                            ).textTheme.labelLarge?.copyWith(
+                                                                              fontFamily: FontConstants.fontFamily(
+                                                                                context.locale,
+                                                                              ),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                        ],
                                                       ),
-                                                    ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Total: ${order.total.toStringAsFixed(2)}",
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .labelLarge
+                                                                ?.copyWith(
+                                                                  fontFamily:
+                                                                      FontConstants.fontFamily(
+                                                                        context
+                                                                            .locale,
+                                                                      ),
+                                                                ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      12.w,
+                                                                ),
+                                                            child: Text(
+                                                              "Net Total: ${order.netTotal.toStringAsFixed(2)}",
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .labelLarge
+                                                                  ?.copyWith(
+                                                                    fontFamily:
+                                                                        FontConstants.fontFamily(
+                                                                          context
+                                                                              .locale,
+                                                                        ),
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "Losses: ${order.losses.toStringAsFixed(2)}",
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .labelLarge
+                                                                ?.copyWith(
+                                                                  fontFamily:
+                                                                      FontConstants.fontFamily(
+                                                                        context
+                                                                            .locale,
+                                                                      ),
+                                                                ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      12.w,
+                                                                ),
+                                                            child: Text(
+                                                              "Profit: ${Helper.formatPrice(order.profit)}",
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .labelLarge
+                                                                  ?.copyWith(
+                                                                    fontFamily:
+                                                                        FontConstants.fontFamily(
+                                                                          context
+                                                                              .locale,
+                                                                        ),
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional.only(
+                                                                  start: 12.w,
+                                                                ),
+                                                            child: Builder(
+                                                              builder: (context) => SizedBox(
+                                                                width: 50.w,
+                                                                height: 50.h,
+                                                                child: IconButton(
+                                                                  onPressed: () async {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (
+                                                                            deleteDialogContext,
+                                                                          ) => AlertDialog(
+                                                                            backgroundColor: Theme.of(
+                                                                              context,
+                                                                            ).scaffoldBackgroundColor,
+                                                                            title: AnimatedEmoji(
+                                                                              AnimatedEmojis.question,
+                                                                            ),
+                                                                            content: Text(
+                                                                              LocaleKeys.ordersPage_areYouSureToDeleteThisOrder.tr(),
+                                                                              style: Theme.of(
+                                                                                context,
+                                                                              ).textTheme.labelLarge,
+                                                                            ),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () {
+                                                                                  context
+                                                                                      .read<
+                                                                                        DeleteOrderByIdBloc
+                                                                                      >()
+                                                                                      .add(
+                                                                                        DeleteOrderByIdEvent.delete(
+                                                                                          order.id,
+                                                                                        ),
+                                                                                      );
+                                                                                  Navigator.pop(
+                                                                                    deleteDialogContext,
+                                                                                  );
+                                                                                },
+                                                                                child: Text(
+                                                                                  LocaleKeys.common_delete.tr(),
+                                                                                  style:
+                                                                                      Theme.of(
+                                                                                        context,
+                                                                                      ).textTheme.labelLarge?.copyWith(
+                                                                                        fontSize: 24.sp,
+                                                                                        color: Theme.of(
+                                                                                          context,
+                                                                                        ).colorScheme.error,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                    );
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .delete_outline,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ],
+                                                ).asGlass(
+                                                  clipBorderRadius:
+                                                      BorderRadiusGeometry.circular(
+                                                        12.r,
+                                                      ),
+                                                  border: Theme.of(
+                                                    context,
+                                                  ).defaultBorderSide,
+                                                  frosted: false,
+                                                ),
                                           ),
                                         );
                                       },

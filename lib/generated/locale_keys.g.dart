@@ -218,6 +218,7 @@ abstract class  LocaleKeys {
   static const tablePage_addOrderForm_productName = 'tablePage.addOrderForm.productName';
   static const tablePage_addOrderForm_priceAndQuantity = 'tablePage.addOrderForm.priceAndQuantity';
   static const tablePage_addOrderForm = 'tablePage.addOrderForm';
+  static const tablePage_clientName = 'tablePage.clientName';
   static const tablePage = 'tablePage';
   static const durationEnum_never = 'durationEnum.never';
   static const durationEnum_daily = 'durationEnum.daily';

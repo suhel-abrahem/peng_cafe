@@ -229,7 +229,8 @@
       "addButton": "Add",
       "productName": "Product Name",
       "priceAndQuantity": "Price and Quantity"
-    }
+    },
+    "clientName": "Client Name"
   },
   "durationEnum": {
     "never": "Never",

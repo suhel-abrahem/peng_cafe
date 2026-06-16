@@ -246,7 +246,8 @@ class CodegenLoader extends AssetLoader{
       "addButton": "إضافة",
       "productName": "اسم المنتج",
       "priceAndQuantity": "السعر والكمية"
-    }
+    },
+    "clientName": "اسم الزبون"
   },
   "durationEnum": {
     "never": "أبدًا",
@@ -511,7 +512,8 @@ static const Map<String,dynamic> _en = {
       "addButton": "Add",
       "productName": "Product Name",
       "priceAndQuantity": "Price and Quantity"
-    }
+    },
+    "clientName": "Client Name"
   },
   "durationEnum": {
     "never": "Never",
@@ -756,7 +758,8 @@ static const Map<String,dynamic> _fa = {
       "addButton": "زیادکردن",
       "productName": "ناوی کاڵا",
       "priceAndQuantity": "نرخ و ژمارە"
-    }
+    },
+    "clientName": "اسم الزبون"
   },
   "durationEnum": {
     "never": "هیچ‌کات",
