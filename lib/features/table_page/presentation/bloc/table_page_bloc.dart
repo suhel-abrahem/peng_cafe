@@ -193,6 +193,7 @@ class TablePageBloc extends Bloc<TablePageEvent, TablePageState> {
         orderId: _currentOrder!.id,
         paidAmount: event.paidAmount,
         remaining: event.remaining,
+        customerName: event.clientName,
       ),
     );
 

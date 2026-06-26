@@ -22,8 +22,8 @@ class CloseOrderUsecase implements UseCase<DataState<void>, CloseOrderParams> {
   CloseOrderUsecase(this.repository);
 
   @override
-  Future<DataState<void>> call({required CloseOrderParams params}) {
-    return repository.closeOrder(
+  Future<DataState<void>> call({required CloseOrderParams params}) async {
+    return await repository.closeOrder(
       orderId: params.orderId,
       paidAmount: params.paidAmount,
       remaining: params.remaining,

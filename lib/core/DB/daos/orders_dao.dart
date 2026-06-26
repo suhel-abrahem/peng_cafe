@@ -59,6 +59,7 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     required double losses,
     required double profit,
     required double totalWithLosses,
+    required double totalAfterDiscount,
   }) {
     return (update(ordersTable)..where((t) => t.id.equals(orderId))).write(
       OrdersTableCompanion(
@@ -68,6 +69,7 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
         losses: Value(losses),
         profit: Value(profit),
         totalWithLosses: Value(totalWithLosses),
+        totalAfterDiscount: Value(totalAfterDiscount),
       ),
     );
   }
@@ -97,6 +99,10 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
     );
 
     final total = items.fold<double>(0, (sum, item) => sum + item.total);
+    final double totalAfterDiscount = items.fold<double>(
+      0,
+      (sum, item) => (sum + (item.total - (item.total * (item.discount ?? 0)))),
+    );
 
     final losses = items.fold<double>(0, (sum, item) => sum + item.losses);
 
@@ -115,6 +121,7 @@ class OrdersDao extends DatabaseAccessor<AppDatabase> with _$OrdersDaoMixin {
       losses: losses,
       profit: profit,
       totalWithLosses: totalWithLosses,
+      totalAfterDiscount: totalAfterDiscount,
     );
   }
 

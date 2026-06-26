@@ -153,8 +153,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                             height: 60.h,
                             isRequired: false,
                             initialValue: clientName,
-                            onChanged: (value) {},
-                            onSubmitted: (value) {},
+                            onChanged: (value) {
+                              clientName = value;
+                            },
+                            onSubmitted: (value) {
+                              clientName = value;
+                            },
                             validator: (value) {
                               return null;
                             },

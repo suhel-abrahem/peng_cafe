@@ -11,7 +11,13 @@ OrderEntity orderFromRow(OrdersTableData row) {
     tableNumber: row.tableNumber,
     status: row.orderStatus,
     total: row.total,
+    customerName: row.customerName,
+    losses: row.losses,
+    discount: row.discount ?? 0.0,
+    profit: row.profit,
     createdAt: row.createdAt,
+    netTotal: row.totalAfterDiscount,
+    totalAfterLosses: row.totalWithLosses,
     tableType: TableTypeEnum.values[row.tableType.index],
     orderType: OrderTypeEnum.values[row.orderType.index],
   );

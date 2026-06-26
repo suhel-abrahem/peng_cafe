@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/orders/data/models/orders_section_model.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -95,8 +96,8 @@ class BillPrinter {
 
   static Future<void> printLastOrders({
     required BuildContext context,
-    required List<OrdersSection> orders,
-    required double totalRevenue,
+    required OrdersSection orders,
+    required String title,
   }) async {
     final pdf = pw.Document();
 
@@ -131,7 +132,7 @@ class BillPrinter {
         footer: (ctx) => pw.Align(
           alignment: pw.Alignment.center,
           child: pw.Text(
-            'إجمالي الإيراد: ${totalRevenue.toStringAsFixed(0)} د.ع',
+            'إجمالي الإيراد: ${Helper.formatPrice(orders.total)} د.ع',
             style: pw.TextStyle(font: ttf, fontSize: 12),
           ),
         ),
@@ -139,14 +140,14 @@ class BillPrinter {
         build: (pw.Context ctx) {
           final widgets = <pw.Widget>[pw.SizedBox(height: 10)];
 
-          for (final section in orders) {
+          for (final section in orders.orders) {
             widgets.addAll([
               // Keep section title with at least one line below it
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Text(
-                    section.title.tr(),
+                    title.tr(),
                     style: pw.TextStyle(font: ttf, fontSize: 16),
                   ),
                   pw.SizedBox(height: 6),
@@ -154,44 +155,46 @@ class BillPrinter {
               ),
 
               // Orders list (MultiPage will split automatically)
-              ...section.orders.map((order) {
+              ...section.map((order) {
                 final date =
                     '${order.createdAt.day}/${order.createdAt.month}/${order.createdAt.year}'
                     ' - ${order.createdAt.hour}:${order.createdAt.minute.toString().padLeft(2, '0')}';
 
-                return pw.Padding(
-                  padding: const pw.EdgeInsets.symmetric(vertical: 3),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Expanded(
-                        flex: 3,
-                        child: pw.Text(
-                          'الطاولة ${order.tableNumber} - ${order.orderNumber}',
-                          style: pw.TextStyle(font: ttf, fontSize: 11),
+                return [
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 3),
+                    child: pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Expanded(
+                          flex: 3,
+                          child: pw.Text(
+                            'الطاولة ${order.tableNumber} - ${order.orderNumber}',
+                            style: pw.TextStyle(font: ttf, fontSize: 11),
+                          ),
                         ),
-                      ),
-                      pw.SizedBox(width: 8),
-                      pw.Expanded(
-                        flex: 2,
-                        child: pw.Text(
-                          '${order.total} د.ع',
-                          style: pw.TextStyle(font: ttf, fontSize: 11),
-                          textAlign: pw.TextAlign.center,
+                        pw.SizedBox(width: 8),
+                        pw.Expanded(
+                          flex: 2,
+                          child: pw.Text(
+                            '${order.total} د.ع',
+                            style: pw.TextStyle(font: ttf, fontSize: 11),
+                            textAlign: pw.TextAlign.center,
+                          ),
                         ),
-                      ),
-                      pw.SizedBox(width: 8),
-                      pw.Expanded(
-                        flex: 3,
-                        child: pw.Text(
-                          date,
-                          style: pw.TextStyle(font: ttf, fontSize: 10),
-                          textAlign: pw.TextAlign.left,
+                        pw.SizedBox(width: 8),
+                        pw.Expanded(
+                          flex: 3,
+                          child: pw.Text(
+                            date,
+                            style: pw.TextStyle(font: ttf, fontSize: 10),
+                            textAlign: pw.TextAlign.left,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                );
+                ];
               }),
 
               pw.Divider(),

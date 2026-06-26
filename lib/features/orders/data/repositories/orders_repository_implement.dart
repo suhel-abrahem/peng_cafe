@@ -81,6 +81,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
             loss: ordersDao.calculateLossesTotal(orders),
             netTotal: ordersDao.calculateTotalWithLosses(orders),
             
+            
           ),
         
       );

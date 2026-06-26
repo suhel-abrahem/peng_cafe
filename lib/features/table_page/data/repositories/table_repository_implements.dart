@@ -281,6 +281,7 @@ class TableRepositoryImplements implements TableRepository {
           losses: 0,
           profit: 0,
           totalWithLosses: -paidAmount,
+          totalAfterDiscount: 0,
         );
 
         await ordersDao.closeOrder(
@@ -295,7 +296,7 @@ class TableRepositoryImplements implements TableRepository {
 
       // Important: recalculate before closing
       await ordersDao.recalculateOrderTotals(orderId);
-
+      print("from repo client name: ${customerName}");
       await ordersDao.closeOrder(
         orderId,
         orderType: orderType,

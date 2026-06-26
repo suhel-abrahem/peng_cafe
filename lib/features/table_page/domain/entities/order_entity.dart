@@ -19,6 +19,7 @@ abstract class OrderEntity with _$OrderEntity {
     @Default(0.0) double profit,
     @Default(0.0) double losses,
     @Default(0.0) double discount,
+    @Default(0.0) double totalAfterLosses,
     String? customerName,
     required DateTime createdAt,
     required OrderTypeEnum orderType,

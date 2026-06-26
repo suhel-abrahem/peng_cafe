@@ -2185,6 +2185,18 @@ class $OrdersTableTable extends OrdersTable
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
+  static const VerificationMeta _totalAfterDiscountMeta =
+      const VerificationMeta('totalAfterDiscount');
+  @override
+  late final GeneratedColumn<double> totalAfterDiscount =
+      GeneratedColumn<double>(
+        'total_after_discount',
+        aliasedName,
+        false,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(0),
+      );
   @override
   late final GeneratedColumnWithTypeConverter<TableTypeEnum, int> tableType =
       GeneratedColumn<int>(
@@ -2257,6 +2269,7 @@ class $OrdersTableTable extends OrdersTable
     losses,
     profit,
     totalWithLosses,
+    totalAfterDiscount,
     tableType,
     orderType,
     orderStatus,
@@ -2353,6 +2366,15 @@ class $OrdersTableTable extends OrdersTable
         ),
       );
     }
+    if (data.containsKey('total_after_discount')) {
+      context.handle(
+        _totalAfterDiscountMeta,
+        totalAfterDiscount.isAcceptableOrUnknown(
+          data['total_after_discount']!,
+          _totalAfterDiscountMeta,
+        ),
+      );
+    }
     if (data.containsKey('user_id')) {
       context.handle(
         _userIdMeta,
@@ -2422,6 +2444,10 @@ class $OrdersTableTable extends OrdersTable
         DriftSqlType.double,
         data['${effectivePrefix}total_with_losses'],
       )!,
+      totalAfterDiscount: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}total_after_discount'],
+      )!,
       tableType: $OrdersTableTable.$convertertableType.fromSql(
         attachedDatabase.typeMapping.read(
           DriftSqlType.int,
@@ -2479,6 +2505,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
   final double losses;
   final double profit;
   final double totalWithLosses;
+  final double totalAfterDiscount;
   final TableTypeEnum tableType;
   final OrderTypeEnum orderType;
   final OrderStatusEnum orderStatus;
@@ -2496,6 +2523,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
     required this.losses,
     required this.profit,
     required this.totalWithLosses,
+    required this.totalAfterDiscount,
     required this.tableType,
     required this.orderType,
     required this.orderStatus,
@@ -2520,6 +2548,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
     map['losses'] = Variable<double>(losses);
     map['profit'] = Variable<double>(profit);
     map['total_with_losses'] = Variable<double>(totalWithLosses);
+    map['total_after_discount'] = Variable<double>(totalAfterDiscount);
     {
       map['table_type'] = Variable<int>(
         $OrdersTableTable.$convertertableType.toSql(tableType),
@@ -2559,6 +2588,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
       losses: Value(losses),
       profit: Value(profit),
       totalWithLosses: Value(totalWithLosses),
+      totalAfterDiscount: Value(totalAfterDiscount),
       tableType: Value(tableType),
       orderType: Value(orderType),
       orderStatus: Value(orderStatus),
@@ -2586,6 +2616,9 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
       losses: serializer.fromJson<double>(json['losses']),
       profit: serializer.fromJson<double>(json['profit']),
       totalWithLosses: serializer.fromJson<double>(json['totalWithLosses']),
+      totalAfterDiscount: serializer.fromJson<double>(
+        json['totalAfterDiscount'],
+      ),
       tableType: $OrdersTableTable.$convertertableType.fromJson(
         serializer.fromJson<int>(json['tableType']),
       ),
@@ -2614,6 +2647,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
       'losses': serializer.toJson<double>(losses),
       'profit': serializer.toJson<double>(profit),
       'totalWithLosses': serializer.toJson<double>(totalWithLosses),
+      'totalAfterDiscount': serializer.toJson<double>(totalAfterDiscount),
       'tableType': serializer.toJson<int>(
         $OrdersTableTable.$convertertableType.toJson(tableType),
       ),
@@ -2640,6 +2674,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
     double? losses,
     double? profit,
     double? totalWithLosses,
+    double? totalAfterDiscount,
     TableTypeEnum? tableType,
     OrderTypeEnum? orderType,
     OrderStatusEnum? orderStatus,
@@ -2657,6 +2692,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
     losses: losses ?? this.losses,
     profit: profit ?? this.profit,
     totalWithLosses: totalWithLosses ?? this.totalWithLosses,
+    totalAfterDiscount: totalAfterDiscount ?? this.totalAfterDiscount,
     tableType: tableType ?? this.tableType,
     orderType: orderType ?? this.orderType,
     orderStatus: orderStatus ?? this.orderStatus,
@@ -2684,6 +2720,9 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
       totalWithLosses: data.totalWithLosses.present
           ? data.totalWithLosses.value
           : this.totalWithLosses,
+      totalAfterDiscount: data.totalAfterDiscount.present
+          ? data.totalAfterDiscount.value
+          : this.totalAfterDiscount,
       tableType: data.tableType.present ? data.tableType.value : this.tableType,
       orderType: data.orderType.present ? data.orderType.value : this.orderType,
       orderStatus: data.orderStatus.present
@@ -2708,6 +2747,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
           ..write('losses: $losses, ')
           ..write('profit: $profit, ')
           ..write('totalWithLosses: $totalWithLosses, ')
+          ..write('totalAfterDiscount: $totalAfterDiscount, ')
           ..write('tableType: $tableType, ')
           ..write('orderType: $orderType, ')
           ..write('orderStatus: $orderStatus, ')
@@ -2730,6 +2770,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
     losses,
     profit,
     totalWithLosses,
+    totalAfterDiscount,
     tableType,
     orderType,
     orderStatus,
@@ -2751,6 +2792,7 @@ class OrdersTableData extends DataClass implements Insertable<OrdersTableData> {
           other.losses == this.losses &&
           other.profit == this.profit &&
           other.totalWithLosses == this.totalWithLosses &&
+          other.totalAfterDiscount == this.totalAfterDiscount &&
           other.tableType == this.tableType &&
           other.orderType == this.orderType &&
           other.orderStatus == this.orderStatus &&
@@ -2770,6 +2812,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
   final Value<double> losses;
   final Value<double> profit;
   final Value<double> totalWithLosses;
+  final Value<double> totalAfterDiscount;
   final Value<TableTypeEnum> tableType;
   final Value<OrderTypeEnum> orderType;
   final Value<OrderStatusEnum> orderStatus;
@@ -2787,6 +2830,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
     this.losses = const Value.absent(),
     this.profit = const Value.absent(),
     this.totalWithLosses = const Value.absent(),
+    this.totalAfterDiscount = const Value.absent(),
     this.tableType = const Value.absent(),
     this.orderType = const Value.absent(),
     this.orderStatus = const Value.absent(),
@@ -2805,6 +2849,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
     this.losses = const Value.absent(),
     this.profit = const Value.absent(),
     this.totalWithLosses = const Value.absent(),
+    this.totalAfterDiscount = const Value.absent(),
     required TableTypeEnum tableType,
     this.orderType = const Value.absent(),
     this.orderStatus = const Value.absent(),
@@ -2828,6 +2873,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
     Expression<double>? losses,
     Expression<double>? profit,
     Expression<double>? totalWithLosses,
+    Expression<double>? totalAfterDiscount,
     Expression<int>? tableType,
     Expression<int>? orderType,
     Expression<int>? orderStatus,
@@ -2846,6 +2892,8 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
       if (losses != null) 'losses': losses,
       if (profit != null) 'profit': profit,
       if (totalWithLosses != null) 'total_with_losses': totalWithLosses,
+      if (totalAfterDiscount != null)
+        'total_after_discount': totalAfterDiscount,
       if (tableType != null) 'table_type': tableType,
       if (orderType != null) 'order_type': orderType,
       if (orderStatus != null) 'order_status': orderStatus,
@@ -2866,6 +2914,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
     Value<double>? losses,
     Value<double>? profit,
     Value<double>? totalWithLosses,
+    Value<double>? totalAfterDiscount,
     Value<TableTypeEnum>? tableType,
     Value<OrderTypeEnum>? orderType,
     Value<OrderStatusEnum>? orderStatus,
@@ -2884,6 +2933,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
       losses: losses ?? this.losses,
       profit: profit ?? this.profit,
       totalWithLosses: totalWithLosses ?? this.totalWithLosses,
+      totalAfterDiscount: totalAfterDiscount ?? this.totalAfterDiscount,
       tableType: tableType ?? this.tableType,
       orderType: orderType ?? this.orderType,
       orderStatus: orderStatus ?? this.orderStatus,
@@ -2926,6 +2976,9 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
     if (totalWithLosses.present) {
       map['total_with_losses'] = Variable<double>(totalWithLosses.value);
     }
+    if (totalAfterDiscount.present) {
+      map['total_after_discount'] = Variable<double>(totalAfterDiscount.value);
+    }
     if (tableType.present) {
       map['table_type'] = Variable<int>(
         $OrdersTableTable.$convertertableType.toSql(tableType.value),
@@ -2966,6 +3019,7 @@ class OrdersTableCompanion extends UpdateCompanion<OrdersTableData> {
           ..write('losses: $losses, ')
           ..write('profit: $profit, ')
           ..write('totalWithLosses: $totalWithLosses, ')
+          ..write('totalAfterDiscount: $totalAfterDiscount, ')
           ..write('tableType: $tableType, ')
           ..write('orderType: $orderType, ')
           ..write('orderStatus: $orderStatus, ')
@@ -4013,6 +4067,7 @@ typedef $$OrdersTableTableCreateCompanionBuilder =
       Value<double> losses,
       Value<double> profit,
       Value<double> totalWithLosses,
+      Value<double> totalAfterDiscount,
       required TableTypeEnum tableType,
       Value<OrderTypeEnum> orderType,
       Value<OrderStatusEnum> orderStatus,
@@ -4032,6 +4087,7 @@ typedef $$OrdersTableTableUpdateCompanionBuilder =
       Value<double> losses,
       Value<double> profit,
       Value<double> totalWithLosses,
+      Value<double> totalAfterDiscount,
       Value<TableTypeEnum> tableType,
       Value<OrderTypeEnum> orderType,
       Value<OrderStatusEnum> orderStatus,
@@ -4096,6 +4152,11 @@ class $$OrdersTableTableFilterComposer
 
   ColumnFilters<double> get totalWithLosses => $composableBuilder(
     column: $table.totalWithLosses,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4192,6 +4253,11 @@ class $$OrdersTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get tableType => $composableBuilder(
     column: $table.tableType,
     builder: (column) => ColumnOrderings(column),
@@ -4270,6 +4336,11 @@ class $$OrdersTableTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<double> get totalAfterDiscount => $composableBuilder(
+    column: $table.totalAfterDiscount,
+    builder: (column) => column,
+  );
+
   GeneratedColumnWithTypeConverter<TableTypeEnum, int> get tableType =>
       $composableBuilder(column: $table.tableType, builder: (column) => column);
 
@@ -4333,6 +4404,7 @@ class $$OrdersTableTableTableManager
                 Value<double> losses = const Value.absent(),
                 Value<double> profit = const Value.absent(),
                 Value<double> totalWithLosses = const Value.absent(),
+                Value<double> totalAfterDiscount = const Value.absent(),
                 Value<TableTypeEnum> tableType = const Value.absent(),
                 Value<OrderTypeEnum> orderType = const Value.absent(),
                 Value<OrderStatusEnum> orderStatus = const Value.absent(),
@@ -4350,6 +4422,7 @@ class $$OrdersTableTableTableManager
                 losses: losses,
                 profit: profit,
                 totalWithLosses: totalWithLosses,
+                totalAfterDiscount: totalAfterDiscount,
                 tableType: tableType,
                 orderType: orderType,
                 orderStatus: orderStatus,
@@ -4369,6 +4442,7 @@ class $$OrdersTableTableTableManager
                 Value<double> losses = const Value.absent(),
                 Value<double> profit = const Value.absent(),
                 Value<double> totalWithLosses = const Value.absent(),
+                Value<double> totalAfterDiscount = const Value.absent(),
                 required TableTypeEnum tableType,
                 Value<OrderTypeEnum> orderType = const Value.absent(),
                 Value<OrderStatusEnum> orderStatus = const Value.absent(),
@@ -4386,6 +4460,7 @@ class $$OrdersTableTableTableManager
                 losses: losses,
                 profit: profit,
                 totalWithLosses: totalWithLosses,
+                totalAfterDiscount: totalAfterDiscount,
                 tableType: tableType,
                 orderType: orderType,
                 orderStatus: orderStatus,

@@ -16,6 +16,7 @@ class OrdersTable extends Table {
   RealColumn get losses => real().withDefault(const Constant(0))();
   RealColumn get profit => real().withDefault(const Constant(0))();
   RealColumn get totalWithLosses => real().withDefault(const Constant(0))();
+  RealColumn get totalAfterDiscount => real().withDefault(const Constant(0))();
   IntColumn get tableType => intEnum<TableTypeEnum>()();
 
   IntColumn get orderType => intEnum<OrderTypeEnum>().withDefault(
