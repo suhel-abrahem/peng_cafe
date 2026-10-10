@@ -52,6 +52,7 @@ dependencies:
   pdf:
   native_splash_screen:
   flutter_launcher_icons: ^0.14.4
+  webcrypto: ^0.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
