@@ -53,10 +53,12 @@ dependencies:
   native_splash_screen:
   flutter_launcher_icons: ^0.14.4
   webcrypto: ^0.6.0
+  flutter_secure_storage: ^10.3.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  integration_test:
+    sdk: flutter
   flutter_lints: ^5.0.0
   drift_dev: ^2.30.1
   build_runner: ^2.10.5
@@ -73,6 +75,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - windows/runner/assets/icons/
+    - assets/licensing/
   fonts:
     - family: Poppins
       fonts:

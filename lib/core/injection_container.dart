@@ -45,6 +45,11 @@ import '../features/table_page/domain/usecases/update_item_usecase.dart';
 import '../features/table_page/presentation/bloc/table_page_bloc.dart';
 import 'resource/connectivity/check_connectivity.dart';
 import 'resource/selection_bloc/bloc/selection_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:peng_cafe/features/licensing/domain/repositories/license_cache_storage.dart';
+import 'package:peng_cafe/features/licensing/data/services/secure_license_cache_storage.dart';
+import 'package:peng_cafe/features/licensing/data/repositories/signed_license_cache.dart';
 
 final getItInstance = GetIt.instance;
 Future<void> initializeDependencies() async {
@@ -187,5 +192,20 @@ Future<void> initializeDependencies() async {
   );
   getItInstance.registerFactory<UpdateProductBloc>(
     () => UpdateProductBloc(getItInstance<UpdateProductUsecase>()),
+  );
+  // ============================================================
+  // PENG SAAS — LICENSE STORAGE
+  // ============================================================
+
+  getItInstance.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(),
+  );
+
+  getItInstance.registerLazySingleton<LicenseCacheStorage>(
+    () => SecureLicenseCacheStorage(getItInstance<FlutterSecureStorage>()),
+  );
+
+  getItInstance.registerLazySingleton<SignedLicenseCache>(
+    () => SignedLicenseCache(getItInstance<LicenseCacheStorage>()),
   );
 }
