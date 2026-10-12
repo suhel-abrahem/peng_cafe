@@ -56,12 +56,19 @@ GoRouter goRouter = GoRouter(
   observers: [RouteTracker()],
   redirect: (context, state) {
     currentPath = state.uri.toString();
-    // if (currentPath?.endsWith(lastPath ?? "") == false) {
-    //   return lastPath;
-    // }
-    if (!getItInstance<AppPreferences>().getUserLoginState()) {
+
+    final isLoggedIn = getItInstance<AppPreferences>().getUserLoginState();
+
+    final isLoginPage = state.matchedLocation == RoutesPath.loginPage;
+
+    if (!isLoggedIn && !isLoginPage) {
       return RoutesPath.loginPage;
     }
+
+    if (isLoggedIn && isLoginPage) {
+      return RoutesPath.homeRoute;
+    }
+
     return null;
   },
   initialLocation: RoutesPath.homeRoute,

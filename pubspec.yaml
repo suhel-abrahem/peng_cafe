@@ -34,8 +34,7 @@ dependencies:
   fl_chart: ^1.1.1
   lottie:
   animated_emoji:
-  firebase_core: ^4.4.0
-  firebase_auth: ^6.1.4
+
   glass: ^2.0.0+2
   cached_network_image: ^3.4.1
   uuid: ^4.5.2
@@ -54,6 +53,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   webcrypto: ^0.6.0
   flutter_secure_storage: ^10.3.4
+  dio: ^5.11.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

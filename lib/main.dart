@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ import 'package:peng_cafe/core/injection_container.dart';
 import 'package:peng_cafe/core/util/helper/helper.dart';
 import 'package:peng_cafe/features/login/presentations/bloc/login_bloc.dart';
 
-import 'package:peng_cafe/firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ void main() async {
     RootIsolateToken.instance!,
   );
   await initializeDependencies();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   await EasyLocalization.ensureInitialized();
 
   runApp(

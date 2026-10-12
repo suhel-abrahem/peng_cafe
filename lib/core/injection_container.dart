@@ -50,11 +50,30 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:peng_cafe/features/licensing/domain/repositories/license_cache_storage.dart';
 import 'package:peng_cafe/features/licensing/data/services/secure_license_cache_storage.dart';
 import 'package:peng_cafe/features/licensing/data/repositories/signed_license_cache.dart';
+import 'package:dio/dio.dart';
 
 final getItInstance = GetIt.instance;
 Future<void> initializeDependencies() async {
   final sharedPreferences = await SharedPreferences.getInstance();
+  // Shared protected storage for login and licensing.
+  getItInstance.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(),
+  );
+  const apiBaseUrl = String.fromEnvironment(
+    'PENG_API_URL',
+    defaultValue: 'http://127.0.0.1:5069',
+  );
 
+  getItInstance.registerLazySingleton<Dio>(
+    () => Dio(
+      BaseOptions(
+        baseUrl: apiBaseUrl,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 15),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    ),
+  );
   getItInstance.registerFactory<AppPreferences>(
     () => AppPreferences(sharedPreferences),
   );
@@ -65,13 +84,20 @@ Future<void> initializeDependencies() async {
   getItInstance.registerFactory<SelectionBloc>(() => SelectionBloc());
   // Login Feature
   //service
-  getItInstance.registerSingleton<LoginServices>(LoginServices());
+  getItInstance.registerLazySingleton<LoginServices>(
+    () => LoginServices(
+      getItInstance<Dio>(),
+      getItInstance<FlutterSecureStorage>(),
+    ),
+  );
+
+  getItInstance.registerLazySingleton<LogInRepository>(
+    () => LogInRepositoryImplements(getItInstance<LoginServices>()),
+  );
   //model
   getItInstance.registerSingleton<LoginModel>(const LoginModel());
   //repository
-  getItInstance.registerSingleton<LogInRepository>(
-    LogInRepositoryImplements(getItInstance(), getItInstance()),
-  );
+
   //usecase
   getItInstance.registerSingleton<LogInUseCase>(
     LogInUseCase(logInRepository: getItInstance<LogInRepository>()),
@@ -192,13 +218,6 @@ Future<void> initializeDependencies() async {
   );
   getItInstance.registerFactory<UpdateProductBloc>(
     () => UpdateProductBloc(getItInstance<UpdateProductUsecase>()),
-  );
-  // ============================================================
-  // PENG SAAS — LICENSE STORAGE
-  // ============================================================
-
-  getItInstance.registerLazySingleton<FlutterSecureStorage>(
-    () => const FlutterSecureStorage(),
   );
 
   getItInstance.registerLazySingleton<LicenseCacheStorage>(
